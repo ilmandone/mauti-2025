@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FontsServiceService} from './shared/fonts-service.service';
-import {ThemeService} from './shared/theme.service';
+import {Theme, ThemeService} from './shared/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -26,5 +26,9 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this._themeSrv.init()
+  }
+
+  setTheme(v: Theme) {
+    this._themeSrv.setCurrent(v)
   }
 }
