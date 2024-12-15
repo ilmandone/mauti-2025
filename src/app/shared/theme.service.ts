@@ -33,6 +33,9 @@ export class ThemeService{
     const savedTheme = this._cookieSrv.getCookie('theme') as Theme
     if (savedTheme) {
       this.setCurrent(savedTheme)
+    } else {
+      // Default theme on first visit
+      this._cookieSrv.setCookie('theme', 'light')
     }
   }
 }
