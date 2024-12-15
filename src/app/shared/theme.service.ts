@@ -1,4 +1,5 @@
-import {effect, Injectable, signal} from '@angular/core';
+import {effect, inject, Injectable, signal} from '@angular/core';
+import {CookiesService} from './cookies.service';
 
 export type Theme = 'light' | 'dark';
 
@@ -6,6 +7,8 @@ export type Theme = 'light' | 'dark';
   providedIn: 'root'
 })
 export class ThemeService{
+
+  private _cookieSrv = inject(CookiesService)
 
   constructor() {
     effect(() => {
@@ -23,9 +26,13 @@ export class ThemeService{
 
   setCurrent(v: Theme) {
     this._currentTheme.set(v)
+    this._cookieSrv.setCookie('theme', v)
   }
 
   init() {
-    console.log(document.body)
+    const savedTheme = this._cookieSrv.getCookie('theme') as Theme
+    if (savedTheme) {
+      this.setCurrent(savedTheme)
+    }
   }
 }
