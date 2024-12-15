@@ -1,8 +1,32 @@
 @use "styles/reset";
+@use "styles/vars" as v;
 @use "styles/typo";
+@use "styles/colors" as c;
+
+// Theme fallback default
+:root {
+  --bg-color: #{c.$light-bg-color};
+}
 
 body {
+  // Themes definition
+  &.dark {
+    --bg-color: #{c.$dark-bg-color};
+  }
+
+  &.light {
+    --bg-color: #{c.$light-bg-color};
+  }
+
+  // Body styles
   font-family: "Rajdhani", sans-serif;
   font-weight: 600;
   font-style: normal;
+
+  background-color: var(--bg-color);
+
+  // Global transitions
+  transition-property: background-color;
+  transition-duration: v.$transition-time;
+  transition-timing-function: ease-in-out;
 }
