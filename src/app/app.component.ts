@@ -1,16 +1,17 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FontsServiceService} from './shared/fonts-service.service';
-import {TestImportComponent} from '@components/test-import/test-import.component';
+import {ThemeService} from './shared/theme.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  imports: [TestImportComponent],
   standalone: true,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
   private _webFontSrv = inject(FontsServiceService)
+  private _themeSrv = inject(ThemeService)
 
   title = 'mauti-2025';
 
@@ -21,5 +22,9 @@ export class AppComponent {
         fontFamilyName: 'Roboto'
       }
     )
+  }
+
+  ngOnInit() {
+    this._themeSrv.init()
   }
 }
