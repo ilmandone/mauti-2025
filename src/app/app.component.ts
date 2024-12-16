@@ -1,11 +1,19 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FontsServiceService} from './shared/fonts-service.service';
 import {Theme, ThemeService} from './shared/theme.service';
+import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
+import {WhatSectionComponent} from './sections/what-section/what-section.component';
+import {UntilNowSectionComponent} from './sections/until-now-section/until-now-section.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
+  imports: [
+    HelloSectionComponent,
+    WhatSectionComponent,
+    UntilNowSectionComponent
+  ],
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
