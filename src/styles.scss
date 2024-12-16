@@ -1,8 +1,8 @@
-@use "styles/reset";
-@use "styles/vars" as v;
-@use "styles/typo" as t;
-@use "styles/colors" as c;
-@use "styles/themes" as th;
+@use "reset";
+@use "vars" as v;
+@use "typo" as t;
+@use "colors" as c;
+@use "themes" as th;
 
 // Theme fallback default
 :root {
