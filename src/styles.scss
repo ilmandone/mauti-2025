@@ -5,17 +5,24 @@
 
 // Theme fallback default
 :root {
-  --bg-color: #{c.$light-bg-color};
+  --bg-color: #{c.$bg-color-light};
+  --primary-color:#{c.$primary-color-light};
+  --secondary-color:#{c.$secondary-color-light};
 }
 
 body {
-  // Themes definition
+
+  // Themes
   &.dark {
-    --bg-color: #{c.$dark-bg-color};
+    --bg-color: #{c.$bg-color-dark};
+    --primary-color:#{c.$primary-color-dark};
+    --secondary-color:#{c.$secondary-color-dark};
   }
 
   &.light {
-    --bg-color: #{c.$light-bg-color};
+    --bg-color: #{c.$bg-color-light};
+    --primary-color:#{c.$primary-color-light};
+    --secondary-color:#{c.$secondary-color-light};
   }
 
   // Body styles
@@ -24,9 +31,10 @@ body {
   font-style: normal;
 
   background-color: var(--bg-color);
+  color: var(--primary-color);
 
   // Global transitions
-  transition-property: background-color;
+  transition-property: background-color, color;
   transition-duration: v.$transition-time;
   transition-timing-function: ease-in-out;
 }
