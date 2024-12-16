@@ -1,0 +1,17 @@
+@use "../styles/colors" as c;
+
+@mixin light {
+  .light {
+    --bg-color: #{c.$bg-color-light};
+    --primary-color:#{c.$primary-color-light};
+    --secondary-color:#{c.$secondary-color-light};
+  }
+}
+
+@mixin dark {
+  .dark {
+    --bg-color: #{c.$bg-color-dark};
+    --primary-color:#{c.$primary-color-dark};
+    --secondary-color:#{c.$secondary-color-dark};
+  }
+}

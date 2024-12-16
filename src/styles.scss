@@ -1,7 +1,8 @@
 @use "styles/reset";
 @use "styles/vars" as v;
-@use "styles/typo";
+@use "styles/typo" as t;
 @use "styles/colors" as c;
+@use "styles/themes" as th;
 
 // Theme fallback default
 :root {
@@ -11,27 +12,14 @@
 }
 
 body {
-
   // Themes
-  &.dark {
-    --bg-color: #{c.$bg-color-dark};
-    --primary-color:#{c.$primary-color-dark};
-    --secondary-color:#{c.$secondary-color-dark};
-  }
-
-  &.light {
-    --bg-color: #{c.$bg-color-light};
-    --primary-color:#{c.$primary-color-light};
-    --secondary-color:#{c.$secondary-color-light};
-  }
+  @include th.dark();
+  @include th.light();
 
   // Body styles
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-
   background-color: var(--bg-color);
-  color: var(--primary-color);
+
+  @include t.text-primary();
 
   // Global transitions
   transition-property: background-color, color;
