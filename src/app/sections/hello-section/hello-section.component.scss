@@ -1,0 +1,21 @@
+@use 'typo' as t;
+
+:host {
+  position: relative;
+  display: block;
+
+  padding: 10vh 0;
+
+  p {
+    margin-bottom: 4vh;
+  }
+
+  b {
+    @include t.text-secondary;
+  }
+
+  h1 {
+    @include t.text-emoticon;
+    margin-bottom: 8vh;
+  }
+}
