@@ -1,6 +1,10 @@
+@use 'utils' as u;
+
 // Default font family
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@600&display=swap');
+
+
 
 %text-basic {
   font-family: "Rajdhani", sans-serif;
@@ -10,7 +14,12 @@
   text-rendering: geometricPrecision;
   text-transform: uppercase;
 
-  line-height: 2rem;
+  line-height: 2.2rem;
+
+  @include u.media('t') {
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+  }
 }
 
 @mixin text-emoticon {
@@ -27,6 +36,5 @@
 }
 
 @mixin text-secondary {
-  @extend %text-basic;
   color: var(--secondary-color);
 }
