@@ -1,10 +1,27 @@
 @use 'typo' as t;
+@use 'commons' as c;
+@use 'utils' as u;
 
 :host {
   position: relative;
   display: block;
 
-  padding: 10vh 0;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+
+  @include c.sidePadding;
+
+  @include u.media('d') {
+    padding-right: 40vw;
+  }
+
+  @include u.media('dl') {
+    padding-right: 40vw;
+  }
+
+  @include u.media('dxl') {
+    padding-right: 50vw;
+  }
 
   p {
     margin-bottom: 4vh;

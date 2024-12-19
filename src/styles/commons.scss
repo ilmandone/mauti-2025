@@ -1,0 +1,21 @@
+@use "utils" as u;
+
+@mixin sidePadding {
+  padding-left: 10vw;
+  padding-right: 16vw;
+
+  @include u.media('t') {
+    padding-left: 14vw;
+    padding-right: 20vw;
+  }
+
+  @include u.media('tl') {
+    padding-left: 12vw;
+    padding-right: 16vw;
+  }
+
+  @include u.media('dl') {
+    padding-left: 12vw;
+    padding-right: 20vw;
+  }
+}

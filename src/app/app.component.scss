@@ -1,24 +1,7 @@
-@use 'utils' as u;
-
 :host {
   position: relative;
   display: block;
   min-height: 100vh;
 
   overflow-y: auto;
-
-  padding: 0 16vw 0 10vw;
-
-  @include u.media('t') {
-    padding: 0 20vw 0 14vw;
-  }
-
-  @include u.media('tl') {
-    padding: 0 16vw 0 12vw;
-  }
-
-  @include u.media('dl') {
-    padding: 0 20vw 0 12vw;
-  }
-
 }
