@@ -3,6 +3,7 @@
 @use "typo" as t;
 @use "colors" as c;
 @use "themes" as th;
+@use "a11y" as a;
 
 // Theme fallback default
 :root {
@@ -25,4 +26,9 @@ body {
   transition-property: background-color, color;
   transition-duration: v.$transition-time;
   transition-timing-function: ease-in-out;
+
+  // A11y
+  .visually-hidden {
+    @include a.visually-hidden;
+  }
 }
