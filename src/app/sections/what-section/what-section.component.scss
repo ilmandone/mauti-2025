@@ -18,9 +18,4 @@
   b {
     @include t.text-secondary;
   }
-
-  h1 {
-    @include t.text-emoticon;
-    margin-bottom: 8vh;
-  }
 }
