@@ -1,6 +1,6 @@
 @use "utils" as u;
 
-@mixin sidePadding {
+@mixin sidesPadding {
   padding-left: 10vw;
   padding-right: 16vw;
 
@@ -14,8 +14,16 @@
     padding-right: 16vw;
   }
 
+  @include u.media('d') {
+    padding-right: 40vw;
+  }
+
   @include u.media('dl') {
     padding-left: 12vw;
-    padding-right: 20vw;
+    padding-right: 40vw;
+  }
+
+  @include u.media('dxl') {
+    padding-right: 50vw;
   }
 }
