@@ -11,6 +11,18 @@
 
   @include c.sidesPadding;
 
+  @include u.media('d') {
+    padding-right: 20vw;
+  }
+
+  @include u.media('dl') {
+    padding-right: 30vw;
+  }
+
+  @include u.media('dxl') {
+    padding-right: 40vw;
+  }
+
   p {
     margin-bottom: 4vh;
   }
@@ -26,5 +38,11 @@
   .wrapper {
     display: flex;
     flex-flow: column wrap;
+    gap: 6vh;
+
+    @include u.media('tl') {
+      flex-flow: row;
+      gap: 6vw;
+    }
   }
 }

@@ -1,26 +1,25 @@
-<section>
-  <div class="wrapper">
+<section class="wrapper">
 
-    <div class="history">
-      <h2 class="visually-hidden">My story:</h2>
-      <ul>
-        @for (h of history; track h.company) {
-          <li>
-            <app-history-detail [data]="h"/>
-          </li>
-        }
+  <div class="history">
 
-      </ul>
-    </div>
+    <h2 class="visually-hidden">My story:</h2>
+    <ul>
+      @for (h of history; track h.company) {
+        <li>
+          <app-history-detail [data]="h"/>
+        </li>
+      }
 
-    <div class="skills">
-      <h2>Skills and tools</h2>
-      <ul>
-        @for(sl of skillList; track sl) {
-          <li>{{sl}}</li>
-        }
-      </ul>
-    </div>
-
+    </ul>
   </div>
+
+  <div class="skills">
+    <h2>Skills and tools</h2>
+    <ul>
+      @for (sl of skillList; track sl) {
+        <li>{{ sl }}</li>
+      }
+    </ul>
+  </div>
+
 </section>
