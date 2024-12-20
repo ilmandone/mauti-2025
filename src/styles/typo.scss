@@ -43,3 +43,7 @@
 @mixin text-secondary {
   color: var(--secondary-color);
 }
+
+@mixin text-strong {
+  font-weight: 700;
+}

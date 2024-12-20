@@ -20,7 +20,11 @@ body {
   // Body styles
   background-color: var(--bg-color);
 
-  @include t.text-primary();
+  @include t.text-primary;
+
+  strong {
+    @include t.text-strong;
+  }
 
   // Global transitions
   transition-property: background-color, color;
