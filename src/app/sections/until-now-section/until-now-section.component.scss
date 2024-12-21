@@ -6,9 +6,7 @@
   position: relative;
   display: block;
 
-  padding-top: 10vh;
-  padding-bottom: 10vh;
-
+  @include c.verticalPadding;
   @include c.sidesPadding;
 
   @include u.media('d') {
@@ -43,6 +41,10 @@
     @include u.media('tl') {
       flex-flow: row;
       gap: 6vw;
+    }
+
+    .history li{
+      margin-bottom: 1.5rem;
     }
   }
 }

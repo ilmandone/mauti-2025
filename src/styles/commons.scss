@@ -27,3 +27,8 @@
     padding-right: 50vw;
   }
 }
+
+@mixin verticalPadding {
+  padding-top: 14vh;
+  padding-bottom: 14vh;
+}
