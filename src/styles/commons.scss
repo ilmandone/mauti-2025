@@ -32,3 +32,15 @@
   padding-top: 14vh;
   padding-bottom: 14vh;
 }
+
+@mixin headerFooterPadding {
+  padding: 1.5rem;
+
+  @include u.media('t') {
+    padding: 1.5rem 1.75rem;
+  }
+
+  @include u.media('d') {
+    padding: 1.75rem 2rem;
+  }
+}
