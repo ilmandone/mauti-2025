@@ -4,7 +4,7 @@ import {checkMobile} from '../../shared/detect.mobile';
 import {FontsService} from '../../shared/services/fonts.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'header[app-header]',
   imports: [
     ButtonComponent
   ],
