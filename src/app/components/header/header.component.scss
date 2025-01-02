@@ -1,3 +1,4 @@
+@use '../styles/typo' as t;
 @use '../styles/utils' as u;
 
 :host {
@@ -8,12 +9,36 @@
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   @include u.media('t') {
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 1.75rem;
   }
 
   @include u.media('d') {
-    padding: 1.5rem 2rem;
+    padding: 1.75rem 2rem;
+  }
+
+  @include u.zIndex('header');
+
+  .controls {
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color);
+
+    @include t.text-small;
+
+    button {
+
+      margin-right: 2rem;
+
+      @include u.media('tl') {
+        margin-right: 3rem;
+      }
+
+      @include u.media('dl') {
+        margin-right: 4rem;
+      }
+    }
   }
 }

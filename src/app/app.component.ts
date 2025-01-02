@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FontsServiceService} from './shared/fonts-service.service';
-import {Theme, ThemeService} from './shared/theme.service';
+import {FontsServiceService} from './shared/services/fonts-service.service';
+import {Theme, ThemeService} from './shared/services/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
 import {WhatSectionComponent} from './sections/what-section/what-section.component';
 import {UntilNowSectionComponent} from './sections/until-now-section/until-now-section.component';
