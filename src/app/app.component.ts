@@ -5,6 +5,7 @@ import {HelloSectionComponent} from './sections/hello-section/hello-section.comp
 import {WhatSectionComponent} from './sections/what-section/what-section.component';
 import {UntilNowSectionComponent} from './sections/until-now-section/until-now-section.component';
 import {HeaderComponent} from '@components/header/header.component';
+import {FooterComponent} from '@components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import {HeaderComponent} from '@components/header/header.component';
     HelloSectionComponent,
     WhatSectionComponent,
     UntilNowSectionComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   styleUrl: './app.component.scss'
 })
