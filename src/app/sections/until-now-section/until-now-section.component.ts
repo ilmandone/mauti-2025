@@ -39,7 +39,7 @@ export class UntilNowSectionComponent {
     },
     {
       time: '2018 - 2021',
-      company: 'Var Group',
+      company: 'YNAP / Yoox',
       role: 'Senior front-end developer'
     },
     {
