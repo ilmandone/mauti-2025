@@ -1,0 +1,19 @@
+@use '../styles/utils' as u;
+
+:host {
+  position: fixed;
+  width: 100%;
+
+  padding: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+
+  @include u.media('t') {
+    padding: 1rem 1.5rem;
+  }
+
+  @include u.media('d') {
+    padding: 1.5rem 2rem;
+  }
+}

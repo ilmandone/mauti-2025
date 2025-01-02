@@ -4,6 +4,7 @@ import {Theme, ThemeService} from './shared/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
 import {WhatSectionComponent} from './sections/what-section/what-section.component';
 import {UntilNowSectionComponent} from './sections/until-now-section/until-now-section.component';
+import {HeaderComponent} from '@components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import {UntilNowSectionComponent} from './sections/until-now-section/until-now-s
   imports: [
     HelloSectionComponent,
     WhatSectionComponent,
-    UntilNowSectionComponent
+    UntilNowSectionComponent,
+    HeaderComponent
   ],
   styleUrl: './app.component.scss'
 })
