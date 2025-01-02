@@ -16,7 +16,7 @@ import {FooterComponent} from '@components/footer/footer.component';
     WhatSectionComponent,
     UntilNowSectionComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   styleUrl: './app.component.scss'
 })
