@@ -2,6 +2,9 @@ import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
 import {map, Observable, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {WeatherData, WeatherService} from '../../shared/services/weather.service';
+import {AsyncPipe} from '@angular/common';
+import {checkMobile} from '../../shared/detect.mobile';
 
 interface TimeData {
   day: string
@@ -13,16 +16,21 @@ interface TimeData {
 
 @Component({
   selector: 'footer[app-footer]',
-  imports: [],
+  imports: [
+    AsyncPipe
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent implements OnInit {
 
   private _destroyRef = inject(DestroyRef)
+  private _weatherSrv = inject(WeatherService)
 
   geoLocationCoords!: GeoLocationCoords
-  timeData!: TimeData
+  isMobile = checkMobile()
+  timeData: TimeData | null = null
+  weatherData!: Observable<WeatherData>
 
   /**
    * Return and observable that each minute give the current day and time
@@ -50,5 +58,7 @@ export class FooterComponent implements OnInit {
     ).subscribe(r => {
       this.timeData = r
     })
+
+    this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
   }
 }

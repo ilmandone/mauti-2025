@@ -1,11 +1,22 @@
-<div class="geo-location">
+@if(!isMobile) {
+  @let wData = weatherData | async;
+
+  <div class="geo-location">
   <span>
     {{geoLocationCoords.lat}} | {{geoLocationCoords.lon}}
   </span>
-  <span>
-    {{timeData.month}} | {{timeData.day}} | {{timeData.year}} - {{timeData.hour}}:{{timeData.minute}}
+    <span>
+    {{timeData?.month}} | {{timeData?.day}} | {{timeData?.year}} - {{timeData?.hour}}:{{timeData?.minute}}
   </span>
-</div>
+    <span>
+    {{wData?.temp}}
+  </span>
+    <span>
+    {{wData?.windSpeed}} | {{wData?.windDirection}}
+  </span>
+  </div>
+}
+
 
 <div class="social">
 
