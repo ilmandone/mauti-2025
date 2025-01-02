@@ -23,7 +23,7 @@ body {
   @include t.text-primary;
 
   strong {
-    @include t.text-strong;
+    @include t.text-weight;
   }
 
   // Global transitions
