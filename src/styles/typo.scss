@@ -44,8 +44,8 @@
   color: var(--secondary-color);
 }
 
-@mixin text-strong {
-  font-weight: 700;
+@mixin text-weight($weight: 700) {
+  font-weight: $weight;
 }
 
 @mixin text-small {
