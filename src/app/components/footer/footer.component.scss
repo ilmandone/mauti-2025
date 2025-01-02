@@ -1,11 +1,22 @@
 @use '../styles/commons' as c;
+@use '../styles/typo' as t;
 
 :host {
   position: fixed;
   bottom: 0;
   left: 0;
-
   width: 100%;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--secondary-color);
+
   @include c.headerFooterPadding;
+  @include t.text-small;
+
+  .geo-location span:not(:last-child) {
+    margin-right: 2rem;
+  }
 }
