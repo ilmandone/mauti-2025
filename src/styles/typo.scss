@@ -49,13 +49,16 @@
 }
 
 @mixin text-small {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
 
   @include u.media('tl') {
-    font-size: 0.9rem;
+    font-size: 0.825rem;
+    letter-spacing: 1.75px;
   }
 
   @include u.media('dl') {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    letter-spacing: 2px;
   }
 }
