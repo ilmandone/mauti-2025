@@ -11,15 +11,26 @@ export interface FontLoadData  {
 })
 export class FontsServiceService {
 
-  private _currentGF!: string
+  get currentFont(): FontLoadData {
+    return this._currentGF
+  }
+
+  //#region Privates
+
+  private _currentGF: FontLoadData = {
+    fontFamilyName: 'Rajdhani',
+    googleFont: 'Rajdhani:300,400,500,600,700'
+  }
 
   private _setBodyFont(fontFamily: string) {
     document.body.style.fontFamily = fontFamily
   }
 
+  //#endregion
+
   loadFont(options: FontLoadData): Promise<void> {
 
-    if (options.googleFont === this._currentGF)
+    if (options.googleFont === this._currentGF.googleFont)
       return Promise.resolve()
 
     else return new Promise((resolve, reject) => {
@@ -30,7 +41,7 @@ export class FontsServiceService {
         },
         active: () => {
           this._setBodyFont(options.fontFamilyName)
-          this._currentGF = options.googleFont
+          this._currentGF = options
           resolve();
         },
         inactive: () => {
