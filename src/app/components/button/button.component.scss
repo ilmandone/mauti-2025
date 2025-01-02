@@ -12,8 +12,12 @@
 
   cursor: pointer;
 
+  transition-property: background-color, color;
+  transition-duration: v.$transition-time-half;
+  transition-timing-function: ease-in-out;
+
   @include t.text-small;
-  @include t.text-weight;
+  @include t.text-weight(600);
 
   @include u.media('tl') {
     padding: 0.45rem 0.8rem;
@@ -31,8 +35,4 @@
     background-color: var(--bg-color);
     color: var(--primary-color);
   }
-
-  transition-property: background-color, color;
-  transition-duration: v.$transition-time-half;
-  transition-timing-function: ease-in-out;
 }
