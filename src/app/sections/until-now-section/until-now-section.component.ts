@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {HistoryDetailComponent} from '@components/history-detail/history-detail.component';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
+import {StateService} from '../../shared/services/state.service';
 
 export interface CareerStep {
   time: string
@@ -19,6 +20,8 @@ export interface CareerStep {
   styleUrl: './until-now-section.component.scss'
 })
 export class UntilNowSectionComponent {
+
+  private _stateSrv = inject(StateService)
 
   skillList = [
     'Javascript',
@@ -62,6 +65,7 @@ export class UntilNowSectionComponent {
   ]
 
   visibilityChange($event: boolean) {
-    console.log($event, 'until-now');
+    if ($event)
+      this._stateSrv.setSection('until now')
   }
 }

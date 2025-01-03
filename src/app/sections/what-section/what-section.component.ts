@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
+import {StateService} from '../../shared/services/state.service';
 
 @Component({
   selector: 'app-what-section',
@@ -12,7 +13,10 @@ import {InViewportDirective} from '../../shared/directives/in-viewport.directive
 })
 export class WhatSectionComponent {
 
+  private _stateSrv = inject(StateService)
+
   visibilityChange($event: boolean) {
-    console.log($event, 'what');
+    if ($event)
+      this._stateSrv.setSection('what')
   }
 }
