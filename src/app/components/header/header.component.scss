@@ -1,6 +1,7 @@
-@use '../styles/commons' as c;
-@use '../styles/typo' as t;
-@use '../styles/utils' as u;
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: fixed;
@@ -12,8 +13,27 @@
   justify-content: space-between;
   align-items: center;
 
+  writing-mode: lr;
+  color: var(--secondary-color);
+
+  transition-property: color, font-size;
+  transition-duration: v.$transition-time;
+  transition-timing-function: ease-in-out;
+
   @include c.headerFooterPadding;
   @include u.zIndex('header');
+
+  @include u.media('d') {
+    align-items: flex-start;
+
+    .section-title {
+      transform: translateY(0.5rem);
+
+      writing-mode: vertical-lr;
+      font-size: 2rem;
+      @include t.text-weight()
+    }
+  }
 
   .controls {
     display: flex;
