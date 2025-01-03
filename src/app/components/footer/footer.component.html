@@ -1,9 +1,9 @@
-@if(!isMobile) {
-  @let wData = weatherData | async;
+@let wData = weatherData | async;
+@if(displayGeo) {
 
   <div class="geo-location">
   <span>
-    {{geoLocationCoords.lat}} | {{geoLocationCoords.lon}}
+    {{geoLocationCoords?.lat}} | {{geoLocationCoords?.lon}}
   </span>
     <span>
     {{timeData?.month}} | {{timeData?.day}} | {{timeData?.year}} - {{timeData?.hour}}:{{timeData?.minute}}

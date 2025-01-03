@@ -1,10 +1,10 @@
-import {Component, DestroyRef, HostBinding, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, effect, HostBinding, inject} from '@angular/core';
 import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
 import {map, Observable, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WeatherData, WeatherService} from '../../shared/services/weather.service';
 import {AsyncPipe} from '@angular/common';
-import {checkMobile} from '../../shared/detect.mobile';
+import {ScreenSizeService} from '../../shared/services/screen-size.service';
 
 interface TimeData {
   day: string
@@ -22,15 +22,27 @@ interface TimeData {
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent{
 
   private _destroyRef = inject(DestroyRef)
+  private _screenSizeSrv = inject(ScreenSizeService)
   private _weatherSrv = inject(WeatherService)
 
+  @HostBinding('class.show-geo') displayGeo = false
+
   geoLocationCoords!: GeoLocationCoords
-  @HostBinding('class.mobile') isMobile =  checkMobile()
   timeData: TimeData | null = null
   weatherData!: Observable<WeatherData>
+
+  constructor() {
+
+    effect(() => {
+      this.displayGeo = this._screenSizeSrv.relatedTo('tl') !== 'after'
+      if (this.displayGeo && !this.geoLocationCoords) {
+        this._startGeolocation()
+      }
+    });
+  }
 
   /**
    * Return and observable that each minute give the current day and time
@@ -44,24 +56,25 @@ export class FooterComponent implements OnInit {
           day: now.getDate().toString().padStart(2, '0'),
           month: (now.getUTCMonth() + 1).toString().padStart(2, '0'),
           year: now.getFullYear().toString(),
-          hour: now.getHours().toString().padStart(2,'0'),
-          minute: now.getMinutes().toString().padStart(2,'0')
+          hour: now.getHours().toString().padStart(2, '0'),
+          minute: now.getMinutes().toString().padStart(2, '0')
         }
       })
     )
   }
 
-  ngOnInit() {
-    if (!this.isMobile)
-    {
-      this.geoLocationCoords = getGeolocationCoords()
-      this.getCurrentTimeObservable().pipe(
-        takeUntilDestroyed(this._destroyRef)
-      ).subscribe(r => {
-        this.timeData = r
-      })
+  /**
+   * Get geolocation and weather data
+   * @private
+   */
+  private _startGeolocation() {
+    this.geoLocationCoords = getGeolocationCoords()
+    this.getCurrentTimeObservable().pipe(
+      takeUntilDestroyed(this._destroyRef)
+    ).subscribe(r => {
+      this.timeData = r
+    })
 
-      this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
-    }
+    this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
   }
 }

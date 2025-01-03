@@ -9,7 +9,7 @@
   width: 100%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   color: var(--secondary-color);
@@ -17,8 +17,12 @@
   @include c.headerFooterPadding;
   @include t.text-small;
 
-  &.mobile {
-    justify-content: center;
+  /*@include u.media('tl') {
+    justify-content: space-between;
+  }*/
+
+  &.show-geo {
+    justify-content: space-between;
   }
 
   .geo-location span:not(:last-child) {
