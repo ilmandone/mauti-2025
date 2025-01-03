@@ -10,6 +10,8 @@ $reference: (
   "mouse": "(hover:hover) and (pointer:fine)",
 ) !default;
 
+$screen-sizes: map-remove($reference, "touch", "mouse");
+
 @mixin media($breakpoint) {
   @if map-has-key($reference, $breakpoint) {
     @media #{map-get($reference, $breakpoint)} {
