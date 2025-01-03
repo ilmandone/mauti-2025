@@ -2,12 +2,15 @@ import {DestroyRef, inject, Injectable, signal} from '@angular/core';
 import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
+type ScreenSizes = 't' | 'tl' | 'd' | 'dm' | 'dl' | 'dxl'
+
 @Injectable({
   providedIn: 'root'
 })
 export class ScreenSizeService {
 
   private _destroyRef = inject(DestroyRef)
+  private _screenSizes = ['t', 'tl', 'd', 'dm', 'dl', 'dxl']
 
   private _getScreenSize = () => {
     return getComputedStyle(document.documentElement).getPropertyValue('--screen-size');
@@ -17,6 +20,15 @@ export class ScreenSizeService {
 
   get screenSize() {
     return this._screenSize.asReadonly()
+  }
+
+  relatedTo(s: ScreenSizes) {
+    const sIndex = this._screenSizes.indexOf(s)
+    const cIndex = this._screenSizes.indexOf(this._screenSize())
+
+    if (sIndex === cIndex) return 'equal'
+    if (sIndex < cIndex) return 'before'
+    return 'after'
   }
 
   init() {
