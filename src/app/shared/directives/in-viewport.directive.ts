@@ -1,31 +1,31 @@
-import {Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Directive, effect, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output} from '@angular/core';
+import {InViewportService} from '../services/in-viewport.service';
 
 @Directive({
   selector: '[inViewport]'
 })
 export class InViewportDirective implements OnInit, OnDestroy{
 
+  private _elementRef = inject(ElementRef)
+  private _inViewportSrv = inject(InViewportService)
+
   @Output() visibilityChange = new EventEmitter<boolean>();
 
-  private observer: IntersectionObserver;
-
-  constructor(private elementRef: ElementRef) {
-    this.observer = new IntersectionObserver(
-      ([entry]) => {
-        this.visibilityChange.emit(entry.isIntersecting);
-      },
-      {
-        threshold: [0.5],
-        rootMargin: '0px'
+  constructor() {
+    effect(() => {
+      const currentSection = this._inViewportSrv.currentSection()
+      if (currentSection?.el) {
+        this.visibilityChange.emit(currentSection.el === this._elementRef.nativeElement && currentSection.intersecting)
       }
-    );
+    });
   }
 
+
   ngOnInit() {
-    this.observer.observe(this.elementRef.nativeElement);
+    this._inViewportSrv.add(this._elementRef)
   }
 
   ngOnDestroy() {
-    this.observer.disconnect();
+    this._inViewportSrv.remove(this._elementRef)
   }
 }
