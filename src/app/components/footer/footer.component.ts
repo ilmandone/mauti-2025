@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, HostBinding, inject, OnInit} from '@angular/core';
 import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
 import {map, Observable, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -28,7 +28,7 @@ export class FooterComponent implements OnInit {
   private _weatherSrv = inject(WeatherService)
 
   geoLocationCoords!: GeoLocationCoords
-  isMobile = checkMobile()
+  @HostBinding('class.mobile') isMobile =  checkMobile()
   timeData: TimeData | null = null
   weatherData!: Observable<WeatherData>
 
@@ -52,13 +52,16 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.geoLocationCoords = getGeolocationCoords()
-    this.getCurrentTimeObservable().pipe(
-      takeUntilDestroyed(this._destroyRef)
-    ).subscribe(r => {
-      this.timeData = r
-    })
+    if (!this.isMobile)
+    {
+      this.geoLocationCoords = getGeolocationCoords()
+      this.getCurrentTimeObservable().pipe(
+        takeUntilDestroyed(this._destroyRef)
+      ).subscribe(r => {
+        this.timeData = r
+      })
 
-    this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
+      this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
+    }
   }
 }
