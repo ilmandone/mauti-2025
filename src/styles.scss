@@ -8,8 +8,8 @@
 // Theme fallback default
 :root {
   --bg-color: #{c.$bg-color-light};
-  --primary-color:#{c.$primary-color-light};
-  --secondary-color:#{c.$secondary-color-light};
+  --primary-color: #{c.$primary-color-light};
+  --secondary-color: #{c.$secondary-color-light};
 }
 
 body {
@@ -35,4 +35,23 @@ body {
   .visually-hidden {
     @include a.visually-hidden;
   }
+
+  // Links
+  a {
+    text-decoration: none;
+    color: var(--secondary-color);
+
+    padding: 0 0.5rem;
+
+    &:focus,
+    &:active {
+      color: var(--primary-color);
+    }
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
+  }
+
 }
