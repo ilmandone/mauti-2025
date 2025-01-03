@@ -15,7 +15,7 @@ export class InViewportDirective implements OnInit, OnDestroy{
         this.visibilityChange.emit(entry.isIntersecting);
       },
       {
-        threshold: [0, 1],
+        threshold: [0.5],
         rootMargin: '0px'
       }
     );

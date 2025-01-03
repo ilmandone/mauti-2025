@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HistoryDetailComponent} from '@components/history-detail/history-detail.component';
+import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 
 export interface CareerStep {
   time: string
@@ -10,7 +11,8 @@ export interface CareerStep {
 @Component({
   selector: 'app-until-now-section',
   imports: [
-    HistoryDetailComponent
+    HistoryDetailComponent,
+    InViewportDirective
   ],
   standalone: true,
   templateUrl: './until-now-section.component.html',
@@ -58,4 +60,8 @@ export class UntilNowSectionComponent {
       role: 'UX / UI designer - Front-end developer'
     }
   ]
+
+  visibilityChange($event: boolean) {
+    console.log($event, 'until-now');
+  }
 }
