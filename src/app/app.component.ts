@@ -6,6 +6,7 @@ import {WhatSectionComponent} from './sections/what-section/what-section.compone
 import {UntilNowSectionComponent} from './sections/until-now-section/until-now-section.component';
 import {HeaderComponent} from '@components/header/header.component';
 import {FooterComponent} from '@components/footer/footer.component';
+import {ScreenSizeService} from './shared/services/screen-size.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import {FooterComponent} from '@components/footer/footer.component';
 })
 export class AppComponent implements OnInit{
 
+  private _screenSizeSrv = inject(ScreenSizeService)
   private _webFontSrv = inject(FontsService)
   private _themeSrv = inject(ThemeService)
 
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this._themeSrv.init()
+    this._screenSizeSrv.init()
   }
 
   setTheme(v: Theme) {
