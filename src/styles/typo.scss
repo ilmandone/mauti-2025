@@ -1,32 +1,64 @@
+@use 'utils' as u;
+
 // Default font family
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@600&display=swap');
 
-/*.rajdhani-light {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
 
-.rajdhani-regular {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
-.rajdhani-medium {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.rajdhani-semibold {
+%text-basic {
   font-family: "Rajdhani", sans-serif;
   font-weight: 600;
   font-style: normal;
+
+  text-rendering: geometricPrecision;
+  text-transform: uppercase;
+
+  line-height: 2.2rem;
+
+  @include u.media('tl') {
+    font-size: 1.15rem;
+    line-height: 2.25rem;
+  }
+
+  @include u.media('dl') {
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+  }
 }
 
-.rajdhani-bold {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 700;
+@mixin text-emoticon {
+  font-family: "Tomorrow", serif;
+  font-weight: 600;
   font-style: normal;
-}*/
+
+  color: var(--secondary-color);
+}
+
+@mixin text-primary {
+  @extend %text-basic;
+  color: var(--primary-color);
+}
+
+@mixin text-secondary {
+  color: var(--secondary-color);
+}
+
+@mixin text-weight($weight: 700) {
+  font-weight: $weight;
+}
+
+@mixin text-small {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+
+  @include u.media('tl') {
+    font-size: 0.825rem;
+    letter-spacing: 1.75px;
+  }
+
+  @include u.media('dl') {
+    font-size: 0.875rem;
+    letter-spacing: 2px;
+  }
+}

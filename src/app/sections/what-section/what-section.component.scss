@@ -1,0 +1,19 @@
+@use 'typo' as t;
+@use 'commons' as c;
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  display: block;
+
+  @include c.verticalPadding;
+  @include c.sidesPadding;
+
+  p {
+    margin-bottom: 4vh;
+  }
+
+  b {
+    @include t.text-secondary;
+  }
+}

@@ -1,8 +1,64 @@
-@use "styles/reset";
-@use "styles/typo";
+@use "reset";
+@use "vars" as v;
+@use "typo" as t;
+@use "colors" as c;
+@use "themes" as th;
+@use "utils" as u;
+@use "a11y" as a;
+
+// Theme fallback default
+:root {
+  --bg-color: #{c.$bg-color-light};
+  --primary-color: #{c.$primary-color-light};
+  --secondary-color: #{c.$secondary-color-light};
+
+  @each $breakpoint, $value in u.$screen-sizes {
+    @media #{$value} {
+      --screen-size: #{$breakpoint}
+    }
+  }
+}
 
 body {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+  // Themes
+  @include th.dark();
+  @include th.light();
+
+  // Body styles
+  background-color: var(--bg-color);
+
+  @include t.text-primary;
+
+  strong {
+    @include t.text-weight;
+  }
+
+  // Global transitions
+  transition-property: background-color, color;
+  transition-duration: v.$transition-time;
+  transition-timing-function: ease-in-out;
+
+  // A11y
+  .visually-hidden {
+    @include a.visually-hidden;
+  }
+
+  // Links
+  a {
+    text-decoration: none;
+    color: var(--secondary-color);
+
+    padding: 0 0.5rem;
+
+    &:focus,
+    &:active {
+      color: var(--primary-color);
+    }
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
+  }
+
 }

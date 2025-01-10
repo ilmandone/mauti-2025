@@ -1,0 +1,38 @@
+@use '../styles/typo' as t;
+@use '../styles/utils' as u;
+@use '../styles/vars' as v;
+
+:host {
+  display: block;
+  border-radius: 0.25rem;
+  padding: 0.35rem 0.65rem;
+
+  background-color: var(--secondary-color);
+  color: var(--bg-color);
+
+  cursor: pointer;
+
+  transition-property: background-color, color;
+  transition-duration: v.$transition-time-half;
+  transition-timing-function: ease-in-out;
+
+  @include t.text-small;
+  @include t.text-weight(600);
+
+  @include u.media('tl') {
+    padding: 0.45rem 0.8rem;
+  }
+
+  @include u.media('dl') {
+    padding: 0.5rem 0.9rem;
+  }
+
+  &:hover {
+    background-color: var(--primary-color);
+  }
+
+  &:active {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import WebFont from 'webfontloader'
 
 export interface FontLoadData  {
@@ -9,17 +9,26 @@ export interface FontLoadData  {
 @Injectable({
   providedIn: 'root'
 })
-export class FontsServiceService {
+export class FontsService {
 
-  private _currentGF!: string
+  private _currentGF: FontLoadData = {
+    fontFamilyName: 'Rajdhani',
+    googleFont: 'Rajdhani:300,400,500,600,700'
+  }
+
+  fontData = signal<FontLoadData>(this._currentGF)
+
+  //#region Privates
 
   private _setBodyFont(fontFamily: string) {
     document.body.style.fontFamily = fontFamily
   }
 
+  //#endregion
+
   loadFont(options: FontLoadData): Promise<void> {
 
-    if (options.googleFont === this._currentGF)
+    if (options.googleFont === this._currentGF.googleFont)
       return Promise.resolve()
 
     else return new Promise((resolve, reject) => {
@@ -30,7 +39,8 @@ export class FontsServiceService {
         },
         active: () => {
           this._setBodyFont(options.fontFamilyName)
-          this._currentGF = options.googleFont
+          this._currentGF = options
+          this.fontData.set(options)
           resolve();
         },
         inactive: () => {

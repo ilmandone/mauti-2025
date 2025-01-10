@@ -1,0 +1,25 @@
+@let wData = weatherData | async;
+@if(displayGeo) {
+
+  <div class="geo-location">
+  <span>
+    {{geoLocationCoords?.lat}} | {{geoLocationCoords?.lon}}
+  </span>
+    <span>
+    {{timeData?.month}} | {{timeData?.day}} | {{timeData?.year}} - {{timeData?.hour}}:{{timeData?.minute}}
+  </span>
+    <span>
+    {{wData?.temp}}
+  </span>
+    <span>
+    {{wData?.windSpeed}} | {{wData?.windDirection}}
+  </span>
+  </div>
+}
+
+<div class="social">
+  <a href="mailto:info@mauti.it" target="_blank">&#64;</a>
+  <a href="https://t.me/Aman1975" target="_blank">T</a>
+  <a href="https://www.behance.net/mandinia" target="_blank">Be</a>
+  <a href="https://www.instagram.com/andreamandini/" target="_blank">I</a>
+</div>

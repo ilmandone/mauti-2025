@@ -1,0 +1,43 @@
+@use '../styles/commons' as c;
+@use '../styles/typo' as t;
+@use '../styles/utils' as u;
+
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--secondary-color);
+
+  @include c.headerFooterPadding;
+  @include t.text-small;
+
+  /*@include u.media('tl') {
+    justify-content: space-between;
+  }*/
+
+  &.show-geo {
+    justify-content: space-between;
+  }
+
+  .geo-location span:not(:last-child) {
+    margin-right: 2rem;
+  }
+
+  a {
+    min-width: 1rem;
+    display: inline-block;
+
+    border-radius: 0.25rem;
+    text-align: center;
+
+    &:not(:first-child) {
+      margin-left: 1.5rem
+    }
+  }
+}
