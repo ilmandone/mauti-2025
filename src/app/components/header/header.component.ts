@@ -3,12 +3,14 @@ import {ButtonComponent} from '@components/button/button.component';
 import {checkMobile} from '../../shared/detect.mobile';
 import {FontsService} from '../../shared/services/fonts.service';
 import {StateService} from '../../shared/services/state.service';
+import {TextTransitionDirective} from "../../shared/directives/text-transition.directive";
 
 @Component({
   selector: 'header[app-header]',
-  imports: [
-    ButtonComponent
-  ],
+	imports: [
+		ButtonComponent,
+		TextTransitionDirective
+	],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
