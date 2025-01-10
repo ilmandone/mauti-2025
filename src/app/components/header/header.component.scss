@@ -23,6 +23,10 @@
   @include c.headerFooterPadding;
   @include u.zIndex('header');
 
+  .section-title span {
+    color: var(--primary-color);
+  }
+
   @include u.media('d') {
     align-items: flex-start;
 
