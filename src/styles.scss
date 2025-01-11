@@ -5,6 +5,7 @@
 @use "themes" as th;
 @use "utils" as u;
 @use "a11y" as a;
+@use "text-block" as tb;
 
 // Theme fallback default
 :root {
@@ -42,6 +43,9 @@ body {
   .visually-hidden {
     @include a.visually-hidden;
   }
+
+  // Text block
+  @include tb.textBlock;
 
   // Links
   a {
