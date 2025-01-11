@@ -21,7 +21,7 @@ export class InViewportService implements OnDestroy{
       },
       {
         threshold: [0.5],
-        rootMargin: '0px'
+        rootMargin: '-10%'
       }
     );
   }
