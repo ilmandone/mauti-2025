@@ -9,6 +9,12 @@
   @include c.verticalPadding;
   @include c.sidesPadding;
 
+  padding-top: 20vh;
+
+  @include u.media('d') {
+    padding-top: 24vh;
+  }
+
   p {
     margin-bottom: 4vh;
   }
