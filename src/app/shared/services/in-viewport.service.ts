@@ -12,7 +12,7 @@ export class InViewportService implements OnDestroy{
   constructor() {
     this._observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.intersectionRatio > 0.8)
+        if (entry.isIntersecting)
 
           this.currentSection.set({
             el: entry.target,
@@ -20,7 +20,7 @@ export class InViewportService implements OnDestroy{
           })
       },
       {
-        threshold: [0.1, 0.5, 0.99],
+        threshold: [0.5],
         rootMargin: '0px'
       }
     );
