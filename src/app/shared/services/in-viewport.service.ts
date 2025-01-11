@@ -12,13 +12,15 @@ export class InViewportService implements OnDestroy{
   constructor() {
     this._observer = new IntersectionObserver(
       ([entry]) => {
-        this.currentSection.set({
-          el: entry.target,
-          intersecting: entry.isIntersecting
-        })
+        if (entry.intersectionRatio > 0.8)
+
+          this.currentSection.set({
+            el: entry.target,
+            intersecting: entry.isIntersecting
+          })
       },
       {
-        threshold: [0.5],
+        threshold: [0.1, 0.5, 0.99],
         rootMargin: '0px'
       }
     );
