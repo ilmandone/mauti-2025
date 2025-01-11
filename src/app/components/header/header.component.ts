@@ -3,13 +3,13 @@ import {ButtonComponent} from '@components/button/button.component';
 import {checkMobile} from '../../shared/detect.mobile';
 import {FontsService} from '../../shared/services/fonts.service';
 import {StateService} from '../../shared/services/state.service';
-import {TextTransitionDirective} from "../../shared/directives/text-transition.directive";
+import {TextScrambleLeftRightDirective} from "../../shared/directives/text-scramble-left-right.directive";
 
 @Component({
   selector: 'header[app-header]',
 	imports: [
 		ButtonComponent,
-		TextTransitionDirective
+		TextScrambleLeftRightDirective
 	],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

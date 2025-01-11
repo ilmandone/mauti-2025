@@ -1,9 +1,9 @@
 import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 
 @Directive({
-  selector: '[textTransition]',
+  selector: '[textScrambleLeftToRight]',
 })
-export class TextTransitionDirective {
+export class TextScrambleLeftRightDirective {
 
   private readonly _randomChars = '!<>-_\\/[]{}—=+*^?#________'
 
@@ -19,7 +19,7 @@ export class TextTransitionDirective {
 
   scrambleColor = input('--primary-color')
 
-  text = input.required<string>({alias: 'textTransition'})
+  text = input.required<string>({alias: 'textScrambleLeftToRight'})
 
   constructor() {
     effect(() => {
@@ -45,13 +45,17 @@ export class TextTransitionDirective {
       if (this._frameRequest) cancelAnimationFrame(this._frameRequest)
 
       // Start text scramble
-      this._scramble()
+      this._scrambleLeftToRight()
     });
   }
 
   //#region Privates
 
-  private _scramble() {
+  /**
+   * Simple text scramble left to right
+   * @private
+   */
+  private _scrambleLeftToRight() {
     if (this._textCursor >= this._textLength) {
       this._frameRequest = null
     } else {
@@ -66,7 +70,7 @@ export class TextTransitionDirective {
       }
 
       ;(this._elRef.nativeElement as HTMLElement).innerHTML = this._queue.join('')
-      this._frameRequest = requestAnimationFrame(this._scramble.bind(this))
+      this._frameRequest = requestAnimationFrame(this._scrambleLeftToRight.bind(this))
     }
   }
 
