@@ -1,0 +1,6 @@
+.text-hidden {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: 200%;
+  transition: background-position 400ms ease-in-out;
+}

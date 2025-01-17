@@ -7,7 +7,7 @@ export class TextScrambleLeftRightDirective {
 
   private readonly _randomChars = '!<>-_\\/[]{}—=+*^?#________'
 
-  private _elRef = inject(ElementRef)
+  private readonly _elRef = inject(ElementRef)
 
   private _queue!: string[]
   private _queueDelays!: number[]
