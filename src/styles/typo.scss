@@ -14,16 +14,17 @@
   text-rendering: geometricPrecision;
   text-transform: uppercase;
 
-  line-height: 2.2rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
 
   @include u.media('tl') {
-    font-size: 1.15rem;
-    line-height: 2.25rem;
+    font-size: 1.65rem;
+    line-height: 2.5rem;
   }
 
   @include u.media('dl') {
-    font-size: 1.25rem;
-    line-height: 2.5rem;
+    font-size: 2rem;
+    line-height: 2.75rem;
   }
 }
 
