@@ -17,7 +17,8 @@ export class TextScrambleLeftRightDirective {
   private _textCursor!: number
   private _textLength!: number
 
-  scrambleColor = input('--secondary-color')
+  scrambleColor = input('--primary-color')
+  iteration = input<number>(5)
   text = input<string>('',{alias: 'textScrambleLeftToRight'})
   paused = input<boolean>(false)
 
@@ -36,7 +37,7 @@ export class TextScrambleLeftRightDirective {
 
       for (let i = 0; i < this._textLength; i++) {
         this._queue.push(currentText.charAt(i) || '')
-        this._queueDelays.push(Math.floor(Math.random() * 8))
+        this._queueDelays.push(Math.floor(Math.random() * untracked(this.iteration)))
       }
 
       element.setAttribute('data-text', this._finalText)
