@@ -1,3 +1,4 @@
+@use 'effects' as e;
 @use 'typo' as t;
 @use 'commons' as c;
 @use 'utils' as u;
@@ -7,6 +8,8 @@
   position: relative;
   display: block;
 
+  padding-top: 20vh;
+
   @include c.verticalPadding;
   @include c.sidesPadding;
 
@@ -15,13 +18,8 @@
   }
 
   section.visible .simple-fade{
-    animation-name: flickering;
-    animation-duration: v.$transition-time-double;
-    animation-fill-mode: forwards;
-
+    @include e.flickerFadeIn;
   }
-
-  padding-top: 20vh;
 
   @include u.media('d') {
     padding-top: 24vh;
@@ -42,29 +40,3 @@
 }
 
 
-@keyframes flickering {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.5;
-  }
-  25% {
-    opacity: 0.2;
-  }
-  30% {
-    opacity: 0.7;
-  }
-  35% {
-    opacity: 0.3;
-  }
-  40% {
-    opacity: 0.8;
-  }
-  45% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}

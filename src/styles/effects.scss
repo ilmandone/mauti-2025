@@ -1,0 +1,35 @@
+@use 'vars' as v;
+
+@mixin flickerFadeIn() {
+  animation-name: flickering;
+  animation-duration: v.$transition-time-quad;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flickering {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  35% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  45% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
