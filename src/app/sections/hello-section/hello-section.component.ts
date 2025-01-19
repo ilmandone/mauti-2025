@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 import {StateService} from '../../shared/services/state.service';
-import {HiddenTextDirective} from '../../shared/directives/hidden-text.directive';
+import {TextScrambleLeftRightDirective} from '../../shared/directives/text-scramble-left-right.directive';
 
 @Component({
   selector: 'app-hello-section',
   imports: [
     InViewportDirective,
-    HiddenTextDirective,
+    TextScrambleLeftRightDirective,
   ],
   standalone: true,
   templateUrl: './hello-section.component.html',
@@ -16,9 +16,29 @@ import {HiddenTextDirective} from '../../shared/directives/hidden-text.directive
 export class HelloSectionComponent {
 
   private _stateSrv = inject(StateService)
+  private _visible = false
+
+  globalVisible = false
+  scrambleTextPaused = true
+
+  showSequence() {
+    this._visible = true
+
+    setTimeout(() => {
+
+      this.scrambleTextPaused = false
+
+      setTimeout(() => {
+        this.globalVisible = true
+      }, 200)
+    }, 200)
+
+  }
 
   visibilityChange($event: boolean) {
-    if ($event)
+    if ($event) {
+      if (!this._visible) this.showSequence()
       this._stateSrv.setSection('hello')
+    }
   }
 }
