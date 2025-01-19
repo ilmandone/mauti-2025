@@ -1,5 +1,8 @@
 <div class="section-title" [textScrambleLeftToRight]="sectionTitle()" [iteration]="12"></div>
-<div class="controls">
+<div
+  class="controls"
+  [class.show]="show"
+>
   @if (!isMobile) {
     <button type="button" app-button [disabled]="'disabled'">{{ fontFamily() }}</button>
   }

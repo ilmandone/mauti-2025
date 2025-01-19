@@ -44,10 +44,21 @@
     align-items: center;
     color: var(--secondary-color);
 
+    opacity: 0;
+    transform: translateY(-100%);
+
     @include t.text-small;
 
-    button {
+    &.show {
+      transition-property: transform, opacity;
+      transition-duration: v.$transition-time-double;
+      transition-timing-function: ease-in-out;
 
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    button {
       margin-right: 2rem;
 
       @include u.media('tl') {

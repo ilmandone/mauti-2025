@@ -1,4 +1,4 @@
-import {Component, computed, inject} from '@angular/core';
+import {Component, computed, effect, inject, OnInit} from '@angular/core';
 import {ButtonComponent} from '@components/button/button.component';
 import {checkMobile} from '../../shared/detect.mobile';
 import {FontsService} from '../../shared/services/fonts.service';
@@ -14,7 +14,7 @@ import {TextScrambleLeftRightDirective} from "../../shared/directives/text-scram
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent{
 
   private _fontSrv = inject(FontsService)
   private _stateSrv = inject(StateService)
@@ -28,4 +28,11 @@ export class HeaderComponent {
   })
 
   isMobile = checkMobile()
+  show = false
+
+  constructor() {
+    effect(() => {
+      this._stateSrv.loaded() && (this.show = true)
+    });
+  }
 }
