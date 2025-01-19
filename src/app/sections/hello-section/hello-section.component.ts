@@ -25,14 +25,12 @@ export class HelloSectionComponent {
     this._visible = true
 
     setTimeout(() => {
-
       this.scrambleTextPaused = false
 
       setTimeout(() => {
         this.globalVisible = true
       }, 200)
     }, 200)
-
   }
 
   visibilityChange($event: boolean) {
