@@ -16,7 +16,7 @@
 
   section.visible .simple-fade{
     animation-name: flickering;
-    animation-duration: v.$transition-time-quad;
+    animation-duration: v.$transition-time-double;
     animation-fill-mode: forwards;
 
   }
