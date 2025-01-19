@@ -1,4 +1,4 @@
-import {Directive, effect, ElementRef, inject, input} from '@angular/core';
+import {Directive, effect, ElementRef, inject, input, untracked} from '@angular/core';
 
 @Directive({
   selector: '[textScrambleLeftToRight]',
@@ -17,9 +17,9 @@ export class TextScrambleLeftRightDirective {
   private _textCursor!: number
   private _textLength!: number
 
-  scrambleColor = input('--primary-color')
-
-  text = input.required<string>({alias: 'textScrambleLeftToRight'})
+  scrambleColor = input('--secondary-color')
+  text = input<string>('',{alias: 'textScrambleLeftToRight'})
+  paused = input<boolean>(false)
 
   constructor() {
     effect(() => {
@@ -44,8 +44,13 @@ export class TextScrambleLeftRightDirective {
       // Stop previous animation
       if (this._frameRequest) cancelAnimationFrame(this._frameRequest)
 
-      // Start text scramble
-      this._scrambleLeftToRight()
+      if (!untracked(this.paused))
+        // Start text scramble
+        this._scrambleLeftToRight()
+    });
+
+    effect(() => {
+      if (!this.paused()) this._scrambleLeftToRight()
     });
   }
 
