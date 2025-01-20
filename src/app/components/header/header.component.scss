@@ -45,7 +45,7 @@
     color: var(--secondary-color);
 
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-50%) scale(1.1);
 
     @include t.text-small;
 
@@ -55,7 +55,7 @@
       transition-timing-function: ease-in-out;
 
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
     button {

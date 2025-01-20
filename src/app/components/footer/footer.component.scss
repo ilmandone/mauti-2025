@@ -1,6 +1,7 @@
-@use '../styles/commons' as c;
-@use '../styles/typo' as t;
-@use '../styles/utils' as u;
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: fixed;
@@ -14,12 +15,21 @@
 
   color: var(--secondary-color);
 
+  transform: translateY(50%) scale(1.1);
+  opacity: 0;
+
   @include c.headerFooterPadding;
   @include t.text-small;
 
-  /*@include u.media('tl') {
-    justify-content: space-between;
-  }*/
+  &.show {
+
+    transition-property: transform, opacity;
+    transition-duration: v.$transition-time-double;
+    transition-timing-function: ease-in-out;
+
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 
   &.show-geo {
     justify-content: space-between;
