@@ -1,4 +1,4 @@
-import {Directive, effect, ElementRef, EventEmitter, inject, OnDestroy, OnInit, Output} from '@angular/core';
+import {Directive, effect, ElementRef, EventEmitter, inject, OnDestroy, OnInit, output, Output} from '@angular/core';
 import {InViewportService} from '../services/in-viewport.service';
 
 @Directive({
@@ -9,13 +9,21 @@ export class InViewportDirective implements OnInit, OnDestroy{
   private _elementRef = inject(ElementRef)
   private _inViewportSrv = inject(InViewportService)
 
-  @Output() visibilityChange = new EventEmitter<boolean>();
+  visibilityChange = output<boolean>()
+  visibilityRatio = output<number>()
 
   constructor() {
     effect(() => {
       const currentSection = this._inViewportSrv.currentSection()
       if (currentSection?.el) {
         this.visibilityChange.emit(currentSection.el === this._elementRef.nativeElement && currentSection.intersecting)
+      }
+    });
+
+    effect(() => {
+      const r = this._inViewportSrv.intersectionRatio()
+      if (r && this._elementRef.nativeElement === r.el) {
+        this.visibilityRatio.emit(r.ratio)
       }
     });
   }
