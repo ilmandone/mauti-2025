@@ -1,13 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 import {StateService} from '../../shared/services/state.service';
-import {HiddenTextDirective} from '../../shared/directives/hidden-text.directive';
 
 @Component({
   selector: 'app-what-section',
   imports: [
-    InViewportDirective,
-    HiddenTextDirective
+    InViewportDirective
   ],
   standalone: true,
   templateUrl: './what-section.component.html',
