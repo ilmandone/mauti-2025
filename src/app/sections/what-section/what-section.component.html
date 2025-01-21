@@ -1,19 +1,46 @@
 <section
   inViewport
+  [class.visible]="sectionVisible"
   (visibilityChange)="visibilityChange($event)">
   <h2 class="visually-hidden">What I do</h2>
-  <p>Development of robust, scalable front-end solutions for <b>E-Commerce platforms</b>, <b>SPA/MPA applications</b>,
-    portals, CMS, back office systems, and PWAs. Includes <b>architectural design</b> for back-end service integration,
-    dependency optimization, and performance enhancement. Expertise in establishing team workflows aligned with <b>CI/CD
-      infrastructures</b> and maintaining code quality standards. Solutions implemented across major front-end
-    frameworks.</p>
+  <p>
+    <span [hiddenText]="!sectionVisible" cssColor="var(--primary-color)">Development of robust, scalable </span>
+    <u>front-end</u>
+    <span class="flicker-fade-in"> solutions for <b>E-Commerce platforms</b>, <b>SPA/MPA applications</b>, portals, CMS, back office systems, and PWAs. Inclu</span>
+    <u>de</u>
+    <span class="flicker-fade-in">s <b>architectural design</b> for back-end ser</span>
+    <u>v</u>
+    <span [hiddenText]="!sectionVisible" cssColor="var(--primary-color)">ice integration, dependency optimization, and performance enhancement. Expertise in </span>
+    <u>e</u>
+    <span class="flicker-fade-in">stab</span>
+    <u>l</u>
+    <span [hiddenText]="!sectionVisible" cssColor="var(--primary-color)">ishing team w</span>
+    <u>o</u>
+    <span class="flicker-fade-in">rkflows aligned with <b>CI/CD infrastructures</b> and maintaining code quality standards. Solutions im</span>
+    <u>p</u>
+    <span [hiddenText]="!sectionVisible" cssColor="var(--primary-color)"></span>
+    <u>ment</u>
+    <span class="flicker-fade-in">ed across major front-end frameworks.</span>
+  </p>
 
-  <p>Cross-platform <b>UX design</b> with emphasis on <b>information architecture</b>, <b>accessibility standards</b>,
-    and comprehensive testing protocols. Specialization in transforming UX wireframes and low-fidelity interfaces into
-    refined solutions through strategic implementation of <b>color theory</b>, typography principles, and iconographic
-    design.</p>
+  <p>
+    <span class="flicker-fade-in">Cross-platform <b>UX design</b> with emphasis on <b>information architecture</b>, <b>accessibility standards</b>,
+    and comprehensive testing protocols. Specialization in transforming </span>
+    <u>UX</u>
+    <span class="flicker-fade-in"> wireframes and low-fidelity interfaces into refined sol</span>
+    <u>u</u>
+    <span class="flicker-fade-in">t</span>
+    <u>i</u>
+    <span class="flicker-fade-in">ons through strategic implementation of <b>color theory</b>, typography principles, andiconographicdesign.</span>
+  </p>
 
-  <p>Creation of <b>3D models</b> and scenes optimized for both <b>real-time</b> and <b>production rendering</b>,
-    encompassing the complete pipeline from modeling through texturing to final composition. Implementation of real-time
-    web libraries and <b>Unreal Engine</b> for end-user applications and development tools.</p>
+  <p>
+    <u>C</u>
+    <span class="flicker-fade-in">reation of <b>3D models</b> and scenes optimized for both <b>real-time</b> and <b>production rendering</b>, encompassing the complete pipeline from modelin</span>
+    <u>g</u>
+    <span class="flicker-fade-in"> through texturing to f</span>
+    <u>i</u>
+    <span class="flicker-fade-in">nal composition. Implementation of real-time web libraries and <b>Unreal Engine</b> for end-user applications and development tools.
+    </span>
+  </p>
 </section>
