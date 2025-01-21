@@ -11,7 +11,9 @@
   @include c.sidesPadding;
 
   section {
-    p {margin-bottom: 4vh;}
+    p {
+      margin-bottom: 4vh;
+    }
     b {@include t.text-secondary;}
 
     .flicker-fade-in {
