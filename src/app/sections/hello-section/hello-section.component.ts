@@ -18,7 +18,7 @@ export class HelloSectionComponent {
   private _stateSrv = inject(StateService)
   private _visible = false
 
-  globalVisible = false
+  sectionVisible = false
   scrambleTextPaused = true
 
   showSequence() {
@@ -28,7 +28,7 @@ export class HelloSectionComponent {
       this.scrambleTextPaused = false
 
       setTimeout(() => {
-        this.globalVisible = true
+        this.sectionVisible = true
       }, 200)
     }, 200)
   }

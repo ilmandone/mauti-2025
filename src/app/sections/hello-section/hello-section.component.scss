@@ -13,11 +13,11 @@
   @include c.verticalPadding;
   @include c.sidesPadding;
 
-  .simple-fade {
+  .flicker-fade-in {
     opacity: 0;
   }
 
-  section.visible .simple-fade{
+  section.visible .flicker-fade-in{
     @include e.flickerFadeIn;
   }
 
