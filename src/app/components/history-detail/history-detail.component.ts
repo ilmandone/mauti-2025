@@ -13,7 +13,11 @@ import {CareerStep} from '../../sections/until-now-section/until-now-section.com
     <span class="visually-hidden">Company:</span>
     <span>{{ data()?.company }}</span>
   `,
-  styles: ``
+  styles: `
+    span {
+      color: var(--secondary-color);
+    }
+  `
 })
 export class HistoryDetailComponent {
 

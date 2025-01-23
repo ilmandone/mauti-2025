@@ -39,6 +39,11 @@ export class UntilNowSectionComponent {
   history: CareerStep[] = [
     {
       time: 'Today',
+      company: 'XTel',
+      role: 'Senior front-end developer'
+    },
+    {
+      time: '2021 - 2024',
       company: 'Var Group',
       role: 'Front-end architect / senior developer'
     },

@@ -33,6 +33,12 @@
     @include t.text-weight;
   }
 
+  .skills li{
+    margin-top: 0.5rem;
+    color: var(--secondary-color);
+    line-height: 2.5rem;
+  }
+
   .wrapper {
     display: flex;
     flex-flow: column wrap;
