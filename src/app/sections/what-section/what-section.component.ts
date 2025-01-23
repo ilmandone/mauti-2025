@@ -29,7 +29,7 @@ export class WhatSectionComponent {
   }
 
   subVisibilityChange($event: number, index: string, cv: boolean) {
-    const t = this._isMobile ? 0.25 : 0.6
+    const t = this._isMobile ? 0.25 : 0.75
     if ($event > t && !cv) {
        Object.assign(this, {[`${index}Visible`]: true})
      }
