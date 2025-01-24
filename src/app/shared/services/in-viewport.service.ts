@@ -11,6 +11,10 @@ export class InViewportService implements OnDestroy {
   currentSection = signal<{ el: Element, intersecting: boolean } | null>(null)
   intersectionRatio = signal<{ el: Element, ratio: number } | null>(null)
 
+  private _getThresholds(steps = 10) {
+    return Array.from({length: steps + 1}, (_, index) => Number((index * (1 / steps)).toFixed(3)));
+  }
+
   constructor() {
 
     this._stepObserver = new IntersectionObserver(
@@ -22,7 +26,7 @@ export class InViewportService implements OnDestroy {
           })
       },
       {
-        threshold: [0, 0.15, 0.25, 0.35, 0.5, 0.65, 0.75, 0.85, 1],
+        threshold: this._getThresholds(),
         rootMargin: '-10%'
       }
     );
