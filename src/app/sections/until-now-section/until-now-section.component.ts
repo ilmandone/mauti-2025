@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {HistoryDetailComponent} from '@components/history-detail/history-detail.component';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 import {StateService} from '../../shared/services/state.service';
+import {TextScrambleLeftRightDirective} from '../../shared/directives/text-scramble-left-right.directive';
 
 export interface CareerStep {
   time: string
@@ -13,7 +14,8 @@ export interface CareerStep {
   selector: 'app-until-now-section',
   imports: [
     HistoryDetailComponent,
-    InViewportDirective
+    InViewportDirective,
+    TextScrambleLeftRightDirective
   ],
   standalone: true,
   templateUrl: './until-now-section.component.html',
@@ -22,6 +24,8 @@ export interface CareerStep {
 export class UntilNowSectionComponent {
 
   private _stateSrv = inject(StateService)
+
+  sectionVisible = false
 
   skillList = [
     'Javascript',
@@ -69,8 +73,10 @@ export class UntilNowSectionComponent {
     }
   ]
 
-  visibilityChange($event: boolean) {
-    if ($event)
+  visibilityChange($event: number) {
+    if ($event > 0.15) {
       this._stateSrv.setSection('until now')
+      if (!this.sectionVisible) this.sectionVisible = true
+    }
   }
 }
