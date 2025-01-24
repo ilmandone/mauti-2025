@@ -29,6 +29,7 @@ body {
   // Body styles
   background-color: var(--bg-color);
 
+  // Text
   @include t.text-primary;
 
   strong {
