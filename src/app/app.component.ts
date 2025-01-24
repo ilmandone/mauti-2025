@@ -8,6 +8,7 @@ import {HeaderComponent} from '@components/header/header.component';
 import {FooterComponent} from '@components/footer/footer.component';
 import {ScreenSizeService} from './shared/services/screen-size.service';
 import {StateService} from './shared/services/state.service';
+import {InfiniteScrollDirective} from './shared/directives/infinite-scroll.directive';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import {StateService} from './shared/services/state.service';
     UntilNowSectionComponent,
     HeaderComponent,
     FooterComponent,
+    InfiniteScrollDirective,
   ],
   styleUrl: './app.component.scss'
 })

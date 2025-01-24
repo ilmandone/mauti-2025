@@ -1,7 +1,15 @@
+@use 'vars' as v;
+
 :host {
   position: relative;
   display: block;
   min-height: 100vh;
 
-  overflow-y: auto;
+  overflow-y: hidden;
+
+  main {
+    transition-property: transform;
+    transition-duration: v.$transition-time-double;
+    transition-timing-function: ease-in-out;
+  }
 }
