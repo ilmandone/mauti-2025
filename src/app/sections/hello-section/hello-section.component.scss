@@ -13,16 +13,20 @@
   @include c.verticalPadding;
   @include c.sidesPadding;
 
+  @include u.media('d') {
+    padding-top: 24vh;
+  }
+
+  @include u.media('dxl') {
+    padding-top: 26vh;
+  }
+
   .flicker-fade-in {
     opacity: 0;
   }
 
   section.visible .flicker-fade-in{
     @include e.flickerFadeIn;
-  }
-
-  @include u.media('d') {
-    padding-top: 24vh;
   }
 
   p {
@@ -36,6 +40,14 @@
   h1 {
     @include t.text-emoticon;
     margin-bottom: 8vh;
+
+    @include u.media('d') {
+      margin-bottom: 10vh;
+    }
+
+    @include u.media('dxl') {
+      margin-bottom: 12vh;
+    }
   }
 }
 

@@ -18,12 +18,12 @@
   line-height: 2rem;
 
   @include u.media('tl') {
-    font-size: 1.65rem;
+    font-size: 1.45rem;
     line-height: 2.5rem;
   }
 
   @include u.media('dl') {
-    font-size: 1.85rem;
+    font-size: 1.65rem;
     line-height: 2.75rem;
   }
 }
