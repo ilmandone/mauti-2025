@@ -1,0 +1,15 @@
+@use 'effects' as e;
+
+:host {
+  span {
+    color: var(--secondary-color);
+  }
+
+  .flicker-fade-in {
+    opacity: 0;
+  }
+
+  &.visible .flicker-fade-in {
+    @include e.flickerFadeIn;
+  }
+}

@@ -8,6 +8,7 @@ type Sections = 'hello' | 'until now' | 'what'
 export class StateService {
 
   private _section = signal<Sections>('hello')
+  private _loaded = signal<boolean>(false)
 
   get section() {
     return this._section.asReadonly()
@@ -16,4 +17,13 @@ export class StateService {
   setSection(v: Sections) {
     this._section.set(v)
   }
+
+  get loaded() {
+    return this._loaded.asReadonly()
+  }
+
+  setLoaded(v: boolean) {
+    this._loaded.set(v)
+  }
+
 }

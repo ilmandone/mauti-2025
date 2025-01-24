@@ -10,7 +10,7 @@
   }
 
   @include u.media('tl') {
-    padding-left: 12vw;
+    padding-left: 10vw;
     padding-right: 16vw;
   }
 
@@ -19,7 +19,7 @@
   }
 
   @include u.media('dl') {
-    padding-left: 12vw;
+    padding-left: 8vw;
     padding-right: 40vw;
   }
 
@@ -31,6 +31,11 @@
 @mixin verticalPadding {
   padding-top: 14vh;
   padding-bottom: 14vh;
+
+  @include u.media('d') {
+    padding-top: 18vh;
+    padding-bottom: 18vh;
+  }
 }
 
 @mixin headerFooterPadding {

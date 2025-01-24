@@ -1,0 +1,8 @@
+@use 'vars' as v;
+
+.text-hidden {
+  display: inline;
+  background-repeat: no-repeat;
+  background-size: 200%;
+  transition: background-position v.$transition-time-double ease-in-out;
+}

@@ -1,5 +1,6 @@
 @use 'typo' as t;
 @use 'commons' as c;
+@use 'effects' as e;
 @use 'utils' as u;
 
 :host {
@@ -43,8 +44,23 @@
       gap: 8vw;
     }
 
-    .history li{
+    .flicker-fade-in {
+      opacity: 0;
+    }
+
+    &.visible .flicker-fade-in {
+      @include e.flickerFadeIn;
+    }
+
+    .history li {
       margin-bottom: 1.5rem;
+    }
+
+    .skills li {
+      margin-top: 0.5rem;
+      color: var(--secondary-color);
+      line-height: 2.5rem;
+
     }
   }
 }

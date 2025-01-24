@@ -1,5 +1,6 @@
-@use 'typo' as t;
+@use 'effects' as e;
 @use 'commons' as c;
+@use 'typo' as t;
 @use 'utils' as u;
 
 :host {
@@ -9,11 +10,36 @@
   @include c.verticalPadding;
   @include c.sidesPadding;
 
-  p {
-    margin-bottom: 4vh;
-  }
+  @include t.text-secondary;
 
-  b {
-    @include t.text-secondary;
+  section {
+    p {
+      margin-bottom: 8vh;
+
+      .flicker-fade-in {
+        opacity: 0;
+      }
+
+      &.visible .flicker-fade-in {
+        @include e.flickerFadeIn;
+      }
+    }
+
+    b {
+      @include t.text-primary;
+    }
+
+    u {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .flicker-fade-in {
+      opacity: 0;
+    }
+
+    &.visible .flicker-fade-in {
+      @include e.flickerFadeIn;
+    }
   }
 }

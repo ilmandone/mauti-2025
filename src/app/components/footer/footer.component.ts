@@ -5,6 +5,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WeatherData, WeatherService} from '../../shared/services/weather.service';
 import {AsyncPipe} from '@angular/common';
 import {ScreenSizeService} from '../../shared/services/screen-size.service';
+import {StateService} from '../../shared/services/state.service';
 
 interface TimeData {
   day: string
@@ -22,13 +23,15 @@ interface TimeData {
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent{
+export class FooterComponent {
 
+  private _state = inject(StateService)
   private _destroyRef = inject(DestroyRef)
   private _screenSizeSrv = inject(ScreenSizeService)
   private _weatherSrv = inject(WeatherService)
 
   @HostBinding('class.show-geo') displayGeo = false
+  @HostBinding('class.show') show = false
 
   geoLocationCoords!: GeoLocationCoords
   timeData: TimeData | null = null
@@ -41,6 +44,10 @@ export class FooterComponent{
       if (this.displayGeo && !this.geoLocationCoords) {
         this._startGeolocation()
       }
+    });
+
+    effect(() => {
+      this.show = this._state.loaded()
     });
   }
 

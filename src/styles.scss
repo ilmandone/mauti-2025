@@ -1,10 +1,12 @@
 @use "reset";
+@use "text-hidden";
 @use "vars" as v;
 @use "typo" as t;
 @use "colors" as c;
 @use "themes" as th;
 @use "utils" as u;
 @use "a11y" as a;
+@use "text-block" as tb;
 
 // Theme fallback default
 :root {
@@ -27,6 +29,7 @@ body {
   // Body styles
   background-color: var(--bg-color);
 
+  // Text
   @include t.text-primary;
 
   strong {
@@ -42,6 +45,9 @@ body {
   .visually-hidden {
     @include a.visually-hidden;
   }
+
+  // Text block
+  @include tb.textBlock;
 
   // Links
   a {

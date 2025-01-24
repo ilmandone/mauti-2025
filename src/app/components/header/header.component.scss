@@ -23,6 +23,10 @@
   @include c.headerFooterPadding;
   @include u.zIndex('header');
 
+  .section-title span {
+    color: var(--primary-color);
+  }
+
   @include u.media('d') {
     align-items: flex-start;
 
@@ -40,10 +44,21 @@
     align-items: center;
     color: var(--secondary-color);
 
+    opacity: 0;
+    transform: translateY(-50%) scale(1.1);
+
     @include t.text-small;
 
-    button {
+    &.show {
+      transition-property: transform, opacity;
+      transition-duration: v.$transition-time-double;
+      transition-timing-function: ease-in-out;
 
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    button {
       margin-right: 2rem;
 
       @include u.media('tl') {
