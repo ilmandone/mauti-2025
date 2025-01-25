@@ -1,4 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, HostListener, inject, output} from '@angular/core';
+import {ScrollKeys, VALID_SCROLL_KEYS} from './infinite-scroll.utils';
+
+
 
 @Directive({
   selector: '[infiniteScroll]'
@@ -12,7 +15,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   scrollVal = output<number>()
   height = output<number>()
-  keyScroll = output<'down' | 'up'>()
+  keyScroll = output<{key: ScrollKeys, active: boolean}>()
 
   /**
    * Update the host translation
@@ -63,21 +66,35 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   //#regio Keyboard
 
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event$: KeyboardEvent) {
+    const key = event$.key
+    if (!VALID_SCROLL_KEYS.includes(key)) return
+
+    this.keyScroll.emit({
+      key,
+      active: true
+    })
+  }
+
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event$: KeyboardEvent) {
     const key = event$.key
-    if (!key.toLowerCase().includes('arrow')) return
+    if (!VALID_SCROLL_KEYS.includes(key)) return
 
     switch (key) {
       case 'ArrowDown' :
         this._scrollValue -= 100
-        this.keyScroll.emit('down')
         break
       case 'ArrowUp':
         this._scrollValue += 100
-        this.keyScroll.emit('up')
         break
     }
+
+    this.keyScroll.emit({
+      key,
+      active: false
+    })
 
     this._updateElTranslate(this._scrollValue)
   }

@@ -64,4 +64,7 @@ export class AppComponent implements OnInit{
   }
 
   //#endregion
+  logKeyScroll(event$: any) {
+    console.log(event$);
+  }
 }
