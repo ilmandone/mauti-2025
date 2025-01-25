@@ -12,6 +12,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   scrollVal = output<number>()
   height = output<number>()
+  keyScroll = output<'down' | 'up'>()
 
   /**
    * Update the host translation
@@ -25,12 +26,18 @@ export class InfiniteScrollDirective implements AfterViewInit {
     this.scrollVal.emit(v)
   }
 
+  //#region Mouse
+
   @HostListener('window:wheel', ['$event'])
   onWindowScroll(event: WheelEvent): void {
     // Your logic here
     this._scrollValue -= event.deltaY
     this._updateElTranslate(this._scrollValue)
   }
+
+  //#endregion
+
+  //#region Touch events
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event$: TouchEvent) {
@@ -52,6 +59,34 @@ export class InfiniteScrollDirective implements AfterViewInit {
     this._scrollValueNext = 0
   }
 
+  //#endregion
+
+  //#regio Keyboard
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyUp(event$: KeyboardEvent) {
+    const key = event$.key
+    if (!key.toLowerCase().includes('arrow')) return
+
+    switch (key) {
+      case 'ArrowDown' :
+        this._scrollValue -= 100
+        this.keyScroll.emit('down')
+        break
+      case 'ArrowUp':
+        this._scrollValue += 100
+        this.keyScroll.emit('up')
+        break
+    }
+
+    this._updateElTranslate(this._scrollValue)
+  }
+
+  //#endregion
+
+  /**
+   * Window resize
+   */
   @HostListener('window:resize')
   onResize() {
     const el = this._elementRef.nativeElement as HTMLElement
