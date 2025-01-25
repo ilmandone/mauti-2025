@@ -1,9 +1,9 @@
 
 <header app-header></header>
-<main infiniteScroll>
-  <app-hello-section/>
-  <app-what-section/>
-  <app-until-now-section/>
+<main #main infiniteScroll (scrollVal)="mainScrollValue.set($event)" (height)="mainHeight.set($event)">
+  <app-hello-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
+  <app-what-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
+  <app-until-now-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
 </main>
 <footer app-footer>
 
