@@ -22,6 +22,8 @@
 }
 
 body {
+  overflow-y: hidden;
+
   // Themes
   @include th.dark();
   @include th.light();

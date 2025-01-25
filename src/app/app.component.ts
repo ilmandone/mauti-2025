@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {FontsService} from './shared/services/fonts.service';
 import {Theme, ThemeService} from './shared/services/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
@@ -8,6 +8,8 @@ import {HeaderComponent} from '@components/header/header.component';
 import {FooterComponent} from '@components/footer/footer.component';
 import {ScreenSizeService} from './shared/services/screen-size.service';
 import {StateService} from './shared/services/state.service';
+import {InfiniteScrollDirective} from './shared/directives/infinite-scroll.directive';
+import {InfiniteTranslationDirective} from './shared/directives/infinite-translation.directive';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +21,8 @@ import {StateService} from './shared/services/state.service';
     UntilNowSectionComponent,
     HeaderComponent,
     FooterComponent,
+    InfiniteScrollDirective,
+    InfiniteTranslationDirective,
   ],
   styleUrl: './app.component.scss'
 })
@@ -29,14 +33,8 @@ export class AppComponent implements OnInit{
   private _webFontSrv = inject(FontsService)
   private _themeSrv = inject(ThemeService)
 
-  changeFontFamily() {
-    void this._webFontSrv.loadFont(
-      {
-        googleFont: 'Roboto:400,700',
-        fontFamilyName: 'Roboto'
-      }
-    )
-  }
+  mainScrollValue = signal<number>(0)
+  mainHeight = signal<number>(0)
 
   ngOnInit() {
     this._themeSrv.init()
@@ -47,7 +45,23 @@ export class AppComponent implements OnInit{
     },200)
   }
 
+
+
+  //#region Future implementations
+
+  changeFontFamily() {
+    void this._webFontSrv.loadFont(
+      {
+        googleFont: 'Roboto:400,700',
+        fontFamilyName: 'Roboto'
+      }
+    )
+  }
+
+
   setTheme(v: Theme) {
     this._themeSrv.setCurrent(v)
   }
+
+  //#endregion
 }
