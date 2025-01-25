@@ -8,7 +8,7 @@ import {ScrollKeys, VALID_SCROLL_KEYS} from './infinite-scroll.utils';
 })
 export class InfiniteScrollDirective implements AfterViewInit {
 
-  private _elementRef = inject(ElementRef)
+  private _element: HTMLElement = inject(ElementRef).nativeElement
   private _scrollValue = 0
   private _scrollValueNext = 0
   private _startY = 0
@@ -16,6 +16,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
   scrollVal = output<number>()
   height = output<number>()
   keyScroll = output<{key: ScrollKeys, active: boolean}>()
+  percentage = output<number>()
 
   /**
    * Update the host translation
@@ -24,9 +25,12 @@ export class InfiniteScrollDirective implements AfterViewInit {
    * @private
    */
   private _updateElTranslate(v: number) {
-    const nEl = this._elementRef.nativeElement as HTMLElement
+    const nEl = this._element as HTMLElement
     nEl.style.transform = `translateY(${v}px)`
+
     this.scrollVal.emit(v)
+    const p = Math.round(Math.abs(this._scrollValue / this._element.offsetHeight) % 1 * 100)
+    this.percentage.emit(p)
   }
 
   //#region Mouse
@@ -106,13 +110,13 @@ export class InfiniteScrollDirective implements AfterViewInit {
    */
   @HostListener('window:resize')
   onResize() {
-    const el = this._elementRef.nativeElement as HTMLElement
+    const el = this._element as HTMLElement
     this.height.emit(el.offsetHeight)
   }
 
   ngAfterViewInit() {
     window.setTimeout(() => {
-      const el = this._elementRef.nativeElement as HTMLElement
+      const el = this._element as HTMLElement
       this.height.emit(el.offsetHeight)
     })
   }
