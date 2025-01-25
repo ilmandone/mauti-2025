@@ -9,7 +9,7 @@
 
   main {
     transition-property: transform;
-    transition-duration: v.$transition-time-double;
-    transition-timing-function: ease-in-out;
+    transition-duration: v.$scroll-time;
+    transition-timing-function: ease-out;
   }
 }
