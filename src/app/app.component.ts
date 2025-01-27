@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {FontsService} from './shared/services/fonts.service';
 import {Theme, ThemeService} from './shared/services/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
@@ -10,6 +10,7 @@ import {ScreenSizeService} from './shared/services/screen-size.service';
 import {StateService} from './shared/services/state.service';
 import {InfiniteScrollDirective} from './shared/directives/infinite-scroll.directive';
 import {InfiniteTranslationDirective} from './shared/directives/infinite-translation.directive';
+import {ScrollKeys} from './shared/directives/infinite-scroll.utils';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ import {InfiniteTranslationDirective} from './shared/directives/infinite-transla
   ],
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements OnInit{
 
   private _state = inject(StateService)
   private _screenSizeSrv = inject(ScreenSizeService)
@@ -37,14 +38,19 @@ export class AppComponent implements AfterViewInit{
   mainHeight = signal<number>(0)
 
   scrollPercentage = 0
+  scrollKey!: ScrollKeys
 
-  ngAfterViewInit() {
+  constructor() {
+    effect(() => {
+      if (this._state.sectionReady() === 3) {
+        this._screenSizeSrv.init()
+        this._state.setLoaded(true)
+      }
+    });
+  }
+
+  ngOnInit() {
     this._themeSrv.init()
-    this._screenSizeSrv.init()
-
-    window.setTimeout(() => {
-      this._state.setLoaded(true)
-    },200)
   }
 
   //#region Future implementations
@@ -64,10 +70,4 @@ export class AppComponent implements AfterViewInit{
   }
 
   //#endregion
-  logKeyScroll(event$: any) {
-    console.log(event$);
-  }
-
-  protected readonly scroll = scroll;
-  protected readonly scrollBy = scrollBy;
 }
