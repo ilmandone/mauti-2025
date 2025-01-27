@@ -36,6 +36,8 @@ export class AppComponent implements OnInit{
   mainScrollValue = signal<number>(0)
   mainHeight = signal<number>(0)
 
+  scrollPercentage = 0
+
   ngOnInit() {
     this._themeSrv.init()
     this._screenSizeSrv.init()
@@ -67,4 +69,7 @@ export class AppComponent implements OnInit{
   logKeyScroll(event$: any) {
     console.log(event$);
   }
+
+  protected readonly scroll = scroll;
+  protected readonly scrollBy = scrollBy;
 }

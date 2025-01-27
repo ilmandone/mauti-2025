@@ -1,6 +1,9 @@
+<div class="scroll-info">
+  {{scrollPercentage()}}
+</div>
+
 @let wData = weatherData | async;
 @if(displayGeo) {
-
   <div class="geo-location">
   <span>
     {{geoLocationCoords?.lat}} | {{geoLocationCoords?.lon}}
@@ -16,7 +19,6 @@
   </span>
   </div>
 }
-
 <div class="social">
   <a href="mailto:info@mauti.it" target="_blank">&#64;</a>
   <a href="https://t.me/Aman1975" target="_blank">T</a>

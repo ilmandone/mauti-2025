@@ -1,4 +1,4 @@
-import {Component, DestroyRef, effect, HostBinding, inject} from '@angular/core';
+import {Component, DestroyRef, effect, HostBinding, inject, input} from '@angular/core';
 import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
 import {map, Observable, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -32,6 +32,8 @@ export class FooterComponent {
 
   @HostBinding('class.show-geo') displayGeo = false
   @HostBinding('class.show') show = false
+
+  scrollPercentage = input<number>(0)
 
   geoLocationCoords!: GeoLocationCoords
   timeData: TimeData | null = null
