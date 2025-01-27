@@ -1,8 +1,6 @@
 import {AfterViewInit, Directive, ElementRef, HostListener, inject, output} from '@angular/core';
 import {ScrollKeys, VALID_SCROLL_KEYS} from './infinite-scroll.utils';
 
-
-
 @Directive({
   selector: '[infiniteScroll]'
 })
@@ -15,7 +13,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   scrollVal = output<number>()
   height = output<number>()
-  keyScroll = output<{key: ScrollKeys, active: boolean}>()
+  keyScroll = output<ScrollKeys>()
   percentage = output<number>()
 
   /**
@@ -74,12 +72,9 @@ export class InfiniteScrollDirective implements AfterViewInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event$: KeyboardEvent) {
     const key = event$.key
-    if (!VALID_SCROLL_KEYS.includes(key)) return
 
-    this.keyScroll.emit({
-      key,
-      active: true
-    })
+    if (!VALID_SCROLL_KEYS.includes(key)) return
+    this.keyScroll.emit(key)
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -96,10 +91,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
         break
     }
 
-    this.keyScroll.emit({
-      key,
-      active: false
-    })
+    this.keyScroll.emit(undefined)
 
     this._updateElTranslate(this._scrollValue)
   }
