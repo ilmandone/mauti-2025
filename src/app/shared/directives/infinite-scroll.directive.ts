@@ -1,12 +1,16 @@
-import {AfterViewInit, Directive, ElementRef, HostListener, inject, output} from '@angular/core';
+import {AfterViewInit, Directive, effect, ElementRef, HostListener, inject, output} from '@angular/core';
 import {ScrollKeys, VALID_SCROLL_KEYS} from './infinite-scroll.utils';
+import {StateService} from '../services/state.service';
 
 @Directive({
   selector: '[infiniteScroll]'
 })
-export class InfiniteScrollDirective implements AfterViewInit {
+export class InfiniteScrollDirective implements AfterViewInit{
+
+  private _state = inject(StateService)
 
   private _element: HTMLElement = inject(ElementRef).nativeElement
+  private _height = 0
   private _scrollValue = 0
   private _scrollValueNext = 0
   private _startY = 0
@@ -30,6 +34,27 @@ export class InfiniteScrollDirective implements AfterViewInit {
     const ds =  (this._scrollValue / this._element.offsetHeight * -1) % 1
     const p = Math.round((ds > 0 ? ds : 1-Math.abs(ds)) * 100)
     this.percentage.emit(p)
+
+    // Fix element height on update
+    const eh =  (this._element as HTMLElement).offsetHeight
+
+    if (eh !== this._height) {
+      this._height = eh
+      this.height.emit(eh)
+    }
+  }
+
+  constructor() {
+    effect(() => {
+      if (this._state.sectionReady() === 3) {
+        this._height = (this._element as HTMLElement).offsetHeight
+        this.height.emit(this._height)
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    this._element.scrollTop = 0
   }
 
   //#region Mouse
@@ -105,12 +130,5 @@ export class InfiniteScrollDirective implements AfterViewInit {
   onResize() {
     const el = this._element as HTMLElement
     this.height.emit(el.offsetHeight)
-  }
-
-  ngAfterViewInit() {
-    window.setTimeout(() => {
-      const el = this._element as HTMLElement
-      this.height.emit(el.offsetHeight)
-    })
   }
 }

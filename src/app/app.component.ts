@@ -1,4 +1,4 @@
-import {Component, effect, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {FontsService} from './shared/services/fonts.service';
 import {Theme, ThemeService} from './shared/services/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
@@ -40,17 +40,10 @@ export class AppComponent implements OnInit{
   scrollPercentage = 0
   scrollKey!: ScrollKeys
 
-  constructor() {
-    effect(() => {
-      if (this._state.sectionReady() === 3) {
-        this._screenSizeSrv.init()
-        this._state.setLoaded(true)
-      }
-    });
-  }
-
   ngOnInit() {
     this._themeSrv.init()
+    this._screenSizeSrv.init()
+    this._state.setLoaded(true)
   }
 
   //#region Future implementations
