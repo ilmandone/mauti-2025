@@ -15,7 +15,7 @@
 
   color: var(--secondary-color);
 
-  transform: translateY(50%) scale(1.1);
+  transform: translateY(-25%) scale(0.98);
   opacity: 0;
 
   @include c.headerFooterPadding;
@@ -23,7 +23,7 @@
 
   &.show {
     transition-property: transform, opacity;
-    transition-duration: v.$transition-time-double;
+    transition-duration: v.$transition-time-quad;
     transition-timing-function: ease-in-out;
 
     opacity: 1;
