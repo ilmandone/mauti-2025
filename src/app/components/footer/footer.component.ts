@@ -1,9 +1,9 @@
-import {Component, DestroyRef, effect, HostBinding, inject, input} from '@angular/core';
+import {Component, computed, DestroyRef, effect, HostBinding, inject, input} from '@angular/core';
 import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
-import {map, Observable, timer} from 'rxjs';
+import {map, Observable, of, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WeatherData, WeatherService} from '../../shared/services/weather.service';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
 import {ScreenSizeService} from '../../shared/services/screen-size.service';
 import {StateService} from '../../shared/services/state.service';
 
@@ -18,7 +18,8 @@ interface TimeData {
 @Component({
   selector: 'footer[app-footer]',
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    NgClass
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
@@ -30,20 +31,26 @@ export class FooterComponent {
   private _screenSizeSrv = inject(ScreenSizeService)
   private _weatherSrv = inject(WeatherService)
 
-  @HostBinding('class.show-geo') displayGeo = false
+  @HostBinding('class.show-geo') isDesktop = false
   @HostBinding('class.show') show = false
 
   scrollPercentage = input<number>(0)
+  scrollBinary = computed(() => {
+    const binaries = (this.scrollPercentage() >>> 0).toString(2).padStart(7 , '0').split('')
+
+    return binaries.map(v => {
+      return v === '1'
+    })
+  })
 
   geoLocationCoords!: GeoLocationCoords
   timeData: TimeData | null = null
   weatherData!: Observable<WeatherData>
 
   constructor() {
-
     effect(() => {
-      this.displayGeo = this._screenSizeSrv.relatedTo('tl') !== 'after'
-      if (this.displayGeo && !this.geoLocationCoords) {
+      this.isDesktop = this._screenSizeSrv.relatedTo('tl') !== 'after'
+      if (this.isDesktop && !this.geoLocationCoords) {
         this._startGeolocation()
       }
     });
@@ -86,4 +93,6 @@ export class FooterComponent {
 
     this.weatherData = this._weatherSrv.getWeatherDataByLocation(this.geoLocationCoords.lat, this.geoLocationCoords.lon)
   }
+
+  protected readonly of = of;
 }

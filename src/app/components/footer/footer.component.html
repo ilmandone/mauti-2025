@@ -1,9 +1,14 @@
-<div class="scroll-info">
-  {{scrollPercentage()}}
-</div>
+@if(isDesktop) {
+  <div class="scroll-info">
+    @for(s of scrollBinary(); track $index) {
+      <div class="q" [ngClass]="{'q--filled': s, 'q--empty': !s}"></div>
+
+    }
+  </div>
+}
 
 @let wData = weatherData | async;
-@if(displayGeo) {
+@if(isDesktop) {
   <div class="geo-location">
   <span>
     {{geoLocationCoords?.lat}} | {{geoLocationCoords?.lon}}
