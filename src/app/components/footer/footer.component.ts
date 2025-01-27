@@ -6,6 +6,7 @@ import {WeatherData, WeatherService} from '../../shared/services/weather.service
 import {AsyncPipe, NgClass} from '@angular/common';
 import {ScreenSizeService} from '../../shared/services/screen-size.service';
 import {StateService} from '../../shared/services/state.service';
+import {ScrollKeys} from '../../shared/directives/infinite-scroll.utils';
 
 interface TimeData {
   day: string
@@ -35,9 +36,10 @@ export class FooterComponent {
   @HostBinding('class.show') show = false
 
   scrollPercentage = input<number>(0)
+  scrollDirection = input<ScrollKeys | undefined>(undefined)
+
   scrollBinary = computed(() => {
     const binaries = (this.scrollPercentage() >>> 0).toString(2).padStart(7 , '0').split('')
-
     return binaries.map(v => {
       return v === '1'
     })

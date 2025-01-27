@@ -35,6 +35,10 @@
     bottom: 6rem;
     left:2rem;
 
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
     .q {
       width: 0.75rem;
       height: 0.75rem;
@@ -53,6 +57,19 @@
       &--empty {
         border-width: 0.35rem 0;
         background-color: var(--secondary-color);
+      }
+    }
+
+    .arrows {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+      margin-top: 1rem;
+
+      .active {
+        background: var(--primary-color);
+        color: var(--bg-color);
       }
     }
   }
