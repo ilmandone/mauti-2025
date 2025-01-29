@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, effect, ElementRef, HostListener, inject, output} from '@angular/core';
+import {AfterViewInit, Directive, effect, ElementRef, HostListener, inject, input, output} from '@angular/core';
 import {ScrollKeys, VALID_SCROLL_KEYS} from './infinite-scroll.utils';
 import {StateService} from '../services/state.service';
 
@@ -15,7 +15,9 @@ export class InfiniteScrollDirective implements AfterViewInit{
   private _scrollValueNext = 0
   private _startY = 0
 
-  scrollVal = output<number>()
+  changeScroll = input<number>()
+
+  scroll = output<number>()
   height = output<number>()
   keyScroll = output<ScrollKeys>()
   percentage = output<number>()
@@ -30,7 +32,7 @@ export class InfiniteScrollDirective implements AfterViewInit{
     const nEl = this._element as HTMLElement
     nEl.style.transform = `translateY(${v}px)`
 
-    this.scrollVal.emit(v)
+    this.scroll.emit(v)
     const ds =  (v / this._element.offsetHeight * -1) % 1
     const p = Math.round((ds > 0 ? ds : 1-Math.abs(ds)) * 100)
     this.percentage.emit(p)
@@ -49,6 +51,16 @@ export class InfiniteScrollDirective implements AfterViewInit{
       if (this._state.sectionReady() === 3) {
         this._height = (this._element as HTMLElement).offsetHeight
         this.height.emit(this._height)
+      }
+    });
+
+    effect(() => {
+      const cs = this.changeScroll()
+      if (cs){
+        const vToScreen = cs * (this._height / window.innerHeight)
+        this._scrollValue += vToScreen
+
+        this._updateElTranslate(this._scrollValue)
       }
     });
   }

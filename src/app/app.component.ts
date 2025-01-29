@@ -39,6 +39,7 @@ export class AppComponent implements OnInit{
   mainScrollValue = signal<number>(0)
   mainHeight = signal<number>(0)
 
+  changeScroll = 0;
   scrollPercentage = 0
   scrollKey!: ScrollKeys
 
@@ -58,7 +59,6 @@ export class AppComponent implements OnInit{
       }
     )
   }
-
 
   setTheme(v: Theme) {
     this._themeSrv.setCurrent(v)

@@ -1,5 +1,6 @@
-import {Component, computed, input} from '@angular/core';
+import {Component, computed, HostListener, input, output} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {fromEvent, merge, Subscription, take} from 'rxjs';
 
 @Component({
   selector: 'scroller',
@@ -16,8 +17,15 @@ import {CommonModule} from '@angular/common';
 })
 export class ScrollerComponent {
 
+  private _startY = 0
+  private _windowMMoveEvent = fromEvent<MouseEvent>(window, 'mousemove')
+  private _windowMMoveEvent$!: Subscription
+  private _windowMUpEvent = fromEvent<MouseEvent>(window, 'mouseup').pipe(take(1))
+
   mainHeight = input.required<number>()
   progress = input.required<number>()
+
+  scroll = output<number>()
 
   scrollerHeight = computed(() => {
     const mh = this.mainHeight()
@@ -29,8 +37,8 @@ export class ScrollerComponent {
   })
 
   delta = computed(() => {
-    let value = 0
     const p = this.progress() / -100
+    let value = 0
     if (p) {
       let delta = ~~p - p
       if (delta < 0) delta += 1
@@ -44,4 +52,21 @@ export class ScrollerComponent {
     height: `${this.scrollerHeight()}px`,
     transform: `translate3d(0, ${this.delta()}px, 0)`
   }))
+
+  @HostListener('mousedown', ['$event'])
+  mouseDown($event: MouseEvent) {
+    this._startY = $event.pageY
+
+    this._windowMMoveEvent$ = this._windowMMoveEvent.subscribe(r => {
+      this.scroll.emit(this._startY - r.clientY)
+      window.setTimeout(() => {
+        this._startY = r.clientY
+      },15)
+    })
+
+    this._windowMUpEvent.subscribe((r) => {
+      this._startY = r.clientY
+      this._windowMMoveEvent$.unsubscribe()
+    })
+  }
 }

@@ -24,6 +24,7 @@
 
 body {
   overflow-y: hidden;
+  user-select: none;
 
   // Themes
   @include th.dark();
