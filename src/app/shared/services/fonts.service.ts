@@ -12,8 +12,8 @@ export interface FontLoadData  {
 export class FontsService {
 
   private _currentGF: FontLoadData = {
-    fontFamilyName: 'Rajdhani',
-    googleFont: 'Rajdhani:300,400,500,600,700'
+    fontFamilyName: 'Fragment Mono',
+    googleFont: 'Fragment Mono:400,600'
   }
 
   fontData = signal<FontLoadData>(this._currentGF)

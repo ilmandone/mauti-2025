@@ -57,7 +57,12 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this._themeSrv.init()
     this._screenSizeSrv.init()
-    this._state.setLoaded(true)
+
+    setTimeout(() => {
+      this._state.setLoaded(true)
+    }, 100)
+
+
   }
 
   //#region Future implementations

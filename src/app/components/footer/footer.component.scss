@@ -15,15 +15,17 @@
 
   color: var(--secondary-color);
 
-  transform: translateY(-25%) scale(0.98);
+  transform: translateY(25%) scale(1.05);
   opacity: 0;
+
+  backdrop-filter: saturate(1.5) blur(4px);
 
   @include c.headerFooterPadding;
   @include t.text-small;
 
   &.show {
     transition-property: transform, opacity;
-    transition-duration: v.$transition-time-quad;
+    transition-duration: v.$transition-time-double;
     transition-timing-function: ease-in-out;
 
     opacity: 1;
