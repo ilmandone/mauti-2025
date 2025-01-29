@@ -13,7 +13,11 @@
   height: 4rem;
 
   background-color: transparent;
-  transition: width v.$transition-time-half ease-in-out;
+
+  transition-property: transform, width;
+  transition-duration: v.$transition-time;
+  transition-timing-function: ease-out;
+
   will-change: width;
 
   @include u.zIndex('scroller');
