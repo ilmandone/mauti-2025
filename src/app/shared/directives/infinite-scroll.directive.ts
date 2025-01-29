@@ -31,7 +31,7 @@ export class InfiniteScrollDirective implements AfterViewInit{
     nEl.style.transform = `translateY(${v}px)`
 
     this.scrollVal.emit(v)
-    const ds =  (this._scrollValue / this._element.offsetHeight * -1) % 1
+    const ds =  (v / this._element.offsetHeight * -1) % 1
     const p = Math.round((ds > 0 ? ds : 1-Math.abs(ds)) * 100)
     this.percentage.emit(p)
 
