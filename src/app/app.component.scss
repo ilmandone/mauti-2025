@@ -10,6 +10,6 @@
   main {
     transition-property: transform;
     transition-duration: v.$scroll-time;
-    transition-timing-function: ease-out;
+    transition-timing-function: v.$scroll-easy-function;
   }
 }

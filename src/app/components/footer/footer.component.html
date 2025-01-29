@@ -1,22 +1,37 @@
-@let wData = weatherData | async;
-@if(displayGeo) {
+@if (isDesktop) {
+  <div class="scroll-info">
+    @for (s of scrollBinary(); track $index) {
+      <div class="q" [ngClass]="{'q--filled': s, 'q--empty': !s}"></div>
+    }
+    <div class="arrows">
+      <div class="material-symbols-outlined" [class.active]="scrollDirection() === 'ArrowUp'">
+        keyboard_arrow_up
+      </div>
 
-  <div class="geo-location">
-  <span>
-    {{geoLocationCoords?.lat}} | {{geoLocationCoords?.lon}}
-  </span>
-    <span>
-    {{timeData?.month}} | {{timeData?.day}} | {{timeData?.year}} - {{timeData?.hour}}:{{timeData?.minute}}
-  </span>
-    <span>
-    {{wData?.temp}}
-  </span>
-    <span>
-    {{wData?.windSpeed}} | {{wData?.windDirection}}
-  </span>
+        <div class="material-symbols-outlined" [class.active]="scrollDirection() === 'ArrowDown'">
+        keyboard_arrow_down
+      </div>
+    </div>
   </div>
 }
 
+@let wData = weatherData | async;
+@if (isDesktop) {
+  <div class="geo-location">
+  <span>
+    {{ geoLocationCoords?.lat }} | {{ geoLocationCoords?.lon }}
+  </span>
+    <span>
+    {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
+  </span>
+    <span>
+    {{ wData?.temp }}
+  </span>
+    <span>
+    {{ wData?.windSpeed }} | {{ wData?.windDirection }}
+  </span>
+  </div>
+}
 <div class="social">
   <a href="mailto:info@mauti.it" target="_blank">&#64;</a>
   <a href="https://t.me/Aman1975" target="_blank">T</a>

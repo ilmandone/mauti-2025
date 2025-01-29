@@ -1,8 +1,9 @@
-import {Component, inject} from '@angular/core';
+import {AfterViewInit, Component, inject} from '@angular/core';
 import {HistoryDetailComponent} from '@components/history-detail/history-detail.component';
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 import {StateService} from '../../shared/services/state.service';
 import {TextScrambleLeftRightDirective} from '../../shared/directives/text-scramble-left-right.directive';
+import {REGISTRATION_DELAY} from '../../shared/commons';
 
 export interface CareerStep {
   time: string
@@ -21,7 +22,7 @@ export interface CareerStep {
   templateUrl: './until-now-section.component.html',
   styleUrl: './until-now-section.component.scss'
 })
-export class UntilNowSectionComponent {
+export class UntilNowSectionComponent implements AfterViewInit{
 
   private _stateSrv = inject(StateService)
 
@@ -72,6 +73,12 @@ export class UntilNowSectionComponent {
       role: 'UX / UI designer - Front-end developer'
     }
   ]
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this._stateSrv.registerSection()
+    }, REGISTRATION_DELAY)
+  }
 
   visibilityChange($event: number) {
     if ($event > 0.15) {

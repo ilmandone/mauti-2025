@@ -9,6 +9,7 @@ export class StateService {
 
   private _section = signal<Sections>('hello')
   private _loaded = signal<boolean>(false)
+  private _sectionsReady = signal<number>(0)
 
   get section() {
     return this._section.asReadonly()
@@ -24,6 +25,14 @@ export class StateService {
 
   setLoaded(v: boolean) {
     this._loaded.set(v)
+  }
+
+  get sectionReady() {
+    return this._sectionsReady.asReadonly()
+  }
+
+  registerSection() {
+    this._sectionsReady.set(this.sectionReady() + 1)
   }
 
 }

@@ -1,10 +1,26 @@
-
 <header app-header></header>
-<main #main infiniteScroll (scrollVal)="mainScrollValue.set($event)" (height)="mainHeight.set($event)">
-  <app-hello-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
-  <app-what-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
-  <app-until-now-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
-</main>
-<footer app-footer>
+<main
+  infiniteScroll
+  [changeScroll]="changeScroll"
 
+  (scroll)="mainScrollValue.set($event)"
+  (height)="mainHeight.set($event)"
+  (keyScroll)="scrollKey = $event"
+  (percentage)="scrollPercentage = $event">
+    <app-hello-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
+    <app-what-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
+    <app-until-now-section infiniteTranslation [scrollValue]="mainScrollValue()" [parentHeight]="mainHeight()"/>
+</main>
+
+<footer
+  app-footer
+  [scrollPercentage]="scrollPercentage"
+  [scrollDirection]="scrollKey">
 </footer>
+
+<scroller
+  [mainHeight]="mainHeight()"
+  [progress]="scrollPercentage"
+  (dragging)="freezeSelection.set($event)"
+  (scroll)="changeScroll = $event"
+/>

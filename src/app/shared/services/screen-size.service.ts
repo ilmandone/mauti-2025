@@ -24,7 +24,7 @@ export class ScreenSizeService {
 
   relatedTo(s: ScreenSizes) {
     const sIndex = this._screenSizes.indexOf(s)
-    const cIndex = this._screenSizes.indexOf(this._screenSize())
+    const cIndex = this._screenSizes.indexOf(this._screenSize().trim())
 
     if (sIndex === cIndex) return 'equal'
     if (sIndex < cIndex) return 'before'

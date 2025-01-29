@@ -4,5 +4,6 @@ $transition-time-double: $transition-time * 2;
 $transition-time-quad: $transition-time * 4;
 $transition-time-half: $transition-time * 0.5;
 
-$scroll-time: 280ms;
+$scroll-time: 600ms;
+$scroll-easy-function: cubic-bezier(0,.13,.19,1.02);
 

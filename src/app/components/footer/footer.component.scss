@@ -15,21 +15,66 @@
 
   color: var(--secondary-color);
 
-  transform: translateY(50%) scale(1.1);
+  transform: translateY(-25%) scale(0.98);
   opacity: 0;
 
   @include c.headerFooterPadding;
   @include t.text-small;
 
   &.show {
-
     transition-property: transform, opacity;
-    transition-duration: v.$transition-time-double;
+    transition-duration: v.$transition-time-quad;
     transition-timing-function: ease-in-out;
 
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
+  .scroll-info {
+    position: absolute;
+    bottom: 6rem;
+    left:2rem;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .q {
+      width: 0.75rem;
+      height: 0.75rem;
+      margin: 0.25rem 0;
+
+      background-color: var(--primary-color);
+
+      border-color: var(--bg-color);
+      border-style: solid;
+      border-radius: 0.125rem;
+
+      transition-property: background-color, border-width;
+      transition-duration: v.$transition-time;
+      transition-timing-function: ease-in-out;
+
+      &--empty {
+        border-width: 0.35rem 0;
+        background-color: var(--secondary-color);
+      }
+    }
+
+    .arrows {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+      margin-top: 1rem;
+
+      .active {
+        background: var(--primary-color);
+        color: var(--bg-color);
+      }
+    }
+  }
+
+  //#region geo location
 
   &.show-geo {
     justify-content: space-between;
@@ -38,6 +83,10 @@
   .geo-location span:not(:last-child) {
     margin-right: 2rem;
   }
+
+  //#endregion
+
+  //#region Social
 
   a {
     min-width: 1rem;
@@ -50,4 +99,6 @@
       margin-left: 1.5rem
     }
   }
+
+  //#endregion
 }
