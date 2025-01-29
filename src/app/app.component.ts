@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {FontsService} from './shared/services/fonts.service';
 import {Theme, ThemeService} from './shared/services/theme.service';
 import {HelloSectionComponent} from './sections/hello-section/hello-section.component';
@@ -36,12 +36,23 @@ export class AppComponent implements OnInit{
   private _webFontSrv = inject(FontsService)
   private _themeSrv = inject(ThemeService)
 
+  freezeSelection = signal<boolean>(false)
   mainScrollValue = signal<number>(0)
   mainHeight = signal<number>(0)
 
   changeScroll = 0;
   scrollPercentage = 0
   scrollKey!: ScrollKeys
+
+  constructor() {
+    effect(() => {
+      const fs = this.freezeSelection()
+      if (fs)
+        document.body.classList.add('freeze-selection')
+      else
+        document.body.classList.remove('freeze-selection')
+    });
+  }
 
   ngOnInit() {
     this._themeSrv.init()

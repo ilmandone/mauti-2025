@@ -26,6 +26,7 @@ export class ScrollerComponent {
   progress = input.required<number>()
 
   scroll = output<number>()
+  dragging = output<boolean>()
 
   scrollerHeight = computed(() => {
     const mh = this.mainHeight()
@@ -56,6 +57,7 @@ export class ScrollerComponent {
   @HostListener('mousedown', ['$event'])
   mouseDown($event: MouseEvent) {
     this._startY = $event.pageY
+    this.dragging.emit(true)
 
     this._windowMMoveEvent$ = this._windowMMoveEvent.subscribe(r => {
       this.scroll.emit(this._startY - r.clientY)
@@ -66,6 +68,7 @@ export class ScrollerComponent {
 
     this._windowMUpEvent.subscribe((r) => {
       this._startY = r.clientY
+      this.dragging.emit(false)
       this._windowMMoveEvent$.unsubscribe()
     })
   }

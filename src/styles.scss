@@ -24,7 +24,10 @@
 
 body {
   overflow-y: hidden;
-  user-select: none;
+
+  &.freeze-selection {
+    user-select: none;
+  }
 
   // Themes
   @include th.dark();
