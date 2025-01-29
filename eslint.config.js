@@ -2,10 +2,18 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const prettierPlugin = require('eslint-plugin-prettier');
+const angularPlugin = require('@angular-eslint/eslint-plugin');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
 
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+      '@angular-eslint': angularPlugin,
+      prettier: prettierPlugin,
+    },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
