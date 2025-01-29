@@ -11,6 +11,7 @@ import {StateService} from './shared/services/state.service';
 import {InfiniteScrollDirective} from './shared/directives/infinite-scroll.directive';
 import {InfiniteTranslationDirective} from './shared/directives/infinite-translation.directive';
 import {ScrollKeys} from './shared/directives/infinite-scroll.utils';
+import {ScrollerComponent} from '@components/scroller/scroller.component';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import {ScrollKeys} from './shared/directives/infinite-scroll.utils';
     FooterComponent,
     InfiniteScrollDirective,
     InfiniteTranslationDirective,
+    ScrollerComponent,
   ],
   styleUrl: './app.component.scss'
 })
