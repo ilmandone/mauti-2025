@@ -1,6 +1,6 @@
 import {Component, computed, HostListener, input, output} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {fromEvent, merge, Subscription, take} from 'rxjs';
+import {fromEvent, Subscription, take} from 'rxjs';
 
 @Component({
   selector: 'scroller',
