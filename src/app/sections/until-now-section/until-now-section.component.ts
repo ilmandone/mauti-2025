@@ -3,6 +3,7 @@ import {HistoryDetailComponent} from '@components/history-detail/history-detail.
 import {InViewportDirective} from '../../shared/directives/in-viewport.directive';
 import {StateService} from '../../shared/services/state.service';
 import {TextScrambleLeftRightDirective} from '../../shared/directives/text-scramble-left-right.directive';
+import {REGISTRATION_DELAY} from '../../shared/commons';
 
 export interface CareerStep {
   time: string
@@ -74,7 +75,9 @@ export class UntilNowSectionComponent implements AfterViewInit{
   ]
 
   ngAfterViewInit() {
-    this._stateSrv.registerSection()
+    setTimeout(() => {
+      this._stateSrv.registerSection()
+    }, REGISTRATION_DELAY)
   }
 
   visibilityChange($event: number) {

@@ -3,6 +3,7 @@ import {InViewportDirective} from '../../shared/directives/in-viewport.directive
 import {StateService} from '../../shared/services/state.service';
 import {TextScrambleLeftRightDirective} from '../../shared/directives/text-scramble-left-right.directive';
 import {checkMobile} from '../../shared/detect.mobile';
+import {REGISTRATION_DELAY} from '../../shared/commons';
 
 @Component({
   selector: 'app-what-section',
@@ -23,7 +24,9 @@ export class WhatSectionComponent implements AfterViewInit{
   cgVisible = false
 
   ngAfterViewInit() {
-    this._stateSrv.registerSection()
+    setTimeout(() => {
+      this._stateSrv.registerSection()
+    }, REGISTRATION_DELAY)
   }
 
   visibilityChange($event: boolean) {
