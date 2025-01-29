@@ -3,17 +3,12 @@ import {CommonModule} from '@angular/common';
 import {fromEvent, Subscription, take} from 'rxjs';
 
 @Component({
-  selector: 'scroller',
-  imports: [
-    CommonModule
-  ],
-  template: `
+  selector: 'scroller', imports: [CommonModule], template: `
     <div
       class="scroller"
       [ngStyle]="scrollerStyle()"
     ></div>
-  `,
-  styleUrl: './scroller.component.scss'
+  `, styleUrl: './scroller.component.scss'
 })
 export class ScrollerComponent {
 
@@ -32,8 +27,7 @@ export class ScrollerComponent {
     const mh = this.mainHeight()
     let h = 200
 
-    if (mh && mh > 0)
-      h = (window.innerHeight / this.mainHeight()) * window.innerHeight
+    if (mh && mh > 0) h = (window.innerHeight / this.mainHeight()) * window.innerHeight
     return Math.round(h)
   })
 
@@ -50,12 +44,10 @@ export class ScrollerComponent {
   })
 
   scrollerStyle = computed(() => ({
-    height: `${this.scrollerHeight()}px`,
-    transform: `translate3d(0, ${this.delta()}px, 0)`
+    height: `${this.scrollerHeight()}px`, transform: `translate3d(0, ${this.delta()}px, 0)`
   }))
 
-  @HostListener('mousedown', ['$event'])
-  mouseDown($event: MouseEvent) {
+  @HostListener('mousedown', ['$event']) mouseDown($event: MouseEvent) {
     this._startY = $event.pageY
     this.dragging.emit(true)
 
@@ -63,7 +55,7 @@ export class ScrollerComponent {
       this.scroll.emit(this._startY - r.clientY)
       window.setTimeout(() => {
         this._startY = r.clientY
-      },15)
+      }, 15)
     })
 
     this._windowMUpEvent.subscribe((r) => {
