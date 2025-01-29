@@ -17,7 +17,7 @@ export class InfiniteScrollDirective implements AfterViewInit{
 
   changeScroll = input<number>()
 
-  scroll = output<number>()
+  scrollChange = output<number>()
   height = output<number>()
   keyScroll = output<ScrollKeys>()
   percentage = output<number>()
@@ -32,7 +32,7 @@ export class InfiniteScrollDirective implements AfterViewInit{
     const nEl = this._element as HTMLElement
     nEl.style.transform = `translateY(${v}px)`
 
-    this.scroll.emit(v)
+    this.scrollChange.emit(v)
     const ds =  (v / this._element.offsetHeight * -1) % 1
     const p = Math.round((ds > 0 ? ds : 1-Math.abs(ds)) * 100)
     this.percentage.emit(p)

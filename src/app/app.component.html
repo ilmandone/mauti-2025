@@ -3,7 +3,7 @@
   infiniteScroll
   [changeScroll]="changeScroll"
 
-  (scroll)="mainScrollValue.set($event)"
+  (scrollChange)="mainScrollValue.set($event)"
   (height)="mainHeight.set($event)"
   (keyScroll)="scrollKey = $event"
   (percentage)="scrollPercentage = $event">
@@ -22,5 +22,5 @@
   [mainHeight]="mainHeight()"
   [progress]="scrollPercentage"
   (dragging)="freezeSelection.set($event)"
-  (scroll)="changeScroll = $event"
+  (scrollChange)="changeScroll = $event"
 />

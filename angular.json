@@ -35,7 +35,9 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": [
+                "src/styles"
+              ]
             },
             "scripts": []
           },
@@ -98,11 +100,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "1ae421b3-c83a-4a91-b306-3a0173646066"
+    "analytics": "1ae421b3-c83a-4a91-b306-3a0173646066",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

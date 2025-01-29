@@ -32,8 +32,8 @@ export class CookiesService {
   public setCookie(
     name: string,
     value: string,
-    expirationDays: number = 7,
-    path: string = '/'
+    expirationDays = 7,
+    path = '/'
   ): void {
     const date = new Date();
     date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
@@ -47,7 +47,7 @@ export class CookiesService {
    * @param {string} name
    * @param {string} path
    */
-  public deleteCookie(name: string, path: string = '/'): void {
+  public deleteCookie(name: string, path = '/'): void {
     document.cookie = `${encodeURIComponent(name)}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=${path}`;
   }
 }

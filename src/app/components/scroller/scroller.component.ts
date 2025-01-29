@@ -20,7 +20,7 @@ export class ScrollerComponent {
   mainHeight = input.required<number>()
   progress = input.required<number>()
 
-  scroll = output<number>()
+  scrollChange = output<number>()
   dragging = output<boolean>()
 
   scrollerHeight = computed(() => {
@@ -52,7 +52,7 @@ export class ScrollerComponent {
     this.dragging.emit(true)
 
     this._windowMMoveEvent$ = this._windowMMoveEvent.subscribe(r => {
-      this.scroll.emit(this._startY - r.clientY)
+      this.scrollChange.emit(this._startY - r.clientY)
       window.setTimeout(() => {
         this._startY = r.clientY
       }, 15)

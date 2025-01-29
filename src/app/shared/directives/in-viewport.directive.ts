@@ -1,4 +1,4 @@
-import {Directive, effect, ElementRef, EventEmitter, inject, OnDestroy, OnInit, output, Output} from '@angular/core';
+import {Directive, effect, ElementRef, inject, OnDestroy, OnInit, output} from '@angular/core';
 import {InViewportService} from '../services/in-viewport.service';
 
 @Directive({
