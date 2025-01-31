@@ -18,7 +18,7 @@
   transform: translateY(25%) scale(1.05);
   opacity: 0;
 
-  backdrop-filter: saturate(1.5) blur(4px);
+  backdrop-filter: url('#noise-footer');
 
   @include c.headerFooterPadding;
   @include t.text-small;

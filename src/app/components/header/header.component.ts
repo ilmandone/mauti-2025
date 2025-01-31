@@ -4,36 +4,32 @@ import {checkMobile} from '../../shared/detect.mobile';
 import {FontsService} from '../../shared/services/fonts.service';
 import {StateService} from '../../shared/services/state.service';
 import {TextScrambleLeftRightDirective} from "../../shared/directives/text-scramble-left-right.directive";
+import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 
 @Component({
   selector: 'header[app-header]',
-	imports: [
-		ButtonComponent,
-		TextScrambleLeftRightDirective
-	],
+  imports: [ButtonComponent, TextScrambleLeftRightDirective, NoiseSvgComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent{
-
-  private _fontSrv = inject(FontsService)
-  private _stateSrv = inject(StateService)
+export class HeaderComponent {
+  private _fontSrv = inject(FontsService);
+  private _stateSrv = inject(StateService);
 
   sectionTitle = computed(() => {
-    return this._stateSrv.section().toUpperCase()
-  })
+    return this._stateSrv.section().toUpperCase();
+  });
 
   fontFamily = computed(() => {
-    return this._fontSrv.fontData().fontFamilyName.toUpperCase()
-  })
+    return this._fontSrv.fontData().fontFamilyName.toUpperCase();
+  });
 
-  isMobile = checkMobile()
-  show = false
+  isMobile = checkMobile();
+  show = false;
 
   constructor() {
     effect(() => {
-      if (this._stateSrv.loaded())
-        this.show = true
+      if (this._stateSrv.loaded()) this.show = true;
     });
   }
 }

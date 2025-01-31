@@ -20,8 +20,14 @@
   transition-duration: v.$transition-time;
   transition-timing-function: ease-in-out;
 
+  backdrop-filter: url('#noise-header');
+
   @include c.headerFooterPadding;
   @include u.zIndex('header');
+
+  noise-svg-filter {
+    transform: rotate(180deg);
+  }
 
   .section-title span {
     color: var(--primary-color);
