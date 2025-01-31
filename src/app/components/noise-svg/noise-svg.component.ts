@@ -17,8 +17,8 @@ import { Component } from '@angular/core';
         </filter>
         <filter id="noise-header" x="0" y="0" height="60%">
           <feOffset in="SourceGraphic" dx="-8" dy="-8" result="offset" />
-          <feGaussianBlur in="offset" stdDeviation="48" result="blur" />
-          <feTurbulence result="waves" type="turbulence" baseFrequency="0.435 0.771" numOctaves="2"
+          <feGaussianBlur in="offset" stdDeviation="72" result="blur" />
+          <feTurbulence result="waves" type="turbulence" baseFrequency="0.735 0.771" numOctaves="2"
                         seed="256"></feTurbulence>
           <feDisplacementMap in="blur" in2="waves" scale="-120" xChannelSelector="R" yChannelSelector="B"
                              result="ripples"></feDisplacementMap>
