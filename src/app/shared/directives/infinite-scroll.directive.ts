@@ -29,7 +29,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
    */
   private _updateElTranslate(v: number) {
     const nEl = this._element as HTMLElement;
-    nEl.style.transform = `translateY(${v}px)`;
+    nEl.style.transform = `translate3D(0,${v}px, 0)`;
 
     this.scrollChange.emit(v);
     const ds = ((v / this._element.offsetHeight) * -1) % 1;
@@ -66,6 +66,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   ngAfterViewInit() {
     this._element.scrollTop = 0;
+    this._element.style.transform = 'translate3d(0,0,0)'
   }
 
   //#region Mouse
