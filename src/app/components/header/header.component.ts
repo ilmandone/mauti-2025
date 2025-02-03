@@ -1,14 +1,13 @@
-import {Component, computed, effect, inject} from '@angular/core';
-import {ButtonComponent} from '@components/button/button.component';
-import {checkMobile} from '../../shared/detect.mobile';
-import {FontsService} from '../../shared/services/fonts.service';
-import {StateService} from '../../shared/services/state.service';
-import {TextScrambleLeftRightDirective} from "../../shared/directives/text-scramble-left-right.directive";
+import { Component, computed, effect, inject } from '@angular/core';
+import { ButtonComponent } from '@components/button/button.component';
+import { checkMobile } from '../../shared/detect.mobile';
+import { FontsService } from '../../shared/services/fonts.service';
+import { StateService } from '../../shared/services/state.service';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 
 @Component({
   selector: 'header[app-header]',
-  imports: [ButtonComponent, TextScrambleLeftRightDirective, NoiseSvgComponent],
+  imports: [ButtonComponent, NoiseSvgComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

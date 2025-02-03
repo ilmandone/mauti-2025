@@ -1,7 +1,5 @@
 import {Injectable, signal} from '@angular/core';
 
-type Sections = 'hello' | 'until now' | 'what'
-
 @Injectable({
   providedIn: 'root'
 })
