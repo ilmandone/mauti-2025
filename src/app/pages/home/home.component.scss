@@ -1,0 +1,12 @@
+:host {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 50vw;
+  }
+}

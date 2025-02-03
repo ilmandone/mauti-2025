@@ -8,8 +8,9 @@
   overflow-y: hidden;
 
   main {
-    transition-property: transform;
-    transition-duration: v.$scroll-time;
-    transition-timing-function: v.$scroll-easy-function;
+    min-height: 100vh;
+    overflow-y: auto;
+
+    display: flex;
   }
 }
