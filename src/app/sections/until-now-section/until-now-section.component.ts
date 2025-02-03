@@ -81,9 +81,6 @@ export class UntilNowSectionComponent implements AfterViewInit{
   }
 
   visibilityChange($event: number) {
-    if ($event > 0.15) {
-      this._stateSrv.setSection('until now')
-      if (!this.sectionVisible) this.sectionVisible = true
-    }
+    console.log($event);
   }
 }

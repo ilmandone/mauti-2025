@@ -10,7 +10,7 @@
   padding: 1.5rem;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   writing-mode: lr;
@@ -29,20 +29,8 @@
     transform: rotate(180deg);
   }
 
-  .section-title span {
-    color: var(--primary-color);
-  }
-
   @include u.media('d') {
     align-items: flex-start;
-
-    .section-title {
-      transform: translateY(0.5rem);
-
-      writing-mode: vertical-lr;
-      font-size: 2rem;
-      @include t.text-weight()
-    }
   }
 
   .controls {

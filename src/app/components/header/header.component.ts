@@ -16,10 +16,6 @@ export class HeaderComponent {
   private _fontSrv = inject(FontsService);
   private _stateSrv = inject(StateService);
 
-  sectionTitle = computed(() => {
-    return this._stateSrv.section().toUpperCase();
-  });
-
   fontFamily = computed(() => {
     return this._fontSrv.fontData().fontFamilyName.toUpperCase();
   });

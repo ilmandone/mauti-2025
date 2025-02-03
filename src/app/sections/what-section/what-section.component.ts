@@ -30,9 +30,7 @@ export class WhatSectionComponent implements AfterViewInit{
   }
 
   visibilityChange($event: boolean) {
-    if ($event) {
-      this._stateSrv.setSection('what')
-    }
+    console.log($event);
   }
 
   subVisibilityChange($event: number, index: string, cv: boolean) {

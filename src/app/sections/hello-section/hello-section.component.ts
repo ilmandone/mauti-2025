@@ -38,9 +38,6 @@ export class HelloSectionComponent implements AfterViewInit{
   }
 
   visibilityChange($event: boolean) {
-    if ($event) {
-      if (!this._visible) this.showSequence()
-      this._stateSrv.setSection('hello')
-    }
+    console.log($event);
   }
 }
