@@ -54,6 +54,7 @@
 
     button {
       margin-right: 2rem;
+      text-transform: uppercase;
 
       @include u.media('tl') {
         margin-right: 3rem;

@@ -1,6 +1,6 @@
-@use '../styles/typo' as t;
-@use '../styles/utils' as u;
-@use '../styles/vars' as v;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   display: block;
