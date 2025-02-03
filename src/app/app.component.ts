@@ -1,32 +1,18 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FontsService } from './shared/services/fonts.service';
 import { Theme, ThemeService } from './shared/services/theme.service';
-import { HelloSectionComponent } from './sections/hello-section/hello-section.component';
-import { WhatSectionComponent } from './sections/what-section/what-section.component';
-import { UntilNowSectionComponent } from './sections/until-now-section/until-now-section.component';
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
 import { ScreenSizeService } from './shared/services/screen-size.service';
 import { StateService } from './shared/services/state.service';
-import { InfiniteScrollDirective } from './shared/directives/infinite-scroll.directive';
-import { InfiniteTranslationDirective } from './shared/directives/infinite-translation.directive';
 import { ScrollKeys } from './shared/directives/infinite-scroll.utils';
-import { ScrollerComponent } from '@components/scroller/scroller.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
-  imports: [
-    HelloSectionComponent,
-    WhatSectionComponent,
-    UntilNowSectionComponent,
-    HeaderComponent,
-    FooterComponent,
-    InfiniteScrollDirective,
-    InfiniteTranslationDirective,
-    ScrollerComponent,
-  ],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet],
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {

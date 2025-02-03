@@ -1,25 +1,38 @@
-import {Component, computed, DestroyRef, effect, HostBinding, inject, input} from '@angular/core';
-import {GeoLocationCoords, getGeolocationCoords} from '../../shared/geolocation';
-import {map, Observable, of, timer} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {WeatherData, WeatherService} from '../../shared/services/weather.service';
-import {AsyncPipe, NgClass} from '@angular/common';
-import {ScreenSizeService} from '../../shared/services/screen-size.service';
-import {StateService} from '../../shared/services/state.service';
-import {ScrollKeys} from '../../shared/directives/infinite-scroll.utils';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  HostBinding,
+  inject,
+  input,
+} from '@angular/core';
+import {
+  GeoLocationCoords,
+  getGeolocationCoords,
+} from '../../shared/geolocation';
+import { map, Observable, of, timer } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  WeatherData,
+  WeatherService,
+} from '../../shared/services/weather.service';
+import { AsyncPipe } from '@angular/common';
+import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { StateService } from '../../shared/services/state.service';
+import { ScrollKeys } from '../../shared/directives/infinite-scroll.utils';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 
 interface TimeData {
-  day: string
-  month: string
-  year: string
-  hour: string
-  minute: string
+  day: string;
+  month: string;
+  year: string;
+  hour: string;
+  minute: string;
 }
 
 @Component({
   selector: 'footer[app-footer]',
-  imports: [AsyncPipe, NgClass, NoiseSvgComponent],
+  imports: [AsyncPipe, NoiseSvgComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -35,7 +48,7 @@ export class FooterComponent {
   scrollPercentage = input<number>(0);
   scrollDirection = input<ScrollKeys | undefined>(undefined);
 
-  scrollBinary = computed(() => {
+  /*scrollBinary = computed(() => {
     const binaries = (this.scrollPercentage() >>> 0)
       .toString(2)
       .padStart(7, '0')
@@ -43,7 +56,7 @@ export class FooterComponent {
     return binaries.map((v) => {
       return v === '1';
     });
-  });
+  });*/
 
   geoLocationCoords!: GeoLocationCoords;
   timeData: TimeData | null = null;

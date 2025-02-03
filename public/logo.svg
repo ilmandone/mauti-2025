@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340">
+  <path class="logo logoM3" id="M3" d="M639,0v340s-60,0-60,0V60C602.43,36.57,615.57,23.43,639,0h0Z"/>
+  <path class="logo logoM2" id="M2" d="M519,0v100c-23.43,23.43-36.57,36.57-60,60h0V0h60Z"/>
+  <polygon class="logo logoM1" id="M1" points="401 0 401 340 401 340 341 340 341 0 401 0"/>
+  <polygon class="logo logoA" id="A" points="201 0 1 340 70.02 340 70.41 340 257.98 340 222.68 280 105.71 280 201 118 331.59 340 401 340 201 0"/>
+</svg>
