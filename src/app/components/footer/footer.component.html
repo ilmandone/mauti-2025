@@ -1,9 +1,9 @@
 <noise-svg-filter/>
 
-@if (isDesktop) {
+<!--@if (isDesktop) {
   <div class="scroll-info">
     @for (s of scrollBinary(); track $index) {
-      <div class="q" [ngClass]="{'q--filled': s, 'q--empty': !s}"></div>
+      <div class="q" [ngClass]="{'q&#45;&#45;filled': s, 'q&#45;&#45;empty': !s}"></div>
     }
     <div class="arrows">
       <div class="material-symbols-outlined" [class.active]="scrollDirection() === 'ArrowUp'">
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-}
+}-->
 
 @let wData = weatherData | async;
 @if (isDesktop) {
