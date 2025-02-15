@@ -5,7 +5,7 @@ import { UntilNowSectionComponent } from './sections/until-now-section/until-now
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     loadComponent: () => import('./pages/home/home.component'),
     data: { section: 'home' },
     children: [
@@ -21,14 +21,14 @@ export const routes: Routes = [
         path: 'now',
         component: UntilNowSectionComponent,
       },
+      {
+        path: 'about',
+        loadComponent: () => import('./pages/about/about.component'),
+        data: { section: 'about' },
+      },
     ],
   },
-  {
-    path: 'about',
-    loadComponent: () => import('./pages/about/about.component'),
-    data: { section: 'about' },
-  },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+
   {
     path: '**',
     loadComponent: () =>
