@@ -21,7 +21,7 @@ export interface CareerStep {
   styleUrl: './until-now-section.component.scss',
 })
 export class UntilNowSectionComponent {
-  sectionVisible = false;
+  sectionVisible = true;
 
   skillList = [
     'Javascript',

@@ -13,9 +13,9 @@ import { checkMobile } from '../../shared/detect.mobile';
 export class WhatSectionComponent {
   private _isMobile = checkMobile();
 
-  feVisible = false;
-  uxVisible = false;
-  cgVisible = false;
+  feVisible = true;
+  uxVisible = true;
+  cgVisible = true;
 
   visibilityChange($event: boolean) {
     console.log($event);

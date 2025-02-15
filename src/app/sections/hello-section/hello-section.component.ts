@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InViewportDirective } from '../../shared/directives/in-viewport.directive';
 import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
 
@@ -9,17 +9,17 @@ import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scr
   templateUrl: './hello-section.component.html',
   styleUrl: './hello-section.component.scss',
 })
-export class HelloSectionComponent {
+export class HelloSectionComponent implements OnInit {
   private _visible = false;
 
   sectionVisible = false;
-  scrambleTextPaused = true;
+  scrambleTextPaused = false;
 
   showSequence() {
     this._visible = true;
 
     setTimeout(() => {
-      this.scrambleTextPaused = false;
+      this.scrambleTextPaused = true;
 
       setTimeout(() => {
         this.sectionVisible = true;
@@ -29,5 +29,9 @@ export class HelloSectionComponent {
 
   visibilityChange($event: boolean) {
     console.log($event);
+  }
+
+  ngOnInit() {
+    this.showSequence()
   }
 }
