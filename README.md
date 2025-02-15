@@ -3,4 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
 
 ## Todo:
-- Final check and deploy
+- Make the loading component 
+- Check routes data for section information
+- Temporary homepage
+- About section

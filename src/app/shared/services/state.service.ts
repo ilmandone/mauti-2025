@@ -10,7 +10,18 @@ export class StateService {
   private _router = inject(Router);
   private _activateRoute = inject(ActivatedRoute);
 
+  //#region Signals
+
+  /**
+   * Main load state
+   * @private
+   */
   private _loaded = signal<boolean>(false);
+
+  /**
+   * Get section information from route's data
+   * @private
+   */
   private _section = toSignal<string>(
     this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
@@ -22,6 +33,8 @@ export class StateService {
       ),
     ),
   );
+
+  //#endregion
 
   /**
    * Return section value from Data or empty string
