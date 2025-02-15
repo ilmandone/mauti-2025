@@ -2,7 +2,16 @@ import {DestroyRef, inject, Injectable, signal} from '@angular/core';
 import {debounceTime, fromEvent} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-type ScreenSizes = 't' | 'tl' | 'd' | 'dm' | 'dl' | 'dxl'
+/**
+ * Export screen sizes type and values
+ */
+const _screenSizes = ['t', 'tl', 'd', 'dm', 'dl', 'dxl'] as const;
+export type ScreenSize = typeof _screenSizes[number]
+export const SCREEN_SIZE: ScreenSize[] = [..._screenSizes]
+
+/**
+ * Service that return the actual screen size from the css var --screen-size
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +19,21 @@ type ScreenSizes = 't' | 'tl' | 'd' | 'dm' | 'dl' | 'dxl'
 export class ScreenSizeService {
 
   private _destroyRef = inject(DestroyRef)
-  private _screenSizes = ['t', 'tl', 'd', 'dm', 'dl', 'dxl']
+  private _screenSizes = SCREEN_SIZE
 
   private _getScreenSize = () => {
-    return getComputedStyle(document.documentElement).getPropertyValue('--screen-size');
+    return getComputedStyle(document.documentElement).getPropertyValue('--screen-size') as ScreenSize;
   }
 
-  private _screenSize = signal<string>('')
+  private _screenSize = signal<ScreenSize | null>(null)
 
   get screenSize() {
     return this._screenSize.asReadonly()
   }
 
-  relatedTo(s: ScreenSizes) {
+  relatedTo(s: ScreenSize) {
     const sIndex = this._screenSizes.indexOf(s)
-    const cIndex = this._screenSizes.indexOf(this._screenSize().trim())
+    const cIndex = this._screenSizes.indexOf(this._screenSize()!)
 
     if (sIndex === cIndex) return 'equal'
     if (sIndex < cIndex) return 'before'
@@ -33,7 +42,7 @@ export class ScreenSizeService {
 
   init() {
 
-    this._screenSize.set(this._getScreenSize() || 'm')
+    this._screenSize.set(this._getScreenSize())
 
     fromEvent(window, 'resize')
       .pipe(
