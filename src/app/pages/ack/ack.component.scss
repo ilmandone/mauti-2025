@@ -1,3 +1,5 @@
+@use 'utils' as u;
+
 :host {
   width: 100vw;
   height: 100vh;
@@ -6,9 +8,15 @@
   justify-content: center;
   align-items: center;
 
-  background: var(--bg-color);
+  p {
+    margin-bottom: 2rem;
+  }
 
   .contents {
+    max-width: 40rem;
+    margin-top: 2rem;
+    padding: 0 2rem;
+
     color: var(--secondary-color);
 
     .buttons {
@@ -17,6 +25,19 @@
       button:not(:last-child) {
         margin-right: 1rem;
       }
+    }
+
+    @include u.media('t') {
+      max-width: 50rem;
+    }
+
+    @include u.media('d') {
+      max-width: 64rem;
+    }
+
+    @include u.media('dl') {
+      max-width: 72rem;
+      transform: translateX(-25%);
     }
   }
 }
