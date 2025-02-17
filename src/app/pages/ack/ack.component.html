@@ -1,8 +1,13 @@
-<section class="contents">
+<section class="contents" [class.visible]="visible">
   <h1 hidden>Acknowledgment</h1>
-  <p>This site uses your location and sensors only for visual effects.
-    No data or information is collected, stored or shared in any way.</p>
-
+  <p>
+    <span class="slow-fade-in">This site uses your</span>
+    <span class="flicker-fade-in"> location</span>
+    <span class="slow-fade-in"> and </span>
+    <span class="flicker-fade-in"> sensors</span>
+    <span class="slow-fade-in"> only for visual effects.</span>
+    <span class="flicker-fade-in"> No data or information</span>
+    <span [textScrambleLeftToRight]="' is collected, stored or shared in any way.'"></span> </p>
   <div class="buttons">
     <button class="large" app-button>ENABLE</button>
     <button app-button variant="tertiary">＞﹏＜</button>
