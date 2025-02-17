@@ -1,5 +1,23 @@
 @use 'vars' as v;
 
+@mixin slowFadeIn() {
+  animation-name: slowFadeIn;
+  animation-duration: v.$transition-time-quad;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slowFadeIn {
+  0% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @mixin flickerFadeIn() {
   animation-name: flickering;
   animation-duration: v.$transition-time-quad;
