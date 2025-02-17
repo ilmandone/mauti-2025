@@ -4,7 +4,6 @@ import { Theme, ThemeService } from './shared/services/theme.service';
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
 import { ScreenSizeService } from './shared/services/screen-size.service';
-import { StateService } from './shared/services/state.service';
 import { ScrollKeys } from './shared/directives/infinite-scroll.utils';
 import { RouterOutlet } from '@angular/router';
 
@@ -16,7 +15,6 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  private _state = inject(StateService);
   private _screenSizeSrv = inject(ScreenSizeService);
   private _webFontSrv = inject(FontsService);
   private _themeSrv = inject(ThemeService);
@@ -40,10 +38,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this._themeSrv.init();
     this._screenSizeSrv.init();
-
-    setTimeout(() => {
-      this._state.setLoaded(true);
-    }, 100);
   }
 
   //#region Future implementations
