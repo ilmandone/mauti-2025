@@ -9,22 +9,22 @@
   justify-content: center;
   align-items: center;
 
-  p {
-    margin-bottom: 2rem;
-
-    .flicker-fade-in,
-    .slow-fade-in
-    {
-      opacity: 0;
-    }
-  }
-
   .contents {
     max-width: 40rem;
     margin-top: 2rem;
     padding: 0 2rem;
 
     color: var(--secondary-color);
+
+    p {
+      margin-bottom: 2rem;
+    }
+
+    .flicker-fade-in,
+    .slow-fade-in
+    {
+      opacity: 0;
+    }
 
     &.visible {
       .flicker-fade-in {

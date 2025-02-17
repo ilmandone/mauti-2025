@@ -1,4 +1,4 @@
-@use 'vars' as v;
+@use "vars" as v;
 
 @mixin slowFadeIn() {
   animation-name: slowFadeIn;
@@ -50,4 +50,3 @@
     opacity: 1;
   }
 }
-
