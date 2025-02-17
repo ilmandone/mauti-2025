@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
+import { ButtonComponent } from '@components/button/button.component';
 
 @Component({
   selector: 'app-ack',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './ack.component.html',
-  styleUrl: './ack.component.scss'
+  styleUrl: './ack.component.scss',
 })
-class AckComponent {
-
-}
+class AckComponent {}
 
 export default AckComponent

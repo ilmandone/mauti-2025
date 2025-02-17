@@ -39,7 +39,8 @@
     color: var(--bg-color);
 
     @include u.media('mouse') {
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: var(--secondary-color);
       }
 
@@ -55,7 +56,8 @@
     color: var(--bg-color);
 
     @include u.media('mouse') {
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: var(--primary-color);
       }
 
@@ -72,7 +74,8 @@
     color: var(--secondary-color);
 
     @include u.media('mouse') {
-      &:hover {
+      &:hover,
+      &:focus {
         color: var(--primary-color);
         border-color: var(--primary-color);
       }

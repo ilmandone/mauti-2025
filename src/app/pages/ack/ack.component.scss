@@ -1,0 +1,22 @@
+:host {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--bg-color);
+
+  .contents {
+    color: var(--secondary-color);
+
+    .buttons {
+      display: flex;
+
+      button:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
