@@ -1,5 +1,6 @@
 @use 'utils' as u;
 @use 'effects' as e;
+@use 'vars' as v;
 
 :host {
   width: 100vw;
@@ -20,6 +21,24 @@
       margin-bottom: 2rem;
     }
 
+    .buttons {
+      display: flex;
+
+      button {
+        opacity: 0;
+        transform: translateY(2rem);
+
+        &:not(:last-child) {
+          margin-right: 1.25rem;
+        }
+
+        &.large {
+          padding-left: 3rem;
+          padding-right: 3rem;
+        }
+      }
+    }
+
     .flicker-fade-in,
     .slow-fade-in
     {
@@ -27,24 +46,30 @@
     }
 
     &.visible {
+
       .flicker-fade-in {
         @include e.flickerFadeIn;
       }
       .slow-fade-in {
         @include e.slowFadeIn;
       }
-    }
 
-    .buttons {
-      display: flex;
+      .buttons {
 
-      button:not(:last-child) {
-        margin-right: 1.25rem;
-      }
+        button {
+          opacity: 1;
+          transform: translateY(0);
 
-      button.large {
-        padding-left: 3rem;
-        padding-right: 3rem;
+          transition-property: transform, opacity;
+          transition-duration: v.$transition-time-double;
+          transition-timing-function: ease-out;
+
+          @for $i from 1 through 2 {
+            &:nth-child(#{$i}) {
+              transition-delay: $i * 0.2s;
+            }
+          }
+        }
       }
     }
 
