@@ -1,4 +1,8 @@
+@use 'typo' as t;
+
 :host {
   position: relative;
   display: inline-flex;
+
+  @include t.text-weight(400);
 }
