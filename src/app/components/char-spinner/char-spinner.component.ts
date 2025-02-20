@@ -44,8 +44,8 @@ export class CharSpinnerComponent implements OnInit {
   /**
    * Get angle related to component position
    * @description The value is a multiple of 45 degrees
-   * @param {MouseEvent} event
    * @private
+   * @param {Coords2D} p
    */
   private _getSnapAngle(p: Coords2D): number {
     const deltaX = p.x - this._elPos.x;
