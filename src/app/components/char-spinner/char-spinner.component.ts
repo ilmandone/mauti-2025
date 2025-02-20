@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, ElementRef, inject, input, OnInit, output } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, inject, input, OnInit } from '@angular/core';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Coords2D } from '../../shared/commons';
@@ -6,10 +6,19 @@ import { Coords2D } from '../../shared/commons';
 @Component({
   selector: 'char-spinner',
   imports: [],
-  template: ` <div>{{ CHAR_MAP[currentAngle!] }}</div> `,
+  template: `
+      <div>{{ CHAR_MAP[currentAngle ?? 0] }}</div>
+  `,
   styleUrl: './char-spinner.component.scss',
 })
 export class CharSpinnerComponent implements OnInit {
+  private _dRef = inject(DestroyRef);
+  private _nEl = inject(ElementRef).nativeElement as HTMLElement;
+
+  private _elPos!: Coords2D;
+  private _mouseEvt$ = fromEvent<MouseEvent>(document, 'mousemove');
+  private _resizeEvt$ = fromEvent(window, 'resize').pipe(debounceTime(150));
+
   readonly CHAR_MAP: Record<number, string> = {
     0: '|',
     45: '/',
@@ -21,23 +30,14 @@ export class CharSpinnerComponent implements OnInit {
     315: '\\',
   };
 
-  private _dRef = inject(DestroyRef);
-  private _nEl = inject(ElementRef).nativeElement as HTMLElement;
-
-  private _elPos!: Coords2D;
-  private _mouseEvt$ = fromEvent<MouseEvent>(document, 'mousemove').pipe(takeUntilDestroyed(this._dRef));
-  private _resizeEvt$ = fromEvent(window, 'resize').pipe(debounceTime(150), takeUntilDestroyed(this._dRef));
-
-  mousePos = input<Coords2D>();
-  width = output<number>();
+  mousePos = input<Coords2D | 'standalone'>();
 
   currentAngle = 0;
 
   constructor() {
     effect(() => {
       const mc = this.mousePos();
-      if (mc)
-      this.currentAngle = this._getSnapAngle(mc);
+      this.currentAngle = mc && mc !== 'standalone' ? this._getSnapAngle(mc as Coords2D) : 0;
     });
   }
 
@@ -48,10 +48,12 @@ export class CharSpinnerComponent implements OnInit {
    * @param {Coords2D} p
    */
   private _getSnapAngle(p: Coords2D): number {
+    if (!this._elPos) return 0
+
     const deltaX = p.x - this._elPos.x;
     const deltaY = p.y - this._elPos.y;
-
     const angle = Math.atan2(deltaY, deltaX) + Math.PI / 2;
+
     return this._snapTo45Degrees(Math.round(((angle * 180) / Math.PI + 360) % 360));
   }
 
@@ -59,14 +61,12 @@ export class CharSpinnerComponent implements OnInit {
    * Get element center position
    * @private
    */
-  private _getPosAndWidth(): { coords: Coords2D; width: number } {
+  private _getElPos(): Coords2D {
     const bb = this._nEl.getBoundingClientRect();
+
     return {
-      coords: {
-        x: bb.x + bb.width / 2,
-        y: bb.y + bb.height / 2,
-      },
-      width: bb.width,
+      x: bb.x + bb.width / 2,
+      y: bb.y + bb.height / 2,
     };
   }
 
@@ -77,30 +77,26 @@ export class CharSpinnerComponent implements OnInit {
    */
   private _snapTo45Degrees(angle: number): number {
     const snapped = Math.round(angle / 45) * 45;
-    return snapped === 360 ? 0 : snapped;
-  }
 
-  private _setCoordsAndWidth(d: { coords: Coords2D; width: number }) {
-    this._elPos = d.coords;
-    this.width.emit(d.width);
+    return snapped === 360 ? 0 : snapped;
   }
 
   ngOnInit() {
     // Initialize the component after 100 ms to get correct size and position
     // Note: an external interceptor observer could be used to initialize the component
-
     setTimeout(() => {
-      this._setCoordsAndWidth(this._getPosAndWidth());
+      this._elPos = this._getElPos();
 
       // Enable mouse tracking only if external coords are not provided
-
-      if (this.mousePos() === undefined) {
-        this._mouseEvt$.subscribe((r) => {
+      if (this.mousePos() === 'standalone') {
+        this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
           this.currentAngle = this._getSnapAngle(r);
         });
       }
-      this._resizeEvt$.subscribe(() => {
-        this._setCoordsAndWidth(this._getPosAndWidth());
+
+      // Listen window resize to update element position
+      this._resizeEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe(() => {
+        this._elPos = this._getElPos();
       });
     }, 100);
   }
