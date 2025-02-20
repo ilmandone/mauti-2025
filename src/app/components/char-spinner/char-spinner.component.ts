@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, OnInit, output } from '@angular/core';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -34,6 +34,8 @@ export class CharSpinnerComponent implements OnInit {
 
   currentAngle = 0;
 
+  width = output<number>();
+
   /**
    * Get angle related to component position
    * @description The value is a multiple of 45 degrees
@@ -52,11 +54,14 @@ export class CharSpinnerComponent implements OnInit {
    * Get element center position
    * @private
    */
-  private _getElCenterPosition(): PosCoord {
+  private _getPosAndWidth(): { coords:PosCoord, width: number } {
     const bb = this._nEl.getBoundingClientRect();
     return {
-      x: bb.x + bb.width / 2,
-      y: bb.y + bb.height / 2,
+      coords: {
+        x: bb.x + bb.width / 2,
+        y: bb.y + bb.height / 2,
+      },
+      width: bb.width
     };
   }
 
@@ -70,17 +75,22 @@ export class CharSpinnerComponent implements OnInit {
     return snapped === 360 ? 0 : snapped;
   }
 
+  private _setCoordsAndWidth(d: {coords: PosCoord, width: number}) {
+    this._elPos = d.coords
+    this.width.emit(d.width)
+  }
+
   ngOnInit() {
     // Initialize the component after 100 ms to get correct size and position
     // Note: an external interceptor observer could be used to initialize the component
 
     setTimeout(() => {
-      this._elPos = this._getElCenterPosition();
+      this._setCoordsAndWidth(this._getPosAndWidth())
       this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
         this._getSnapAngle(r);
       });
-      this._resizeEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
-        this._elPos = this._getElCenterPosition();
+      this._resizeEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe(() => {
+        this._setCoordsAndWidth(this._getPosAndWidth())
       });
     }, 100);
   }
