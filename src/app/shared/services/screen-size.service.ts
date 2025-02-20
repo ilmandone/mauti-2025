@@ -31,7 +31,7 @@ export class ScreenSizeService {
     return this._screenSize.asReadonly()
   }
 
-  relatedTo(s: ScreenSize) {
+  relatedTo(s: ScreenSize): 'equal' | 'after' | 'before' {
     const sIndex = this._screenSizes.indexOf(s)
     const cIndex = this._screenSizes.indexOf(this._screenSize()!)
 

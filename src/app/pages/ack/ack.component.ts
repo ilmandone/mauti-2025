@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonComponent } from '@components/button/button.component';
 import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
 import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.component';
+import { checkMobile } from '../../shared/detect.mobile';
+import { ScreenSizeService } from '../../shared/services/screen-size.service';
 
 @Component({
   selector: 'app-ack',
@@ -10,6 +12,8 @@ import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.c
   styleUrl: './ack.component.scss',
 })
 class AckComponent implements OnInit {
+  screenSizeSrv = inject(ScreenSizeService)
+
   visible = false;
 
   ngOnInit(): void {
@@ -17,6 +21,8 @@ class AckComponent implements OnInit {
       this.visible = true;
     }, 400);
   }
+
+  protected readonly checkMobile = checkMobile;
 }
 
 export default AckComponent;

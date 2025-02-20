@@ -6,9 +6,7 @@ import { Coords2D } from '../../shared/commons';
 @Component({
   selector: 'char-spinner',
   imports: [],
-  template: `
-      <div>{{ CHAR_MAP[currentAngle ?? 0] }}</div>
-  `,
+  template: ` <div>{{ CHAR_MAP[currentAngle ?? 0] }}</div> `,
   styleUrl: './char-spinner.component.scss',
 })
 export class CharSpinnerComponent implements OnInit {
@@ -17,7 +15,7 @@ export class CharSpinnerComponent implements OnInit {
 
   private _elPos!: Coords2D;
   private _mouseEvt$ = fromEvent<MouseEvent>(document, 'mousemove');
-  private _resizeEvt$ = fromEvent(window, 'resize').pipe(debounceTime(150));
+  private _resizeEvt$ = fromEvent(window, 'resize').pipe(debounceTime(100));
 
   readonly CHAR_MAP: Record<number, string> = {
     0: '|',
@@ -48,7 +46,7 @@ export class CharSpinnerComponent implements OnInit {
    * @param {Coords2D} p
    */
   private _getSnapAngle(p: Coords2D): number {
-    if (!this._elPos) return 0
+    if (!this._elPos) return 0;
 
     const deltaX = p.x - this._elPos.x;
     const deltaY = p.y - this._elPos.y;
@@ -84,20 +82,18 @@ export class CharSpinnerComponent implements OnInit {
   ngOnInit() {
     // Initialize the component after 100 ms to get correct size and position
     // Note: an external interceptor observer could be used to initialize the component
-    setTimeout(() => {
-      this._elPos = this._getElPos();
+    this._elPos = this._getElPos();
 
-      // Enable mouse tracking only if external coords are not provided
-      if (this.mousePos() === 'standalone') {
-        this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
-          this.currentAngle = this._getSnapAngle(r);
-        });
-      }
-
-      // Listen window resize to update element position
-      this._resizeEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe(() => {
-        this._elPos = this._getElPos();
+    // Enable mouse tracking only if external coords are not provided
+    if (this.mousePos() === 'standalone') {
+      this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
+        this.currentAngle = this._getSnapAngle(r);
       });
-    }, 100);
+    }
+
+    // Listen window resize to update element position
+    this._resizeEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe(() => {
+      this._elPos = this._getElPos();
+    });
   }
 }
