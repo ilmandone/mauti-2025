@@ -32,6 +32,8 @@
     transform: translateY(0) scale(1);
   }
 
+  //#region Scroll info
+
   .scroll-info {
     position: absolute;
     bottom: 6rem;
@@ -76,14 +78,25 @@
     }
   }
 
+  //#endregion
+
   //#region geo location
 
   &.show-geo {
     justify-content: space-between;
   }
 
-  .geo-location span:not(:last-child) {
-    margin-right: 2rem;
+  .geo-location {
+    opacity: 0;
+    transition: opacity v.$transition-time ease-out;
+
+    &.show {
+      opacity: 1;
+    }
+
+    span:not(:last-child) {
+      margin-right: 2rem;
+    }
   }
 
   //#endregion

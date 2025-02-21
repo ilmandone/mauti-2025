@@ -1,4 +1,4 @@
-<noise-svg-filter/>
+<noise-svg-filter />
 
 <!--@if (isDesktop) {
   <div class="scroll-info">
@@ -19,19 +19,19 @@
 
 @let wData = weatherData | async;
 @if (isDesktop) {
-  <div class="geo-location">
-  <span>
-    {{ geoLocationCoords?.lat }} | {{ geoLocationCoords?.lon }}
-  </span>
+  <div class="geo-location" [class.show]="geoLocationCoords">
     <span>
-    {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
-  </span>
+      {{ geoLocationCoords?.lat }} | {{ geoLocationCoords?.lon }}
+    </span>
     <span>
-    {{ wData?.temp }}
-  </span>
+      {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
+    </span>
     <span>
-    {{ wData?.windSpeed }} | {{ wData?.windDirection }}
-  </span>
+      {{ wData?.temp }}
+    </span>
+    <span>
+      {{ wData?.windSpeed }} | {{ wData?.windDirection }}
+    </span>
   </div>
 }
 <div class="social">

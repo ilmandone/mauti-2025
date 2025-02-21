@@ -1,26 +1,15 @@
-import {
-  Component,
-  DestroyRef,
-  effect,
-  HostBinding,
-  inject,
-  input,
-} from '@angular/core';
-import {
-  GeoLocationCoords,
-  getGeolocationCoords,
-} from '../../shared/geolocation';
-import { map, Observable, of, timer } from 'rxjs';
+import { Component, DestroyRef, effect, HostBinding, inject, input } from '@angular/core';
+import { GeoLocationCoords, getGeolocationCoords } from '../../shared/geolocation';
+import { map, Observable, switchMap, tap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  WeatherData,
-  WeatherService,
-} from '../../shared/services/weather.service';
+import { WeatherData, WeatherService } from '../../shared/services/weather.service';
 import { AsyncPipe } from '@angular/common';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { StateService } from '../../shared/services/state.service';
 import { ScrollKeys } from '../../shared/directives/infinite-scroll.utils';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
+import { ANIMATION_DELAY } from '../../shared/commons';
+import { AckService } from '../../shared/services/ack.service';
 
 interface TimeData {
   day: string;
@@ -41,6 +30,7 @@ export class FooterComponent {
   private _destroyRef = inject(DestroyRef);
   private _screenSizeSrv = inject(ScreenSizeService);
   private _weatherSrv = inject(WeatherService);
+  private _ackSrv = inject(AckService);
 
   @HostBinding('class.show-geo') isDesktop = false;
   @HostBinding('class.show') show = false;
@@ -64,14 +54,19 @@ export class FooterComponent {
 
   constructor() {
     effect(() => {
-      this.isDesktop = this._screenSizeSrv.relatedTo('tl') !== 'after';
-      if (this.isDesktop && !this.geoLocationCoords) {
-        this._startGeolocation();
-      }
-    });
+      if (this._state.ready()) {
+        this.isDesktop = this._screenSizeSrv.relatedTo('tl') !== 'after';
 
-    effect(() => {
-      this.show = this._state.ready();
+        // Get geolocation only for desktop
+        if (this.isDesktop && !this.geoLocationCoords) {
+          this._startGeolocation();
+        }
+
+        // Show UI
+        setTimeout(() => {
+          this.show = this._state.ready();
+        }, ANIMATION_DELAY);
+      }
     });
   }
 
@@ -90,7 +85,7 @@ export class FooterComponent {
           hour: now.getHours().toString().padStart(2, '0'),
           minute: now.getMinutes().toString().padStart(2, '0'),
         };
-      }),
+      })
     );
   }
 
@@ -99,18 +94,21 @@ export class FooterComponent {
    * @private
    */
   private _startGeolocation() {
-    this.geoLocationCoords = getGeolocationCoords();
-    this.getCurrentTimeObservable()
-      .pipe(takeUntilDestroyed(this._destroyRef))
+    getGeolocationCoords(this._ackSrv.ack()!)
+      .pipe(
+        tap((r) => {
+          this.geoLocationCoords = r;
+        }),
+        switchMap(() => {
+          return this.getCurrentTimeObservable().pipe(takeUntilDestroyed(this._destroyRef));
+        })
+      )
       .subscribe((r) => {
         this.timeData = r;
+        this.weatherData = this._weatherSrv.getWeatherDataByLocation(
+          this.geoLocationCoords.lat,
+          this.geoLocationCoords.lon
+        );
       });
-
-    this.weatherData = this._weatherSrv.getWeatherDataByLocation(
-      this.geoLocationCoords.lat,
-      this.geoLocationCoords.lon,
-    );
   }
-
-  protected readonly of = of;
 }
