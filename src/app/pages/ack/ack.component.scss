@@ -101,6 +101,10 @@
 
       .buttons {
         transform: translateX(4vw);
+
+        button:not(:last-child) {
+          margin-right: 3rem;
+        }
       }
 
       p {
