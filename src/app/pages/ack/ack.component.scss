@@ -17,8 +17,33 @@
 
     color: var(--secondary-color);
 
+    opacity: 1;
+    /*transform: translateY(0);
+    transform-origin: top center;
+
+    transition-property: opacity, transform;
+    transition-duration: v.$transition-time-double;
+    transition-timing-function: ease-in;*/
+
     p {
       margin-bottom: 2rem;
+    }
+
+    &.visible {
+
+      .flicker-fade-in {
+        @include e.flickerFadeIn;
+      }
+
+      .slow-fade-in {
+        @include e.slowFadeIn;
+      }
+    }
+
+    &.hide {
+      @include e.flickerFadeOut;
+      /*opacity: 0;
+      transform: translateY(-3vh);*/
     }
 
     .buttons {
@@ -38,6 +63,23 @@
           padding-right: 3rem;
         }
       }
+
+      &.show {
+        button {
+          opacity: 1;
+          transform: translateY(0);
+
+          transition-property: transform, opacity;
+          transition-duration: v.$transition-time-double;
+          transition-timing-function: ease-out;
+
+          @for $i from 1 through 2 {
+            &:nth-child(#{$i}) {
+              transition-delay: $i * 0.2s;
+            }
+          }
+        }
+      }
     }
 
     .flicker-fade-in,
@@ -47,34 +89,6 @@
 
     spinners-pack {
       width: 80vw;
-    }
-
-    &.visible {
-
-      .flicker-fade-in {
-        @include e.flickerFadeIn;
-      }
-
-      .slow-fade-in {
-        @include e.slowFadeIn;
-      }
-    }
-
-    .buttons.show {
-      button {
-        opacity: 1;
-        transform: translateY(0);
-
-        transition-property: transform, opacity;
-        transition-duration: v.$transition-time-double;
-        transition-timing-function: ease-out;
-
-        @for $i from 1 through 2 {
-          &:nth-child(#{$i}) {
-            transition-delay: $i * 0.2s;
-          }
-        }
-      }
     }
 
     @include u.media('t') {

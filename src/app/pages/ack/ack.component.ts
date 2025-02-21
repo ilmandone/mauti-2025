@@ -17,14 +17,14 @@ import { Router } from '@angular/router';
 class AckComponent implements OnInit {
   private _ackService = inject(AckService)
   private _router = inject(Router)
-  screenSizeSrv = inject(ScreenSizeService)
 
-  visible = false;
-  spinnerActive = checkMobile()
+  screenSizeSrv = inject(ScreenSizeService)
+  spinnerRunning = checkMobile()
+  state: 'start' | 'visible' | 'hide' = 'start';
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.visible = true;
+      this.state = 'visible';
     }, REGISTRATION_DELAY);
   }
 
@@ -32,7 +32,11 @@ class AckComponent implements OnInit {
 
   handleACK(b: boolean) {
     this._ackService.setAck(b)
-    this._router.navigate(['/'])
+    this.state = 'hide'
+  }
+
+  hideTransitionCompleted() {
+    void this._router.navigate(['/'])
   }
 }
 

@@ -1,4 +1,5 @@
-<section class="contents" [class.visible]="visible">
+<section class="contents" [class.visible]="state !== 'start'" [class.hide]="state === 'hide'"
+         (animationend)="hideTransitionCompleted()">
   <h1 hidden>Acknowledgment</h1>
   <p>
     <span class="slow-fade-in">This site uses your</span>
@@ -7,15 +8,15 @@
     <span class="flicker-fade-in"> sensors</span>
     <span class="slow-fade-in"> only for visual effects.</span>
     <span class="flicker-fade-in"> No data or information is collected,</span>
-    <span [textScrambleLeftToRight]="' stored or shared in any way.'" [paused]="!visible"
+    <span [textScrambleLeftToRight]="' stored or shared in any way.'" [paused]="!state"
           [iteration]="2"></span>
   </p>
 
   @if (!checkMobile() && this.screenSizeSrv.relatedTo('tl') === 'before') {
-    <spinners-pack (active)="spinnerActive = $event" />
+    <spinners-pack (active)="spinnerRunning = $event" />
   }
 
-  <div class="buttons" [class.show]="spinnerActive">
+  <div class="buttons" [class.show]="spinnerRunning">
     <button class="large" app-button (click)="handleACK(true)">ENABLE</button>
     <button app-button variant="tertiary" (click)="handleACK(false)">＞﹏＜</button>
   </div>
