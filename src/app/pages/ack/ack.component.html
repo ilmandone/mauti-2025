@@ -16,8 +16,8 @@
   }
 
   <div class="buttons" [class.show]="spinnerActive">
-    <button class="large" app-button>ENABLE</button>
-    <button app-button variant="tertiary">＞﹏＜</button>
+    <button class="large" app-button (click)="handleACK(true)">ENABLE</button>
+    <button app-button variant="tertiary" (click)="handleACK(false)">＞﹏＜</button>
   </div>
 
 </section>

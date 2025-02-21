@@ -5,6 +5,8 @@ import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.c
 import { checkMobile } from '../../shared/detect.mobile';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { REGISTRATION_DELAY } from '../../shared/commons';
+import { AckService } from '../../shared/services/ack.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ack',
@@ -13,6 +15,8 @@ import { REGISTRATION_DELAY } from '../../shared/commons';
   styleUrl: './ack.component.scss',
 })
 class AckComponent implements OnInit {
+  private _ackService = inject(AckService)
+  private _router = inject(Router)
   screenSizeSrv = inject(ScreenSizeService)
 
   visible = false;
@@ -24,7 +28,12 @@ class AckComponent implements OnInit {
     }, REGISTRATION_DELAY);
   }
 
-  protected readonly checkMobile = checkMobile;
+  readonly checkMobile = checkMobile;
+
+  handleACK(b: boolean) {
+    this._ackService.setAck(b)
+    this._router.navigate(['/'])
+  }
 }
 
 export default AckComponent;
