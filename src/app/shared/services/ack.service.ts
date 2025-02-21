@@ -37,7 +37,7 @@ export class AckService{
     const ack = this._getAckFromLocalStorage();
     if (ack !== null) {
       this._ack.set(ack);
-      this._stateSrv.setReady(ack)
+      this._stateSrv.setReady(true)
     }
   }
 
@@ -48,6 +48,6 @@ export class AckService{
   setAck(v: boolean) {
     this._ack.set(v);
     this._setAckToLocalStorage(v)
-    this._stateSrv.setReady(v)
+    this._stateSrv.setReady(true)
   }
 }
