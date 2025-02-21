@@ -50,3 +50,36 @@
     opacity: 1;
   }
 }
+
+@mixin flickerFadeOut() {
+  animation-name: flickerOut;
+  animation-duration: v.$transition-time-double;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flickerOut {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  35% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  45% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
