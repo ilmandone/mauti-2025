@@ -1,7 +1,7 @@
 import { AckService } from '../../shared/services/ack.service';
 import { ButtonComponent } from '@components/button/button.component';
 import { Component, inject, OnInit } from '@angular/core';
-import { REGISTRATION_DELAY } from '../../shared/commons';
+import { ANIMATION_DELAY } from '../../shared/commons';
 import { Router } from '@angular/router';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.component';
@@ -25,7 +25,7 @@ class AckComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.state = 'visible';
-    }, REGISTRATION_DELAY);
+    }, ANIMATION_DELAY);
   }
 
   readonly checkMobile = checkMobile;

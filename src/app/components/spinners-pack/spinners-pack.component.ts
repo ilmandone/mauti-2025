@@ -1,7 +1,7 @@
 import { Component, computed, DestroyRef, ElementRef, inject, OnInit, output, signal, viewChild } from '@angular/core';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Coords2D, REGISTRATION_DELAY } from '../../shared/commons';
+import { Coords2D, ANIMATION_DELAY } from '../../shared/commons';
 import { CharSpinnerComponent } from '@components/char-spinner/char-spinner.component';
 
 @Component({
@@ -96,6 +96,6 @@ export class SpinnersPackComponent implements OnInit {
     setTimeout(() => {
       this._spinnersTotal = this._getSpinnerAmount();
       this._frameRequest = requestAnimationFrame(this._showSpinners.bind(this))
-    }, REGISTRATION_DELAY);
+    }, ANIMATION_DELAY);
   }
 }
