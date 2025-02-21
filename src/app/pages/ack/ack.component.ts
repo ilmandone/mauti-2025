@@ -4,6 +4,7 @@ import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scr
 import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.component';
 import { checkMobile } from '../../shared/detect.mobile';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { REGISTRATION_DELAY } from '../../shared/commons';
 
 @Component({
   selector: 'app-ack',
@@ -19,7 +20,7 @@ class AckComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.visible = true;
-    }, 400);
+    }, REGISTRATION_DELAY);
   }
 
   protected readonly checkMobile = checkMobile;
