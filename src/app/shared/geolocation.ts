@@ -5,17 +5,18 @@ export interface GeoLocationCoords {
   lon: number;
 }
 
+export const DEFAULT_POSITION = { lat: 44.4598629, lon: 11.1955072 };
+
 /**
- * Return a cold observable that return user or default position
+ * Return a cold observable with user or default position
  * @param enabled
  */
-export const getGeolocationCoords = (enabled: boolean): Observable<GeoLocationCoords> => {
+export const getGeoPosition = (enabled: boolean): Observable<GeoLocationCoords> => {
   const geolocation = navigator.geolocation;
-  const defaultPosition = { lat: 44.4598629, lon: 11.1955072 };
   const noPosMsg = 'Use default position';
 
   if (!navigator.geolocation || !enabled) {
-    return of(defaultPosition);
+    return of(DEFAULT_POSITION);
   }
 
   return new Observable<GeoLocationCoords>((subscriber) => {
@@ -30,7 +31,7 @@ export const getGeolocationCoords = (enabled: boolean): Observable<GeoLocationCo
       (error) => {
         console.warn(noPosMsg);
         console.error(error);
-        subscriber.next(defaultPosition);
+        subscriber.next(DEFAULT_POSITION);
         subscriber.complete();
       }
     );

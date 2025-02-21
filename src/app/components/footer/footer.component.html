@@ -19,9 +19,9 @@
 
 @let wData = weatherData | async;
 @if (isDesktop) {
-  <div class="geo-location" [class.show]="geoLocationCoords">
+  <div class="geo-location" [class.show]="geoPosition">
     <span>
-      {{ geoLocationCoords?.lat }} | {{ geoLocationCoords?.lon }}
+      {{ geoPosition?.lat }} | {{ geoPosition?.lon }}
     </span>
     <span>
       {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}

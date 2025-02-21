@@ -37,7 +37,7 @@
   .scroll-info {
     position: absolute;
     bottom: 6rem;
-    left:2rem;
+    left: 2rem;
 
     display: flex;
     flex-flow: column;
@@ -86,17 +86,8 @@
     justify-content: space-between;
   }
 
-  .geo-location {
-    opacity: 0;
-    transition: opacity v.$transition-time ease-out;
-
-    &.show {
-      opacity: 1;
-    }
-
-    span:not(:last-child) {
-      margin-right: 2rem;
-    }
+  .geo-location span:not(:last-child) {
+    margin-right: 2rem;
   }
 
   //#endregion

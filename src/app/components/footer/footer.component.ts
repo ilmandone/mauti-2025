@@ -1,6 +1,6 @@
 import { Component, DestroyRef, effect, HostBinding, inject, input } from '@angular/core';
-import { GeoLocationCoords, getGeolocationCoords } from '../../shared/geolocation';
-import { map, Observable, switchMap, tap, timer } from 'rxjs';
+import { DEFAULT_POSITION, GeoLocationCoords, getGeoPosition } from '../../shared/geolocation';
+import { map, Observable, startWith, switchMap, tap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WeatherData, WeatherService } from '../../shared/services/weather.service';
 import { AsyncPipe } from '@angular/common';
@@ -48,7 +48,7 @@ export class FooterComponent {
     });
   });*/
 
-  geoLocationCoords!: GeoLocationCoords;
+  geoPosition!: GeoLocationCoords;
   timeData: TimeData | null = null;
   weatherData!: Observable<WeatherData>;
 
@@ -58,7 +58,7 @@ export class FooterComponent {
         this.isDesktop = this._screenSizeSrv.relatedTo('tl') !== 'after';
 
         // Get geolocation only for desktop
-        if (this.isDesktop && !this.geoLocationCoords) {
+        if (this.isDesktop && !this.geoPosition) {
           this._startGeolocation();
         }
 
@@ -90,25 +90,25 @@ export class FooterComponent {
   }
 
   /**
-   * Get geolocation and weather data
+   * Get user position one time + get time and relative weather data each minutes
    * @private
    */
   private _startGeolocation() {
-    getGeolocationCoords(this._ackSrv.ack()!)
+    getGeoPosition(this._ackSrv.ack()!)
       .pipe(
+        startWith(DEFAULT_POSITION),
         tap((r) => {
-          this.geoLocationCoords = r;
+          this.geoPosition = r;
         }),
         switchMap(() => {
           return this.getCurrentTimeObservable().pipe(takeUntilDestroyed(this._destroyRef));
         })
       )
       .subscribe((r) => {
+        const { lat, lon } = this.geoPosition;
+
         this.timeData = r;
-        this.weatherData = this._weatherSrv.getWeatherDataByLocation(
-          this.geoLocationCoords.lat,
-          this.geoLocationCoords.lon
-        );
+        this.weatherData = this._weatherSrv.getWeatherDataByLocation(lat, lon);
       });
   }
 }
