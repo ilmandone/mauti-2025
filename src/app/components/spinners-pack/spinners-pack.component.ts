@@ -10,11 +10,11 @@ import { CharSpinnerComponent } from '@components/char-spinner/char-spinner.comp
   template: `
     @if (spinnersAmount) {
       @for (s of [].constructor(spinnersAmount); track $index) {
-        <char-spinner [mousePos]="mouseCoords" />
+        <char-spinner [data]="mouseCoords" />
       }
     }
     <!-- Hidden component useful for spinner char width calculation -->
-    <char-spinner [mousePos]="{ x: 0, y: 0 }" class="hidden" #sample />
+    <char-spinner [data]="{ x: 0, y: 0 }" class="hidden" #sample />
   `,
   styleUrl: './spinners-pack.component.scss',
 })

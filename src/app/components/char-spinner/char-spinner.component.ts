@@ -1,12 +1,13 @@
-import { Component, DestroyRef, effect, ElementRef, inject, input, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Coords2D } from '../../shared/commons';
+import { getAngle } from '@components/char-spinner/char-spinner.utils';
 
 @Component({
   selector: 'char-spinner',
   imports: [],
-  template: ` <div>{{ CHAR_MAP[currentAngle ?? 0] }}</div> `,
+  template: ` <div [style.color]="currentColor()">{{ CHAR_MAP[currentAngle()] }}</div> `,
   styleUrl: './char-spinner.component.scss',
 })
 export class CharSpinnerComponent implements OnInit {
@@ -28,17 +29,26 @@ export class CharSpinnerComponent implements OnInit {
     315: '\\',
   };
 
-  enabled = input<boolean>(true)
-  mousePos = input<Coords2D | 'standalone'>();
+  enabled = input<boolean>(true);
+  data = input<Coords2D | number | 'standalone'>();
+  primaryColAngles = input<number[]>([90, 135, 180, 225])
 
-  currentAngle = 0;
+  currentAngle = signal<number>(0);
+  currentColor = computed(() => {
+    const a = this.currentAngle()
+    return `var(${this.primaryColAngles().includes(a) ? '--primary-color' : '--secondary-color'})`
+  })
 
   constructor() {
     effect(() => {
-      if (!this.enabled()) return
+      if (!this.enabled()) return;
 
-      const mc = this.mousePos();
-      this.currentAngle = mc && mc !== 'standalone' ? this._getSnapAngle(mc as Coords2D) : 0;
+      const mc = this.data();
+      this.currentAngle.set(mc && mc !== 'standalone'
+        ? typeof mc === 'number'
+          ? this._snapTo45Degrees(Math.round(mc))
+          : this._getSnapAngle(mc)
+        : 0)
     });
   }
 
@@ -50,12 +60,7 @@ export class CharSpinnerComponent implements OnInit {
    */
   private _getSnapAngle(p: Coords2D): number {
     if (!this._elPos) return 0;
-
-    const deltaX = p.x - this._elPos.x;
-    const deltaY = p.y - this._elPos.y;
-    const angle = Math.atan2(deltaY, deltaX) + Math.PI / 2;
-
-    return this._snapTo45Degrees(Math.round(((angle * 180) / Math.PI + 360) % 360));
+    return this._snapTo45Degrees(getAngle(p,  this._elPos));
   }
 
   /**
@@ -88,11 +93,11 @@ export class CharSpinnerComponent implements OnInit {
     this._elPos = this._getElPos();
 
     // Enable mouse tracking only if external coords are not provided
-    if (this.mousePos() === 'standalone') {
+    if (this.data() === 'standalone') {
       this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
-        if (!this.enabled()) return
+        if (!this.enabled()) return;
 
-        this.currentAngle = this._getSnapAngle(r);
+        this.currentAngle.set(this._getSnapAngle(r))
       });
     }
 
