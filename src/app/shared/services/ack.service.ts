@@ -1,10 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AckService{
-
+  private _stateSrv = inject(StateService)
   private readonly ACK_LS_KEY = 'ack'
 
   private _ack = signal<boolean | undefined>(undefined);
@@ -34,7 +35,10 @@ export class AckService{
 
   constructor() {
     const ack = this._getAckFromLocalStorage();
-    if (ack !== null) this._ack.set(ack)
+    if (ack !== null) {
+      this._ack.set(ack);
+      this._stateSrv.setReady(ack)
+    }
   }
 
   get ack() {
@@ -44,5 +48,6 @@ export class AckService{
   setAck(v: boolean) {
     this._ack.set(v);
     this._setAckToLocalStorage(v)
+    this._stateSrv.setReady(v)
   }
 }

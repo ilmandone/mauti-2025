@@ -16,7 +16,7 @@ export class StateService {
    * Main load state
    * @private
    */
-  private _loaded = signal<boolean>(false);
+  private _ready = signal<boolean>(false);
 
   /**
    * Get section information from route's data
@@ -46,12 +46,12 @@ export class StateService {
     else return '';
   }
 
-  get loaded() {
-    return this._loaded.asReadonly();
+  get ready() {
+    return this._ready.asReadonly();
   }
 
-  setLoaded(v: boolean) {
-    this._loaded.set(v);
+  setReady(v: boolean) {
+    this._ready.set(v);
   }
 
   get section() {

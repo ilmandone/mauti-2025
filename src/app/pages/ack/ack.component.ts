@@ -1,12 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ButtonComponent } from '@components/button/button.component';
-import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
-import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.component';
-import { checkMobile } from '../../shared/detect.mobile';
-import { ScreenSizeService } from '../../shared/services/screen-size.service';
-import { REGISTRATION_DELAY } from '../../shared/commons';
 import { AckService } from '../../shared/services/ack.service';
+import { ButtonComponent } from '@components/button/button.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { REGISTRATION_DELAY } from '../../shared/commons';
 import { Router } from '@angular/router';
+import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { SpinnersPackComponent } from '@components/spinners-pack/spinners-pack.component';
+import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
+import { checkMobile } from '../../shared/detect.mobile';
 
 @Component({
   selector: 'app-ack',

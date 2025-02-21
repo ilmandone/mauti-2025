@@ -26,7 +26,7 @@ export class HeaderComponent {
 
   constructor() {
     effect(() => {
-      if (this._stateSrv.loaded()) this.show = true;
+      if (this._stateSrv.ready()) this.show = true;
     });
   }
 }

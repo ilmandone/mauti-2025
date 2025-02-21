@@ -71,7 +71,7 @@ export class FooterComponent {
     });
 
     effect(() => {
-      this.show = this._state.loaded();
+      this.show = this._state.ready();
     });
   }
 
