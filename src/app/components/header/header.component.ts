@@ -4,6 +4,7 @@ import { checkMobile } from '../../shared/detect.mobile';
 import { StateService } from '../../shared/services/state.service';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { RouterLink } from '@angular/router';
+import { ANIMATION_DELAY } from '../../shared/commons';
 
 @Component({
   selector: 'header[app-header]',
@@ -26,7 +27,10 @@ export class HeaderComponent {
 
   constructor() {
     effect(() => {
-      if (this._stateSrv.ready()) this.show = true;
+      if (this._stateSrv.ready())
+        setTimeout(() => {
+          this.show = true;
+        }, ANIMATION_DELAY);
     });
   }
 }
