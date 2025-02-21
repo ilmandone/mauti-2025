@@ -28,12 +28,15 @@ export class CharSpinnerComponent implements OnInit {
     315: '\\',
   };
 
+  enabled = input<boolean>(true)
   mousePos = input<Coords2D | 'standalone'>();
 
   currentAngle = 0;
 
   constructor() {
     effect(() => {
+      if (!this.enabled()) return
+
       const mc = this.mousePos();
       this.currentAngle = mc && mc !== 'standalone' ? this._getSnapAngle(mc as Coords2D) : 0;
     });
@@ -87,6 +90,8 @@ export class CharSpinnerComponent implements OnInit {
     // Enable mouse tracking only if external coords are not provided
     if (this.mousePos() === 'standalone') {
       this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
+        if (!this.enabled()) return
+
         this.currentAngle = this._getSnapAngle(r);
       });
     }
