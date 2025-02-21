@@ -7,7 +7,7 @@ export class AckService{
 
   private readonly ACK_LS_KEY = 'ack'
 
-  private _ack = signal<boolean>(false);
+  private _ack = signal<boolean | undefined>(undefined);
 
   private _getAckFromLocalStorage(): boolean | null {
     try {
@@ -43,5 +43,6 @@ export class AckService{
 
   setAck(v: boolean) {
     this._ack.set(v);
+    this._setAckToLocalStorage(v)
   }
 }
