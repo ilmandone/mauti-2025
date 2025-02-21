@@ -16,6 +16,7 @@ class AckComponent implements OnInit {
   screenSizeSrv = inject(ScreenSizeService)
 
   visible = false;
+  spinnerActive = checkMobile()
 
   ngOnInit(): void {
     setTimeout(() => {

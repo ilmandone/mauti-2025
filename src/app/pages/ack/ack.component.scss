@@ -58,21 +58,20 @@
       .slow-fade-in {
         @include e.slowFadeIn;
       }
+    }
 
-      .buttons {
+    .buttons.show {
+      button {
+        opacity: 1;
+        transform: translateY(0);
 
-        button {
-          opacity: 1;
-          transform: translateY(0);
+        transition-property: transform, opacity;
+        transition-duration: v.$transition-time-double;
+        transition-timing-function: ease-out;
 
-          transition-property: transform, opacity;
-          transition-duration: v.$transition-time-double;
-          transition-timing-function: ease-out;
-
-          @for $i from 1 through 2 {
-            &:nth-child(#{$i}) {
-              transition-delay: $i * 0.2s;
-            }
+        @for $i from 1 through 2 {
+          &:nth-child(#{$i}) {
+            transition-delay: $i * 0.2s;
           }
         }
       }
