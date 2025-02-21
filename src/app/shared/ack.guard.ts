@@ -6,6 +6,6 @@ export const ackGuard: CanActivateFn = () => {
   const _ackSrv = inject(AckService);
   const _router = inject(Router);
 
-  if (!_ackSrv.ack()) void _router.navigate(['/ack']);
+  if (_ackSrv.ack() === undefined) void _router.navigate(['/ack']);
   return true;
 };
