@@ -10,7 +10,7 @@ import { CharSpinnerComponent } from '@components/char-spinner/char-spinner.comp
   template: `
     @if (spinnersAmount()) {
       @for (s of spinnersList(); track $index) {
-        <char-spinner [data]="mouseCoords" [enabled]="enabled"/>
+        <char-spinner [data]="mouseCoords"/>
       }
     }
     <!-- Hidden component useful for spinner char width calculation -->
@@ -36,7 +36,6 @@ export class SpinnersPackComponent implements OnInit {
     return new Array(this.spinnersAmount())
   })
 
-  enabled = false
   mouseCoords!: Coords2D;
 
   /**
@@ -60,7 +59,6 @@ export class SpinnersPackComponent implements OnInit {
 
       cancelAnimationFrame(this._frameRequest)
 
-      this.enabled = true
       this._frameRequest = null
       this.active.emit(true)
     }
