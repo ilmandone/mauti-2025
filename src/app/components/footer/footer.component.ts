@@ -10,6 +10,7 @@ import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { ANIMATION_DELAY } from '../../shared/commons';
 import { AckService } from '../../shared/services/ack.service';
 import { GeoCoords, GeoTimeService } from '../../shared/services/geoTime.service';
+import { ButtonComponent } from '@components/button/button.component';
 
 interface TimeData {
   day: string;
@@ -21,7 +22,7 @@ interface TimeData {
 
 @Component({
   selector: 'footer[app-footer]',
-  imports: [AsyncPipe, NoiseSvgComponent],
+  imports: [AsyncPipe, NoiseSvgComponent, ButtonComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   providers: [GeoTimeService],
@@ -76,16 +77,26 @@ export class FooterComponent {
    * Get user position one time + get time and relative weather data each minutes
    * @private
    */
-  private _startGeolocation() {
+  private _startGeolocation(override? :boolean ) {
     this._geoTimeSrv
-      .getPosAndTimeObs(this._ackSrv.ack()!)
+      .getPosAndTimeObs(override ?? this._ackSrv.ack()!)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(({ pos, time }) => {
         this.geoPosition = pos;
         this.timeData = time;
 
+        console.log(this.geoPosition);
         const { lat, lon } = this.geoPosition;
+
         this.weatherData = this._weatherSrv.getWeatherDataByLocation(lat, lon);
       });
+  }
+
+  /**
+   * Set ACK to true and enable the Geolocation
+   */
+  enableGeoPosition() {
+    this._ackSrv.setAck(true)
+    this._startGeolocation(true);
   }
 }

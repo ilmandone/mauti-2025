@@ -4,6 +4,7 @@ import { combineLatest, map, Observable, of, startWith, timer } from 'rxjs';
 export interface GeoCoords {
   lat: number;
   lon: number;
+  error?: {code: number, message: string};
 }
 
 export const DEFAULT_POSITION: GeoCoords = { lat: 44.4598629, lon: 11.1955072 };
@@ -50,7 +51,7 @@ export class GeoTimeService {
     const noPosMsg = 'Use default position';
 
     if (!navigator.geolocation || !enabled) {
-      return of(DEFAULT_POSITION);
+      return of({...DEFAULT_POSITION, error: {code: 2, message: 'User block Geolocation'}});
     }
 
     return new Observable<GeoCoords>((subscriber) => {
@@ -65,7 +66,7 @@ export class GeoTimeService {
         (error) => {
           console.warn(noPosMsg);
           console.error(error);
-          subscriber.next(DEFAULT_POSITION);
+          subscriber.next({ ...DEFAULT_POSITION, error });
           subscriber.complete();
         }
       );

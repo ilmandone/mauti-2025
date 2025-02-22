@@ -34,7 +34,7 @@
 
   //#region Scroll info
 
-  .scroll-info {
+  /*.scroll-info {
     position: absolute;
     bottom: 6rem;
     left: 2rem;
@@ -76,7 +76,7 @@
         color: var(--bg-color);
       }
     }
-  }
+  }*/
 
   //#endregion
 
@@ -86,8 +86,17 @@
     justify-content: space-between;
   }
 
-  .geo-location span:not(:last-child) {
-    margin-right: 2rem;
+  .geo-location {
+    display: flex;
+    align-items: center;
+
+    & .error {
+      color: var(--primary-color) ;
+    }
+
+    & span:not(:last-child) {
+      margin-right: 2rem;
+    }
   }
 
   //#endregion

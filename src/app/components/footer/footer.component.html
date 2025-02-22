@@ -19,19 +19,29 @@
 
 @let wData = weatherData | async;
 @if (isDesktop) {
+  @let error = geoPosition?.error ?? false;
   <div class="geo-location" [class.show]="geoPosition">
-    <span>
+    <span [class.error]="error">
       {{ geoPosition?.lat }} | {{ geoPosition?.lon }}
     </span>
     <span>
       {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
     </span>
-    <span>
+    <span [class.error]="error">
       {{ wData?.temp }}
     </span>
-    <span>
+    <span [class.error]="error">
       {{ wData?.windSpeed }} | {{ wData?.windDirection }}
     </span>
+    @if (error && error.code === 2) {
+      <button
+        app-button size="small" variant="neutral" class="material-symbols-outlined" role="button"
+        (click)="enableGeoPosition()"
+      >
+        explore
+      </button>
+
+    }
   </div>
 }
 <div class="social">
