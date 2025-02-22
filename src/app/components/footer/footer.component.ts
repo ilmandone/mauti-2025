@@ -78,7 +78,7 @@ export class FooterComponent {
    */
   private _startGeolocation() {
     this._geoTimeSrv
-      .getPosAndTimeObs(!this._ackSrv.ack())
+      .getPosAndTimeObs(this._ackSrv.ack()!)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(({ pos, time }) => {
         this.geoPosition = pos;
