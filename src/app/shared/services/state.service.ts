@@ -1,38 +1,60 @@
-import {Injectable, signal} from '@angular/core';
-
-type Sections = 'hello' | 'until now' | 'what'
+import { inject, Injectable, signal } from '@angular/core';
+import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
+import { filter, map, startWith } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StateService {
+  private _router = inject(Router);
+  private _activateRoute = inject(ActivatedRoute);
 
-  private _section = signal<Sections>('hello')
-  private _loaded = signal<boolean>(false)
-  private _sectionsReady = signal<number>(0)
+  //#region Signals
+
+  /**
+   * Main load state
+   * @private
+   */
+  private _ready = signal<boolean>(false);
+
+  /**
+   * Get section information from route's data
+   * @private
+   */
+  private _section = toSignal<string>(
+    this._router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() =>
+        this._getSectionFromData(this._activateRoute.snapshot.firstChild?.data),
+      ),
+      startWith(
+        this._getSectionFromData(this._activateRoute.snapshot.firstChild?.data),
+      ),
+    ),
+  );
+
+  //#endregion
+
+  /**
+   * Return section value from Data or empty string
+   * @param data
+   * @private
+   */
+  private _getSectionFromData(data: Data | undefined) {
+    if (data && data['section']) return data['section'];
+    else return '';
+  }
+
+  get ready() {
+    return this._ready.asReadonly();
+  }
+
+  setReady(v: boolean) {
+    this._ready.set(v);
+  }
 
   get section() {
-    return this._section.asReadonly()
+    return this._section;
   }
-
-  setSection(v: Sections) {
-    this._section.set(v)
-  }
-
-  get loaded() {
-    return this._loaded.asReadonly()
-  }
-
-  setLoaded(v: boolean) {
-    this._loaded.set(v)
-  }
-
-  get sectionReady() {
-    return this._sectionsReady.asReadonly()
-  }
-
-  registerSection() {
-    this._sectionsReady.set(this.sectionReady() + 1)
-  }
-
 }

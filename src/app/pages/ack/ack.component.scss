@@ -1,0 +1,122 @@
+@use 'utils' as u;
+@use 'effects' as e;
+@use 'vars' as v;
+
+:host {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .contents {
+    max-width: 40rem;
+    margin-top: 2rem;
+    padding: 0 2rem;
+
+    color: var(--secondary-color);
+
+    opacity: 1;
+    /*transform: translateY(0);
+    transform-origin: top center;
+
+    transition-property: opacity, transform;
+    transition-duration: v.$transition-time-double;
+    transition-timing-function: ease-in;*/
+
+    p {
+      margin-bottom: 2rem;
+    }
+
+    &.visible {
+
+      .flicker-fade-in {
+        @include e.flickerFadeIn;
+      }
+
+      .slow-fade-in {
+        @include e.slowFadeIn;
+      }
+    }
+
+    &.hide {
+      @include e.flickerFadeOut;
+      /*opacity: 0;
+      transform: translateY(-3vh);*/
+    }
+
+    .buttons {
+      margin-top: 2rem;
+      display: inline-flex;
+
+      button {
+        opacity: 0;
+        transform: translateY(2rem);
+
+        &:not(:last-child) {
+          margin-right: 1.25rem;
+        }
+
+        &.large {
+          padding-left: 3rem;
+          padding-right: 3rem;
+        }
+      }
+
+      &.show {
+        button {
+          opacity: 1;
+          transform: translateY(0);
+
+          transition-property: transform, opacity;
+          transition-duration: v.$transition-time-double;
+          transition-timing-function: ease-out;
+
+          @for $i from 1 through 2 {
+            &:nth-child(#{$i}) {
+              transition-delay: $i * 0.2s;
+            }
+          }
+        }
+      }
+    }
+
+    .flicker-fade-in,
+    .slow-fade-in {
+      opacity: 0;
+    }
+
+    spinners-pack {
+      width: 80vw;
+    }
+
+    @include u.media('t') {
+      width: 50rem;
+    }
+
+    @include u.media('d') {
+      max-width: 100vw;
+      width: 80vw;
+
+      .buttons {
+        transform: translateX(4vw);
+
+        button:not(:last-child) {
+          margin-right: 3rem;
+        }
+      }
+
+      p {
+        max-width: 60rem;
+        transform: translateX(4vw);
+      }
+    }
+
+    @include u.media('dl') {
+      p {
+        max-width: 68rem;
+      }
+    }
+  }
+}

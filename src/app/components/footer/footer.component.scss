@@ -32,10 +32,12 @@
     transform: translateY(0) scale(1);
   }
 
-  .scroll-info {
+  //#region Scroll info
+
+  /*.scroll-info {
     position: absolute;
     bottom: 6rem;
-    left:2rem;
+    left: 2rem;
 
     display: flex;
     flex-flow: column;
@@ -74,7 +76,9 @@
         color: var(--bg-color);
       }
     }
-  }
+  }*/
+
+  //#endregion
 
   //#region geo location
 
@@ -82,8 +86,17 @@
     justify-content: space-between;
   }
 
-  .geo-location span:not(:last-child) {
-    margin-right: 2rem;
+  .geo-location {
+    display: flex;
+    align-items: center;
+
+    & .error {
+      color: var(--primary-color) ;
+    }
+
+    & span:not(:last-child) {
+      margin-right: 2rem;
+    }
   }
 
   //#endregion

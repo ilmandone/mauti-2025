@@ -1,38 +1,109 @@
-@use '../styles/typo' as t;
-@use '../styles/utils' as u;
-@use '../styles/vars' as v;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
 
 :host {
-  display: block;
-  border-radius: 0.25rem;
-  padding: 0.35rem 0.65rem;
-
-  background-color: var(--secondary-color);
-  color: var(--bg-color);
-
+  position: relative;
+  display: inline-block;
   cursor: pointer;
 
-  transition-property: background-color, color;
+  transition-property: background-color, color, border;
   transition-duration: v.$transition-time-half;
   transition-timing-function: ease-in-out;
 
-  @include t.text-small;
-  @include t.text-weight(600);
+  // Size variants
 
-  @include u.media('tl') {
-    padding: 0.45rem 0.8rem;
+  &.small {
+    border-radius: 0.25rem;
+    padding: 0.35rem 0.65rem;
+    height: 1.875rem;
+
+    @include t.text-small;
+    @include t.text-weight(600);
+
+    @include u.media('tl') {
+      padding: 0.45rem 0.8rem;
+    }
+
+    @include u.media('dl') {
+      padding: 0.5rem 0.9rem;
+    }
   }
 
-  @include u.media('dl') {
-    padding: 0.5rem 0.9rem;
+  &.standard {
+    padding: 0.85rem 1rem ;
   }
 
-  &:hover {
+  // Color variants
+
+  &.primary {
     background-color: var(--primary-color);
+    color: var(--bg-color);
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--secondary-color);
+      }
+
+      &:active {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+    }
   }
 
-  &:active {
+  &.secondary {
+    background-color: var(--secondary-color);
+    color: var(--bg-color);
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--primary-color);
+      }
+
+      &:active {
+        background-color: var(--bg-color);
+        color: var(--secondary-color);
+      }
+    }
+  }
+
+  &.tertiary {
     background-color: var(--bg-color);
-    color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      &:active {
+        background-color: var(--bg-color);
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  &.neutral {
+    background-color: transparent;
+    color: var(--secondary-color);
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+      }
+
+      &:active {
+        background-color: var(--bg-color);
+        color: var(--secondary-color);
+      }
+    }
   }
 }

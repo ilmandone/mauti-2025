@@ -1,4 +1,22 @@
-@use 'vars' as v;
+@use "vars" as v;
+
+@mixin slowFadeIn() {
+  animation-name: slowFadeIn;
+  animation-duration: v.$transition-time-quad;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slowFadeIn {
+  0% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @mixin flickerFadeIn() {
   animation-name: flickering;
@@ -33,3 +51,35 @@
   }
 }
 
+@mixin flickerFadeOut() {
+  animation-name: flickerOut;
+  animation-duration: v.$transition-time-double;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flickerOut {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  35% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  45% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}

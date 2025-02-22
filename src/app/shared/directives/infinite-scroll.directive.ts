@@ -1,13 +1,10 @@
 import { AfterViewInit, Directive, effect, ElementRef, HostListener, inject, input, output } from '@angular/core';
 import { ScrollKeys, VALID_SCROLL_KEYS } from './infinite-scroll.utils';
-import { StateService } from '../services/state.service';
 
 @Directive({
   selector: '[infiniteScroll]',
 })
 export class InfiniteScrollDirective implements AfterViewInit {
-  private _state = inject(StateService);
-
   private _element: HTMLElement = inject(ElementRef).nativeElement;
   private _height = 0;
   private _scrollValue = 0;
@@ -47,10 +44,10 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      if (this._state.sectionReady() === 3) {
-        this._height = (this._element as HTMLElement).offsetHeight;
-        this.height.emit(this._height);
-      }
+      // if (this._state.sectionReady() === 3) {
+      this._height = (this._element as HTMLElement).offsetHeight;
+      this.height.emit(this._height);
+      // }
     });
 
     effect(() => {
@@ -66,7 +63,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
 
   ngAfterViewInit() {
     this._element.scrollTop = 0;
-    this._element.style.transform = 'translate3d(0,0,0)'
+    this._element.style.transform = 'translate3d(0,0,0)';
   }
 
   //#region Mouse

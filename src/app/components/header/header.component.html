@@ -1,11 +1,12 @@
-<noise-svg-filter/>
+<noise-svg-filter />
 
-<div class="section-title" [textScrambleLeftToRight]="sectionTitle()" [iteration]="12"></div>
 <div class="controls"
      [class.show]="show"
 >
   @if (!isMobile) {
-    <button type="button" app-button [disabled]="'disabled'">{{ fontFamily() }}</button>
+    <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/home'" type="button"
+            app-button>{{ currentSection() !== 'about' ? 'About' : 'Close' }}
+    </button>
   }
   <aside>Ver 1.0 - MVP</aside>
 </div>

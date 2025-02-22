@@ -1,9 +1,9 @@
-<noise-svg-filter/>
+<noise-svg-filter />
 
-@if (isDesktop) {
+<!--@if (isDesktop) {
   <div class="scroll-info">
     @for (s of scrollBinary(); track $index) {
-      <div class="q" [ngClass]="{'q--filled': s, 'q--empty': !s}"></div>
+      <div class="q" [ngClass]="{'q&#45;&#45;filled': s, 'q&#45;&#45;empty': !s}"></div>
     }
     <div class="arrows">
       <div class="material-symbols-outlined" [class.active]="scrollDirection() === 'ArrowUp'">
@@ -15,23 +15,33 @@
       </div>
     </div>
   </div>
-}
+}-->
 
 @let wData = weatherData | async;
 @if (isDesktop) {
-  <div class="geo-location">
-  <span>
-    {{ geoLocationCoords?.lat }} | {{ geoLocationCoords?.lon }}
-  </span>
+  @let error = geoPosition?.error ?? false;
+  <div class="geo-location" [class.show]="geoPosition">
+    <span [class.error]="error">
+      {{ geoPosition?.lat }} | {{ geoPosition?.lon }}
+    </span>
     <span>
-    {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
-  </span>
-    <span>
-    {{ wData?.temp }}
-  </span>
-    <span>
-    {{ wData?.windSpeed }} | {{ wData?.windDirection }}
-  </span>
+      {{ timeData?.month }} | {{ timeData?.day }} | {{ timeData?.year }} - {{ timeData?.hour }}:{{ timeData?.minute }}
+    </span>
+    <span [class.error]="error">
+      {{ wData?.temp }}
+    </span>
+    <span [class.error]="error">
+      {{ wData?.windSpeed }} | {{ wData?.windDirection }}
+    </span>
+    @if (error && error.code === 2) {
+      <button
+        app-button size="small" variant="neutral" class="material-symbols-outlined" role="button"
+        (click)="enableGeoPosition()"
+      >
+        explore
+      </button>
+
+    }
   </div>
 }
 <div class="social">

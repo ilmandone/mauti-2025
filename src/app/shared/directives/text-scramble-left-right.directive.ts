@@ -47,10 +47,6 @@ export class TextScrambleLeftRightDirective {
       // Stop previous animation
       if (this._frameRequest) cancelAnimationFrame(this._frameRequest);
 
-      /*if (this.replaceStartWith()) {
-        element.innerText =
-      }*/
-
       if (!untracked(this.paused))
         // Start text scramble
         this._scrambleLeftToRight();
