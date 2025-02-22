@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, computed, HostBinding, input } from
 })
 export class ButtonComponent {
   size = input<'standard' | 'small'>('standard');
-  variant = input<'primary' | 'secondary' | 'tertiary'>('primary')
+  variant = input<'primary' | 'secondary' | 'tertiary' | 'neutral'>('primary')
 
   classes = computed(() => {
     return `${this.variant()} ${this.size()}`
