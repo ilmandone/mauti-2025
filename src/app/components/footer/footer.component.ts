@@ -1,5 +1,5 @@
 import { Component, DestroyRef, effect, HostBinding, inject, input } from '@angular/core';
-import { combineLatest, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WeatherData, WeatherService } from '../../shared/services/weather.service';
 import { AsyncPipe } from '@angular/common';
@@ -9,7 +9,7 @@ import { ScrollKeys } from '../../shared/directives/infinite-scroll.utils';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { ANIMATION_DELAY } from '../../shared/commons';
 import { AckService } from '../../shared/services/ack.service';
-import { DEFAULT_POSITION, GeoLocationCoords, GeoTimeService } from '../../shared/services/geoTime.service';
+import { GeoCoords, GeoTimeService } from '../../shared/services/geoTime.service';
 
 interface TimeData {
   day: string;
@@ -50,7 +50,7 @@ export class FooterComponent {
     });
   });*/
 
-  geoPosition!: GeoLocationCoords;
+  geoPosition!: GeoCoords;
   timeData: TimeData | null = null;
   weatherData!: Observable<WeatherData>;
 
@@ -77,10 +77,8 @@ export class FooterComponent {
    * @private
    */
   private _startGeolocation() {
-    combineLatest({
-      pos: this._geoTimeSrv.geoPositionObs(this._ackSrv.ack()!).pipe(startWith(DEFAULT_POSITION)),
-      time: this._geoTimeSrv.currentTimeObs(),
-    })
+    this._geoTimeSrv
+      .getPosAndTimeObs(!this._ackSrv.ack())
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(({ pos, time }) => {
         this.geoPosition = pos;

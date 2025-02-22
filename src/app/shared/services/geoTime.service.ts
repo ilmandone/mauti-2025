@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, timer } from 'rxjs';
+import { combineLatest, map, Observable, of, startWith, timer } from 'rxjs';
 
-
-export const DEFAULT_POSITION = { lat: 44.4598629, lon: 11.1955072 };
-
-export interface GeoLocationCoords {
+export interface GeoCoords {
   lat: number;
   lon: number;
 }
 
-interface TimeData {
+export const DEFAULT_POSITION: GeoCoords = { lat: 44.4598629, lon: 11.1955072 };
+
+interface Time {
   day: string;
   month: string;
   year: string;
@@ -17,11 +16,15 @@ interface TimeData {
   minute: string;
 }
 
-
 @Injectable()
 export class GeoTimeService {
 
-  currentTimeObs(): Observable<TimeData> {
+  /**
+   * Return and observable that fire day and time info every 60 seconds
+   * @private
+   * @memberOf GeoTimeService
+   */
+  private _currentTimeObs(): Observable<Time> {
     return timer(0, 60000).pipe(
       map(() => {
         const now = new Date();
@@ -36,7 +39,13 @@ export class GeoTimeService {
     );
   }
 
-  geoPositionObs(enabled: boolean): Observable<GeoLocationCoords> {
+  /**
+   * Return a cold observable that return user or default position
+   * @param {boolean} enabled
+   * @private
+   * @memberOf GeoTimeService
+   */
+  private _geoPositionObs(enabled: boolean): Observable<GeoCoords> {
     const geolocation = navigator.geolocation;
     const noPosMsg = 'Use default position';
 
@@ -44,7 +53,7 @@ export class GeoTimeService {
       return of(DEFAULT_POSITION);
     }
 
-    return new Observable<GeoLocationCoords>((subscriber) => {
+    return new Observable<GeoCoords>((subscriber) => {
       geolocation.getCurrentPosition(
         (position) => {
           subscriber.next({
@@ -61,5 +70,17 @@ export class GeoTimeService {
         }
       );
     });
-  };
+  }
+
+  /**
+   * Return an observable with user or default position and current time updated each minute
+   * @param {boolean} enabled
+   * @memberOf GeoTimeService
+   */
+  getPosAndTimeObs (enabled: boolean): Observable<{pos: GeoCoords, time: Time}> {
+    return combineLatest({
+      pos: this._geoPositionObs(enabled).pipe(startWith(DEFAULT_POSITION)),
+      time: this._currentTimeObs(),
+    })
+  }
 }
