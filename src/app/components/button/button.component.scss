@@ -65,7 +65,7 @@
 
       &:active {
         background-color: var(--bg-color);
-        color: var(--primary-color);
+        color: var(--secondary-color);
       }
     }
   }
@@ -91,6 +91,19 @@
 
   &.neutral {
     background-color: transparent;
-    color: var(--primary-color);
+    color: var(--secondary-color);
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+      }
+
+      &:active {
+        background-color: var(--bg-color);
+        color: var(--secondary-color);
+      }
+    }
   }
 }
