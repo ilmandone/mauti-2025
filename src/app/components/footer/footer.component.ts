@@ -1,6 +1,5 @@
 import { Component, DestroyRef, effect, HostBinding, inject, input } from '@angular/core';
-import { DEFAULT_POSITION, GeoLocationCoords, getGeoPosition } from '../../shared/geolocation';
-import { map, Observable, startWith, switchMap, tap, timer } from 'rxjs';
+import { combineLatest, Observable, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WeatherData, WeatherService } from '../../shared/services/weather.service';
 import { AsyncPipe } from '@angular/common';
@@ -10,6 +9,7 @@ import { ScrollKeys } from '../../shared/directives/infinite-scroll.utils';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { ANIMATION_DELAY } from '../../shared/commons';
 import { AckService } from '../../shared/services/ack.service';
+import { DEFAULT_POSITION, GeoLocationCoords, GeoTimeService } from '../../shared/services/geoTime.service';
 
 interface TimeData {
   day: string;
@@ -24,6 +24,7 @@ interface TimeData {
   imports: [AsyncPipe, NoiseSvgComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  providers: [GeoTimeService],
 })
 export class FooterComponent {
   private _state = inject(StateService);
@@ -31,6 +32,7 @@ export class FooterComponent {
   private _screenSizeSrv = inject(ScreenSizeService);
   private _weatherSrv = inject(WeatherService);
   private _ackSrv = inject(AckService);
+  private _geoTimeSrv = inject(GeoTimeService);
 
   @HostBinding('class.show-geo') isDesktop = false;
   @HostBinding('class.show') show = false;
@@ -71,43 +73,20 @@ export class FooterComponent {
   }
 
   /**
-   * Return and observable that each minute give the current day and time
-   * @private
-   */
-  private getCurrentTimeObservable(): Observable<TimeData> {
-    return timer(0, 60000).pipe(
-      map(() => {
-        const now = new Date();
-        return {
-          day: now.getDate().toString().padStart(2, '0'),
-          month: (now.getUTCMonth() + 1).toString().padStart(2, '0'),
-          year: now.getFullYear().toString(),
-          hour: now.getHours().toString().padStart(2, '0'),
-          minute: now.getMinutes().toString().padStart(2, '0'),
-        };
-      })
-    );
-  }
-
-  /**
    * Get user position one time + get time and relative weather data each minutes
    * @private
    */
   private _startGeolocation() {
-    getGeoPosition(this._ackSrv.ack()!)
-      .pipe(
-        startWith(DEFAULT_POSITION),
-        tap((r) => {
-          this.geoPosition = r;
-        }),
-        switchMap(() => {
-          return this.getCurrentTimeObservable().pipe(takeUntilDestroyed(this._destroyRef));
-        })
-      )
-      .subscribe((r) => {
-        const { lat, lon } = this.geoPosition;
+    combineLatest({
+      pos: this._geoTimeSrv.geoPositionObs(this._ackSrv.ack()!).pipe(startWith(DEFAULT_POSITION)),
+      time: this._geoTimeSrv.currentTimeObs(),
+    })
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(({ pos, time }) => {
+        this.geoPosition = pos;
+        this.timeData = time;
 
-        this.timeData = r;
+        const { lat, lon } = this.geoPosition;
         this.weatherData = this._weatherSrv.getWeatherDataByLocation(lat, lon);
       });
   }
