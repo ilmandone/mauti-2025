@@ -1,24 +1,18 @@
 import { Routes } from '@angular/router';
 import { ackGuard, noAckGuard } from './shared/ack.guard';
-import HomeComponent from './pages/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component'),
+    data: { section: 'home' },
     canActivate: [ackGuard],
-    children: [
-      {
-        path: '',
-        component: HomeComponent,
-        data: { section: 'home' },
-      },
-      {
-        path: 'about',
-        loadComponent: () => import('./pages/about/about.component'),
-        data: { section: 'about' },
-      },
-    ],
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.component'),
+    data: { section: 'about' },
+    canActivate: [ackGuard],
   },
   {
     path: 'ack',
