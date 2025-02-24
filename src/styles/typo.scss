@@ -6,22 +6,22 @@
 
 %text-basic {
   font-family: "Fragment Mono", serif;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
 
   text-rendering: geometricPrecision;
   text-transform: uppercase;
 
-  font-size: 1.25rem;
-  line-height: 2rem;
+  font-size: 1rem;
+  line-height: 2.25rem;
 
   @include u.media('tl') {
-    font-size: 1.45rem;
+    font-size: 1.25rem;
     line-height: 2.5rem;
   }
 
   @include u.media('dl') {
-    font-size: 1.65rem;
+    font-size: 1.45rem;
     line-height: 2.75rem;
   }
 }
