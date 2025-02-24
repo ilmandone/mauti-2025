@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Router } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -26,10 +26,11 @@ export class StateService {
     this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() =>
-        this._getSectionFromData(this._activateRoute.snapshot.firstChild?.data),
+        this._getSectionFromData(this._activateRoute.snapshot)
+
       ),
       startWith(
-        this._getSectionFromData(this._activateRoute.snapshot.firstChild?.data),
+        this._getSectionFromData(this._activateRoute.snapshot),
       ),
     ),
   );
@@ -37,13 +38,16 @@ export class StateService {
   //#endregion
 
   /**
-   * Return section value from Data or empty string
-   * @param data
+   * Follow activated routes to the leaf and get section value
    * @private
+   * @param ar
    */
-  private _getSectionFromData(data: Data | undefined) {
-    if (data && data['section']) return data['section'];
-    else return '';
+  private _getSectionFromData(ar: ActivatedRouteSnapshot): string {
+    if (ar.children.length > 0) {
+       return this._getSectionFromData(ar.children[0])
+    } else {
+      return ar.data['section']
+    }
   }
 
   get ready() {

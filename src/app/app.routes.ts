@@ -1,27 +1,17 @@
 import { Routes } from '@angular/router';
-import { HelloSectionComponent } from './sections/hello-section/hello-section.component';
-import { WhatSectionComponent } from './sections/what-section/what-section.component';
-import { UntilNowSectionComponent } from './sections/until-now-section/until-now-section.component';
 import { ackGuard, noAckGuard } from './shared/ack.guard';
+import HomeComponent from './pages/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component'),
-    data: { section: 'home' },
     canActivate: [ackGuard],
     children: [
       {
         path: '',
-        component: HelloSectionComponent,
-      },
-      {
-        path: 'what',
-        component: WhatSectionComponent,
-      },
-      {
-        path: 'now',
-        component: UntilNowSectionComponent,
+        component: HomeComponent,
+        data: { section: 'home' },
       },
       {
         path: 'about',
@@ -33,7 +23,7 @@ export const routes: Routes = [
   {
     path: 'ack',
     loadComponent: () => import('./pages/ack/ack.component'),
-    canActivate: [noAckGuard]
+    canActivate: [noAckGuard],
   },
   {
     path: '**',

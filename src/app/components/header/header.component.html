@@ -4,7 +4,7 @@
      [class.show]="show"
 >
   @if (!isMobile) {
-    <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/home'" type="button"
+    <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"
             app-button>{{ currentSection() !== 'about' ? 'About' : 'Close' }}
     </button>
   }
