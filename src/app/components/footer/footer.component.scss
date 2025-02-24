@@ -21,7 +21,7 @@
   backdrop-filter: url('#noise-footer');
 
   @include c.headerFooterPadding;
-  @include t.text-small;
+  @include t.text-x-small;
 
   &.show {
     transition-property: transform, opacity;
