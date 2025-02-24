@@ -49,20 +49,24 @@
 
 @mixin text-small {
   font-size: 0.75rem;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.25px;
+  line-height: 1.25rem;
 
   @include u.media('tl') {
     font-size: 0.825rem;
-    letter-spacing: 1.75px;
+    letter-spacing: 1.5px;
+    line-height: 1.35r  em;
   }
 
   @include u.media('dl') {
     font-size: 0.875rem;
-    letter-spacing: 2px;
+    letter-spacing: 1.75px;
+    line-height: 1.5rem;
   }
 }
 
 @mixin text-x-small {
   font-size: 0.75rem;
   letter-spacing: 1.5px;
+  line-height: 1.25rem;
 }
