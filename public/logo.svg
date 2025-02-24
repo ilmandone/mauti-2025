@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 340">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #1d1d1d;
-      }
-    </style>
-  </defs>
-  <polygon id="A" class="cls-1" points="206 0 6 340 75.02 340 75.41 340 262.98 340 227.68 280 110.71 280 206 118 336.59 340 406 340 206 0"/>
-  <path id="M3" class="cls-1" d="M664,0v340s-60,0-60,0V60C627.43,36.57,640.57,23.43,664,0h0Z"/>
-  <rect id="M1" class="cls-1" x="206" y="140" width="340" height="60" transform="translate(206 546) rotate(-90)"/>
-  <path id="M2" class="cls-1" d="M534,0v100c-23.43,23.43-36.57,36.57-60,60h0V0h60ZM534,341v-160h0c-23.43,23.43-36.57,36.57-60,60v100h60Z"/>
+  <polygon id="A" points="206 0 6 340 75.02 340 75.41 340 262.98 340 227.68 280 110.71 280 206 118 336.59 340 406 340 206 0"/>
+  <path id="M3" d="M664,0v340s-60,0-60,0V60C627.43,36.57,640.57,23.43,664,0h0Z"/>
+  <rect id="M1" x="206" y="140" width="340" height="60" transform="translate(206 546) rotate(-90)"/>
+  <path id="M2" d="M534,0v100c-23.43,23.43-36.57,36.57-60,60h0V0h60ZM534,341v-160h0c-23.43,23.43-36.57,36.57-60,60v100h60Z"/>
 </svg>
