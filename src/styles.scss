@@ -53,9 +53,6 @@ body {
     @include a.visually-hidden;
   }
 
-  // Text block TODO: Remove from here
-  @include tb.textBlock;
-
   // Links
   a {
     text-decoration: none;
