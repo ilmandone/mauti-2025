@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -25,14 +25,9 @@ export class StateService {
   private _section = toSignal<string>(
     this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
-      map(() =>
-        this._getSectionFromData(this._activateRoute.snapshot)
-
-      ),
-      startWith(
-        this._getSectionFromData(this._activateRoute.snapshot),
-      ),
-    ),
+      map(() => this._getSectionFromData(this._activateRoute.snapshot)),
+      startWith(this._getSectionFromData(this._activateRoute.snapshot))
+    )
   );
 
   //#endregion
@@ -44,9 +39,9 @@ export class StateService {
    */
   private _getSectionFromData(ar: ActivatedRouteSnapshot): string {
     if (ar.children.length > 0) {
-       return this._getSectionFromData(ar.children[0])
+      return this._getSectionFromData(ar.children[0]);
     } else {
-      return ar.data['section']
+      return ar.data['section'];
     }
   }
 
