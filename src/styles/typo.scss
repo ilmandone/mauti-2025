@@ -13,16 +13,16 @@
   text-transform: uppercase;
 
   font-size: 1rem;
-  line-height: 2.25rem;
+  line-height: 2rem;
 
   @include u.media('tl') {
     font-size: 1.25rem;
-    line-height: 2.5rem;
+    line-height: 2.25rem;
   }
 
   @include u.media('dl') {
     font-size: 1.45rem;
-    line-height: 2.75rem;
+    line-height: 2.5rem;
   }
 }
 
