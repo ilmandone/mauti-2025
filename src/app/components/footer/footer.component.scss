@@ -32,6 +32,21 @@
     transform: translateY(0) scale(1);
   }
 
+  @media screen and (min-height: 1080px) {
+    width: 100vh;
+    height: 4rem;
+    bottom: -4rem;
+
+    transform-origin: top left;
+    transform: rotate(-90deg) translateY(-25%) scale(1.05);
+
+    backdrop-filter: url(#header-filter);
+
+    &.show {
+      transform: rotate(-90deg) translateY(0) scale(1);
+    }
+  }
+
   //#region Scroll info
 
   /*.scroll-info {
