@@ -29,10 +29,6 @@
     transform: rotate(180deg);
   }
 
-  @include u.media('d') {
-    align-items: flex-start;
-  }
-
   .controls {
     display: flex;
     align-items: center;
@@ -55,14 +51,24 @@
     button {
       margin-right: 2rem;
       text-transform: uppercase;
-
-      @include u.media('tl') {
-        margin-right: 3rem;
-      }
-
-      @include u.media('dl') {
-        margin-right: 4rem;
-      }
     }
   }
+
+  @include u.media('tl') {
+    button {
+      margin-right: 3rem;
+    }
+  }
+
+  @include u.media('d') {
+    align-items: flex-start;
+  }
+
+  @include u.media('dl') {
+    button {
+      margin-right: 4rem;
+    }
+  }
+
+
 }
