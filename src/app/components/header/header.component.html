@@ -3,10 +3,10 @@
 <div class="controls"
      [class.show]="show"
 >
-  @if (!isMobile) {
-    <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"
-            app-button>{{ currentSection() !== 'about' ? 'About' : 'Close' }}
-    </button>
-  }
+
+  <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"
+          app-button>{{ currentSection() !== 'about' ? 'About' : 'Close' }}
+  </button>
+
   <aside>Ver 1.0 - MVP</aside>
 </div>

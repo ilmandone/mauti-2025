@@ -1,43 +1,5 @@
 @use "utils" as u;
 
-@mixin sidesPadding {
-  padding-left: 10vw;
-  padding-right: 16vw;
-
-  @include u.media('t') {
-    padding-left: 14vw;
-    padding-right: 20vw;
-  }
-
-  @include u.media('tl') {
-    padding-left: 10vw;
-    padding-right: 16vw;
-  }
-
-  @include u.media('d') {
-    padding-right: 30vw;
-  }
-
-  @include u.media('dl') {
-    padding-left: 8vw;
-    padding-right: 40vw;
-  }
-
-  @include u.media('dxl') {
-    padding-right: 50vw;
-  }
-}
-
-@mixin verticalPadding {
-  padding-top: 14vh;
-  padding-bottom: 14vh;
-
-  @include u.media('d') {
-    padding-top: 18vh;
-    padding-bottom: 18vh;
-  }
-}
-
 @mixin headerFooterPadding {
   padding: 1.5rem;
 
