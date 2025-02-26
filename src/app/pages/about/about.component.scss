@@ -26,7 +26,7 @@
     align-items: center;
 
     #logo {
-      height: 20vh;
+      height: 18vh;
       max-width: 12rem;
 
       padding: 2rem 0;
@@ -44,23 +44,8 @@
   }
 
   .history {
-
     ul li{
       margin-bottom: 2rem;
-    }
-
-    &__main {
-      padding: 2rem;
-      border: 0.25rem solid var(--primary-color);
-
-      &--secondary {
-        border-color: var(--secondary-color);
-      }
-    }
-
-    &__def {
-      padding: 0.5rem 0;
-      @include t.text-x-small;
     }
   }
 }

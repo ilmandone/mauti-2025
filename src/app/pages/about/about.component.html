@@ -77,19 +77,11 @@
   <ul>
     @for (h of history; track h.company; let i = $index) {
       <li>
-        <div
-          class="history__def"
-          [class.text-secondary]="i === 0"
-        >
-          //// {{ h.time }}
-        </div>
-        <div class="history__main"
-             [class.text-secondary]="i === 0"
-             [class.history__main--secondary]="i === 0"
-        >
-          <div>{{ h.role }}</div>
-          <div>{{ h.company }}</div>
-        </div>
+        <app-history-step
+          [company]="h.company"
+          [role]="h.role"
+          [time]="h.time"
+          [variant]="i === 0 ? 'secondary' : 'primary'" />
       </li>
     }
   </ul>

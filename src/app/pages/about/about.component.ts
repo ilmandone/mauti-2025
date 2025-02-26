@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CareerStep } from '../../sections/until-now-section/until-now-section.component';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
+import { HistoryStepComponent } from '@components/history-step/history-step.component';
 
 @Component({
   selector: 'app-about',
-  imports: [ColorDataComponent],
+  imports: [ColorDataComponent, HistoryStepComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
