@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CareerStep } from '../../sections/until-now-section/until-now-section.component';
+import { ColorDataComponent } from '@components/color-data/color-data.component';
 
 @Component({
   selector: 'app-about',
-  imports: [],
+  imports: [ColorDataComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
@@ -40,6 +41,7 @@ class AboutComponent {
       role: 'UX / UI designer - Front-end developer',
     },
   ];
+  protected readonly self = self;
 }
 
 export default AboutComponent;

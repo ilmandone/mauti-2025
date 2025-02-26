@@ -43,32 +43,6 @@
     margin-bottom: 2rem;
   }
 
-  .color {
-
-    padding: 6rem 0 ;
-
-    &__data {
-      padding: 2.5rem 3rem;
-      color: var(--bg-color);
-
-      @include t.text-small;
-      font-weight: 600;
-
-      &--primary {
-        background-color: var(--primary-color);
-      }
-
-      &--secondary {
-        background-color: var(--secondary-color);
-      }
-    }
-
-    &__def {
-      padding: 0.5rem 0;
-      @include t.text-x-small;
-    }
-  }
-
   .history {
 
     ul li{

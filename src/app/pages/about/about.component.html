@@ -23,7 +23,7 @@
 <article class="color">
   <ul>
     <li>
-      <div class="color__data color__data--primary">
+      <app-color-data [def]="'main'">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -35,13 +35,10 @@
         CMYK: 0%, 100%, 81%, 9%,<br>
         WEBSAFE: #ff0033,br
         PANTONE: 185 C <br>
-      </div>
-      <div class="color__def">
-        //////// main
-      </div>
+      </app-color-data>
     </li>
     <li>
-      <div class="color__data color__data--secondary">
+      <app-color-data [def]="'secondary'" [color]="'secondary'">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -53,10 +50,7 @@
         CMYK: 0%, 100%, 81%, 9%,<br>
         WEBSAFE: #ff0033,br
         PANTONE: 185 C <br>
-      </div>
-      <div class="color__def text-secondary">
-        //////// secondary
-      </div>
+      </app-color-data>
     </li>
   </ul>
 </article>
