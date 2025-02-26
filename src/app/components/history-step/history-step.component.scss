@@ -1,0 +1,31 @@
+@use 'typo' as t;
+
+:host {
+  position: relative;
+  display: block;
+
+  .main {
+    padding: 1rem 1.5rem;
+    border: 0.25rem solid var(--primary-color);
+
+    @include t.text-small;
+
+    &.primary {
+      border: 0.25rem solid var(--primary-color);
+    }
+
+    &.secondary {
+      border: 0.25rem solid var(--secondary-color);
+      color: var(--secondary-color);
+    }
+  }
+
+  .def {
+    padding: 0.5rem 0;
+    @include t.text-x-small;
+
+    &.secondary {
+      color: var(--secondary-color);
+    }
+  }
+}
