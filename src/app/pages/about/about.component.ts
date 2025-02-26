@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CareerStep } from '../../sections/until-now-section/until-now-section.component';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
@@ -13,6 +13,10 @@ import { LogoComponent } from '@components/logo/logo.component';
 })
 class AboutComponent {
   screenSizeSrv = inject(ScreenSizeService);
+
+  orientation = computed(() => {
+    return this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal';
+  });
 
   history: CareerStep[] = [
     {

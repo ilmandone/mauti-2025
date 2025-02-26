@@ -19,7 +19,7 @@
   <ul>
     <li>
       <app-color-data [def]="'main'"
-                      [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'">
+                      [orientation]="orientation()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -35,7 +35,7 @@
     </li>
     <li>
       <app-color-data [def]="'secondary'" [color]="'secondary'"
-                      [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'">
+                      [orientation]="orientation()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
