@@ -27,11 +27,16 @@
 
     #logo {
       height: 20vh;
-      max-width: 10rem;
+      max-width: 12rem;
 
       padding: 2rem 0;
       fill: var(--primary-color);
     }
+  }
+
+  section:not(:last-child),
+  article {
+    margin-bottom: 7rem;
   }
 
   .intro p:not(:last-child){
@@ -55,6 +60,27 @@
 
       &--secondary {
         background-color: var(--secondary-color);
+      }
+    }
+
+    &__def {
+      padding: 0.5rem 0;
+      @include t.text-x-small;
+    }
+  }
+
+  .history {
+
+    ul li{
+      margin-bottom: 2rem;
+    }
+
+    &__main {
+      padding: 2rem;
+      border: 0.25rem solid var(--primary-color);
+
+      &--secondary {
+        border-color: var(--secondary-color);
       }
     }
 

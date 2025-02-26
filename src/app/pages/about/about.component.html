@@ -1,9 +1,9 @@
 <div class="logo-wrapper">
   <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 340">
-    <use xlink:href="/logo.svg#A"/>
-    <use xlink:href="/logo.svg#M1"/>
-    <use xlink:href="/logo.svg#M2"/>
-    <use xlink:href="/logo.svg#M3"/>
+    <use xlink:href="/logo.svg#A" />
+    <use xlink:href="/logo.svg#M1" />
+    <use xlink:href="/logo.svg#M2" />
+    <use xlink:href="/logo.svg#M3" />
   </svg>
 </div>
 
@@ -12,7 +12,11 @@
     I'm a front-end engineer with a deep love for UX/UI design and 3D CGI.
   </p>
   <p>
-    Passionate about visual interfaces from early age, I have honed my design and development skills through a career that has taken me from freelance to enterprise companies. I use a methodical approach for each task, believing that an accurate and precise analysis is the foundation of any solid, effective and lasting solution. This approach has always been complemented by my love in crafting intuitive and effective user experiences, playing with fonts, colors and motion.
+    Passionate about visual interfaces from early age, I have honed my design and development skills through a career
+    that has taken me from freelance to enterprise companies. I use a methodical approach for each task, believing that
+    an accurate and precise analysis is the foundation of any solid, effective and lasting solution. This approach has
+    always been complemented by my love in crafting intuitive and effective user experiences, playing with fonts, colors
+    and motion.
   </p>
 </section>
 
@@ -59,13 +63,41 @@
 
 <section>
   <p class="text-secondary text-justify">
-    Development of robust, scalable front-end solutions for E-Commerce platforms, SPA/MPA applications, portals, CMS, back office systems, and PWAs.
-    Includes architectural design for back-end service integration, dependency optimization, and performance enhancement.
+    Development of robust, scalable front-end solutions for E-Commerce platforms, SPA/MPA applications, portals, CMS,
+    back office systems, and PWAs.
+    Includes architectural design for back-end service integration, dependency optimization, and performance
+    enhancement.
     Expertise in establishing team workflows aligned with CI/CD infrastructures and maintaining code quality standards.
-    Solutions implemented across major front-end frameworks.Cross-platform UX design with emphasis on information architecture, accessibility standards, and comprehensive testing protocols.
-    Specialization in transforming UX wireframes and low-fidelity interfaces into refined solutions through strategic implementation of color theory, typography principles, and iconographic design.
-    Creation of 3D models and scenes optimized for both real-time and production rendering, encompassing the complete pipeline from modeling through texturing to final composition.
+    Solutions implemented across major front-end frameworks.Cross-platform UX design with emphasis on information
+    architecture, accessibility standards, and comprehensive testing protocols.
+    Specialization in transforming UX wireframes and low-fidelity interfaces into refined solutions through strategic
+    implementation of color theory, typography principles, and iconographic design.
+    Creation of 3D models and scenes optimized for both real-time and production rendering, encompassing the complete
+    pipeline from modeling through texturing to final composition.
     Implementation of real-time web libraries and Unreal Engine for end-user applications and development tools.
   </p>
+</section>
+
+<section class="history">
+  <h2 class="visually-hidden">My story:</h2>
+  <ul>
+    @for (h of history; track h.company; let i = $index) {
+      <li>
+        <div
+          class="history__def"
+          [class.text-secondary]="i === 0"
+        >
+          //// {{ h.time }}
+        </div>
+        <div class="history__main"
+             [class.text-secondary]="i === 0"
+             [class.history__main--secondary]="i === 0"
+        >
+          <div>{{ h.role }}</div>
+          <div>{{ h.company }}</div>
+        </div>
+      </li>
+    }
+  </ul>
 </section>
 
