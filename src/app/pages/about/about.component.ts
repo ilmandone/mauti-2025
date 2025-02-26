@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CareerStep } from '../../sections/until-now-section/until-now-section.component';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
+import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { LogoComponent } from '@components/logo/logo.component';
 
 @Component({
   selector: 'app-about',
-  imports: [ColorDataComponent, HistoryStepComponent],
+  imports: [ColorDataComponent, HistoryStepComponent, LogoComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
 class AboutComponent {
+  screenSizeSrv = inject(ScreenSizeService);
+
   history: CareerStep[] = [
     {
       time: 'Today',
@@ -42,7 +46,6 @@ class AboutComponent {
       role: 'UX / UI designer - Front-end developer',
     },
   ];
-  protected readonly self = self;
 }
 
 export default AboutComponent;

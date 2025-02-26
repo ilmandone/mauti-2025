@@ -1,10 +1,5 @@
 <div class="logo-wrapper">
-  <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 340">
-    <use xlink:href="/logo.svg#A" />
-    <use xlink:href="/logo.svg#M1" />
-    <use xlink:href="/logo.svg#M2" />
-    <use xlink:href="/logo.svg#M3" />
-  </svg>
+  <app-logo [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'" />
 </div>
 
 <section class="intro text-justify">
@@ -55,7 +50,7 @@
   </ul>
 </article>
 
-<section>
+<section class="more">
   <p class="text-secondary text-justify">
     Development of robust, scalable front-end solutions for E-Commerce platforms, SPA/MPA applications, portals, CMS,
     back office systems, and PWAs.
