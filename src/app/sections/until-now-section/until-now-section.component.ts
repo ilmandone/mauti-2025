@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HistoryDetailComponent } from '@components/history-detail/history-detail.component';
 import { InViewportDirective } from '../../shared/directives/in-viewport.directive';
 import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
 
@@ -12,7 +11,6 @@ export interface CareerStep {
 @Component({
   selector: 'app-until-now-section',
   imports: [
-    HistoryDetailComponent,
     InViewportDirective,
     TextScrambleLeftRightDirective,
   ],
