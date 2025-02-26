@@ -4,7 +4,10 @@
 
 :host {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
 
   transition-property: background-color, color, border;
@@ -15,7 +18,7 @@
 
   &.small {
     border-radius: 0.25rem;
-    padding: 0.35rem 0.65rem;
+    padding: 0 0.65rem;
     height: 1.875rem;
 
     @include t.text-small;
@@ -24,14 +27,11 @@
     @include u.media('tl') {
       padding: 0.45rem 0.8rem;
     }
-
-    @include u.media('dl') {
-      padding: 0.5rem 0.9rem;
-    }
   }
 
   &.standard {
-    padding: 0.85rem 1rem ;
+    height: 3rem;
+    padding: 0 1rem ;
   }
 
   // Color variants
