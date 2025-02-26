@@ -90,5 +90,15 @@
         margin-right: 3rem;
       }
     }
+
+    .history ul {
+      display: flex;
+      flex-direction: row;
+
+      li {
+        margin-bottom: 0;
+        margin-right: 2rem;
+      }
+    }
   }
 }
