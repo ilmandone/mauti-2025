@@ -18,7 +18,8 @@
 <article class="color">
   <ul>
     <li>
-      <app-color-data [def]="'main'">
+      <app-color-data [def]="'main'"
+                      [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -33,7 +34,8 @@
       </app-color-data>
     </li>
     <li>
-      <app-color-data [def]="'secondary'" [color]="'secondary'">
+      <app-color-data [def]="'secondary'" [color]="'secondary'"
+                      [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>

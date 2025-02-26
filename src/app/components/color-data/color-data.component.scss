@@ -5,13 +5,18 @@
   position: relative;
   display: block;
 
-  padding: 0.5rem 0 ;
+  padding: 0.5rem 0;
 
   .main {
     padding: 2rem 2.5rem;
     color: var(--bg-color);
     font-weight: 600;
     @include t.text-small;
+
+    &.vertical {
+      height: 70vh;
+      writing-mode: sideways-lr;
+    }
 
     &.primary {
       background-color: var(--primary-color);
