@@ -4,6 +4,7 @@ import { ColorDataComponent } from '@components/color-data/color-data.component'
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { LogoComponent } from '@components/logo/logo.component';
+import { history } from './about.configs';
 
 @Component({
   selector: 'app-about',
@@ -14,7 +15,9 @@ import { LogoComponent } from '@components/logo/logo.component';
 class AboutComponent {
   screenSizeSrv = inject(ScreenSizeService);
 
-  orientation = computed(() => {
+  protected readonly history = history;
+
+  itemsOr = computed(() => {
     return this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal';
   });
 
