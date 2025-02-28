@@ -1,5 +1,5 @@
 <div class="logo-wrapper">
-  <app-logo [orientation]="this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal'" />
+  <app-logo [orientation]="itemsOr()" />
 </div>
 
 <section class="intro text-justify">
@@ -19,7 +19,7 @@
   <ul>
     <li>
       <app-color-data [def]="'main'"
-                      [orientation]="orientation()">
+                      [orientation]="itemsOr()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -35,7 +35,7 @@
     </li>
     <li>
       <app-color-data [def]="'secondary'" [color]="'secondary'"
-                      [orientation]="orientation()">
+                      [orientation]="itemsOr()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -76,6 +76,7 @@
       <li>
         <app-history-step
           [company]="h.company"
+          [orientation]="itemsOr()"
           [role]="h.role"
           [time]="h.time"
           [variant]="i === 0 ? 'secondary' : 'primary'" />

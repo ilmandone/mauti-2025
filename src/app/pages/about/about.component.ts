@@ -13,46 +13,27 @@ import { history } from './about.configs';
   styleUrl: './about.component.scss',
 })
 class AboutComponent {
-  screenSizeSrv = inject(ScreenSizeService);
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _elementScroll = 0;
 
   protected readonly history = history;
 
+  screenSizeSrv = inject(ScreenSizeService);
   itemsOr = computed(() => {
     return this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal';
   });
 
-  history: CareerStep[] = [
-    {
-      time: 'Today',
-      company: 'XTel',
-      role: 'Senior front-end developer',
-    },
-    {
-      time: '2021 - 2024',
-      company: 'Var Group',
-      role: 'Front-end architect / senior developer',
-    },
-    {
-      time: '2018 - 2021',
-      company: 'YNAP / Yoox',
-      role: 'Senior front-end developer',
-    },
-    {
-      time: '2015 - 2018',
-      company: 'Life Longari Loman',
-      role: 'Digital Art Director - UX / UI designer',
-    },
-    {
-      time: '2013 - 2015',
-      company: 'Neri Wolff - Quadrante',
-      role: 'UX / UI designer',
-    },
-    {
-      time: '2011 - 2013',
-      company: 'Net Sinergy',
-      role: 'UX / UI designer - Front-end developer',
-    },
-  ];
+  @HostListener('wheel', ['$event'])
+  protected onScroll(event$: WheelEvent) {
+    if (this.itemsOr() === 'horizontal') return;
+
+    let ns = this._elementScroll + event$.deltaY;
+    if (ns < 0) ns = 0;
+    if (ns > this._elementRef.nativeElement.scrollWidth - window.innerWidth)
+      ns = this._elementRef.nativeElement.scrollWidth - window.innerWidth;
+    this._elementScroll = ns;
+    this._elementRef.nativeElement.scrollLeft = ns;
+  }
 }
 
 export default AboutComponent;
