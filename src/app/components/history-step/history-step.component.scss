@@ -1,4 +1,5 @@
 @use 'typo' as t;
+@use 'utils' as u;
 
 :host {
   position: relative;
@@ -26,6 +27,14 @@
 
     &.secondary {
       color: var(--secondary-color);
+    }
+  }
+
+  @include u.media('tl') {
+    .main {
+      min-height: 50vh;
+      padding: 2rem 3rem;
+      writing-mode: sideways-lr;
     }
   }
 }
