@@ -1,5 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
-import { CareerStep } from '../../sections/until-now-section/until-now-section.component';
+import { Component, computed, ElementRef, HostListener, inject } from '@angular/core';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
