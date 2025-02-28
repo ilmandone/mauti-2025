@@ -19,6 +19,12 @@
       border: 0.25rem solid var(--secondary-color);
       color: var(--secondary-color);
     }
+
+    &.vertical {
+      min-height: 65vh;
+      padding: 2rem 3rem;
+      writing-mode: sideways-lr;
+    }
   }
 
   .def {
@@ -27,14 +33,6 @@
 
     &.secondary {
       color: var(--secondary-color);
-    }
-  }
-
-  @include u.media('tl') {
-    .main {
-      min-height: 65vh;
-      padding: 2rem 3rem;
-      writing-mode: sideways-lr;
     }
   }
 }

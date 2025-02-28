@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { ItemOrientation } from '../../shared/commons';
 
 @Component({
   selector: 'app-color-data',
@@ -14,5 +15,5 @@ import { Component, input } from '@angular/core';
 export class ColorDataComponent {
   def = input<string>('');
   color = input<'primary' | 'secondary'>('primary');
-  orientation = input<'horizontal' | 'vertical'>('horizontal');
+  orientation = input<ItemOrientation>('horizontal');
 }
