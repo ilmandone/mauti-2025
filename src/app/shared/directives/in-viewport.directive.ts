@@ -13,10 +13,9 @@ export class InViewportDirective implements OnInit, OnDestroy {
   constructor() {
     effect(() => {
       const r = this._inViewportSrv.intersectionRatio();
-      const cs = this._inViewportSrv.currentSection();
 
-      if (r && this._elementRef.nativeElement === r.el && cs?.el) {
-        this.changed.emit({ visible: cs.intersecting, ratio: r.ratio });
+      if (r && this._elementRef.nativeElement === r.el) {
+        this.changed.emit({ visible: r.intersecting, ratio: r.ratio });
       }
     });
   }
