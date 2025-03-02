@@ -1,3 +1,4 @@
+@use 'effects' as e;
 @use 'utils' as u;
 
 :host {
@@ -5,8 +6,22 @@
   display: block;
 
   p {
-    text-align: justify;
     color: var(--secondary-color);
+  }
+
+  .flicker-fade-in,
+  .slow-fade-in {
+    opacity: 0;
+  }
+
+  &.visible {
+    .slow-fade-in {
+      @include e.slowFadeIn;
+    }
+
+    .flicker-fade-in {
+      @include e.flickerFadeIn;
+    }
   }
 
   @include u.media('tl') {
