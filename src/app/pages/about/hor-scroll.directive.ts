@@ -7,6 +7,8 @@ import { ItemOrientation } from '../../shared/commons';
 export class HorScrollDirective {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _elementScroll = 0;
+  private _elementScrollNext = 0;
+  private _touchStartX = 0;
 
   itemsOr = input<ItemOrientation>();
 
@@ -20,5 +22,24 @@ export class HorScrollDirective {
       ns = this._elementRef.nativeElement.scrollWidth - window.innerWidth;
     this._elementScroll = ns;
     this._elementRef.nativeElement.scrollLeft = ns;
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event$: TouchEvent) {
+    this._touchStartX = event$.targetTouches[0].clientX;
+  }
+
+  @HostListener('touchmove', ['$event'])
+  onTouchMove(event$: TouchEvent) {
+    const delta = this._touchStartX - event$.targetTouches[0].clientX;
+    this._elementScrollNext = this._elementScroll - delta;
+
+    this._elementRef.nativeElement.scrollLeft = -this._elementScrollNext;
+  }
+
+  @HostListener('touchend')
+  onTouchEnd() {
+    this._elementScroll = this._elementScrollNext;
+    this._elementScrollNext = 0;
   }
 }
