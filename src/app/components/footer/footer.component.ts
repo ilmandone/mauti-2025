@@ -5,7 +5,6 @@ import { WeatherData, WeatherService } from '../../shared/services/weather.servi
 import { AsyncPipe } from '@angular/common';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { StateService } from '../../shared/services/state.service';
-import { ScrollKeys } from '../../shared/directives/infinite-scroll.utils';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { ANIMATION_DELAY } from '../../shared/commons';
 import { AckService } from '../../shared/services/ack.service';
@@ -39,7 +38,6 @@ export class FooterComponent {
   @HostBinding('class.show') show = false;
 
   scrollPercentage = input<number>(0);
-  scrollDirection = input<ScrollKeys | undefined>(undefined);
 
   /*scrollBinary = computed(() => {
     const binaries = (this.scrollPercentage() >>> 0)
@@ -77,7 +75,7 @@ export class FooterComponent {
    * Get user position one time + get time and relative weather data each minutes
    * @private
    */
-  private _startGeolocation(override? :boolean ) {
+  private _startGeolocation(override?: boolean) {
     this._geoTimeSrv
       .getPosAndTimeObs(override ?? this._ackSrv.ack()!)
       .pipe(takeUntilDestroyed(this._destroyRef))
@@ -96,7 +94,7 @@ export class FooterComponent {
    * Set ACK to true and enable the Geolocation
    */
   enableGeoPosition() {
-    this._ackSrv.setAck(true)
+    this._ackSrv.setAck(true);
     this._startGeolocation(true);
   }
 }
