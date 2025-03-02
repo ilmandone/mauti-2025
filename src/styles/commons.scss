@@ -14,4 +14,10 @@
       padding: 1.75rem 2rem;
     }
   }
+
+  @if ($isFooter) {
+    @include u.media('dl') {
+      padding: 1.5rem 1rem
+    }
+  }
 }
