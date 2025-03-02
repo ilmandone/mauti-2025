@@ -18,7 +18,7 @@ class AboutComponent {
 
   screenSizeSrv = inject(ScreenSizeService);
   itemsOr = computed(() => {
-    return this.screenSizeSrv.relatedTo('tl') === 'before' ? 'vertical' : 'horizontal';
+    return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';
   });
 }
 
