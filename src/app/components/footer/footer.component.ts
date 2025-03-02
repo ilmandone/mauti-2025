@@ -83,7 +83,6 @@ export class FooterComponent {
         this.geoPosition = pos;
         this.timeData = time;
 
-        console.log(this.geoPosition);
         const { lat, lon } = this.geoPosition;
 
         this.weatherData = this._weatherSrv.getWeatherDataByLocation(lat, lon);

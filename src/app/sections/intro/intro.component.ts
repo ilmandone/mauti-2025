@@ -14,7 +14,6 @@ export class IntroComponent {
 
   constructor() {
     effect(() => {
-      console.log(this.visible());
       this.isVisible = this.visible();
     });
   }
