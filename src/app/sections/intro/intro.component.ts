@@ -1,9 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, effect, HostBinding, input } from '@angular/core';
+import { TextScrambleLeftRightDirective } from '../../shared/directives/text-scramble-left-right.directive';
 
 @Component({
   selector: 'section [intro]',
-  imports: [],
+  imports: [TextScrambleLeftRightDirective],
   templateUrl: './intro.component.html',
   styleUrl: './intro.component.scss',
 })
-export class IntroComponent {}
+export class IntroComponent {
+  visible = input<boolean>(false);
+
+  @HostBinding('class.visible') isVisible!: boolean;
+
+  constructor() {
+    effect(() => {
+      console.log(this.visible());
+      this.isVisible = this.visible();
+    });
+  }
+}

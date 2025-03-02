@@ -1,9 +1,14 @@
+@use "effects" as e;
 @use "utils" as u;
 
 :host {
   position: relative;
   display: block;
 
+  .flicker-fade-in,
+  .slow-fade-in {
+    opacity: 0;
+  }
 
   & p:last-child {
     color: var(--secondary-color);
@@ -11,6 +16,16 @@
 
   & p:not(:last-child) {
     margin-bottom: 2rem;
+  }
+
+  &.visible {
+    .slow-fade-in {
+      @include e.slowFadeIn;
+    }
+
+    .flicker-fade-in {
+      @include e.flickerFadeIn;
+    }
   }
 
   @include u.media('tl') {

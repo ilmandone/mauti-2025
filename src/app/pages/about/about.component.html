@@ -3,8 +3,8 @@
 </div>
 
 <section intro
-         class="intro text-justify"
-         inViewport (changed)="sectionChanged('info', $event)">
+         [visible]="sectionsVisible().intro"
+         inViewport (changed)="sectionChanged('intro', $event)">
 </section>
 
 <article class="color">

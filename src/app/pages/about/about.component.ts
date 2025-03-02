@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
@@ -8,6 +8,8 @@ import { HorScrollDirective } from './hor-scroll.directive';
 import { InViewportDirective } from '../../shared/directives/in-viewport.directive';
 import { IntroComponent } from '../../sections/intro/intro.component';
 import { MoreComponent } from '../../sections/more/more.component';
+
+type Section = 'intro' | 'more';
 
 @Component({
   selector: 'app-about',
@@ -30,11 +32,14 @@ class AboutComponent {
   itemsOr = computed(() => {
     return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';
   });
+  sectionsVisible = signal<Record<Section, boolean>>({
+    intro: false,
+    more: false,
+  });
 
-  sectionChanged(section: string, $event: { visible: boolean; ratio: number }) {
-    console.log('*********************************** RATIO');
-    console.log(section);
-    console.log($event);
+  sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
+    if (!this.sectionsVisible()[section])
+      this.sectionsVisible.update((cv) => ({ ...cv, [section]: $event.visible && $event.ratio > 0.3 }));
   }
 }
 
