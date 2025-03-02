@@ -4,8 +4,10 @@
      [class.show]="show"
 >
 
-  <button size="small" variant="secondary" [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"
-          app-button>{{ currentSection() !== 'about' ? 'About' : 'Back' }}
+  <button
+    app-button size="small" variant="secondary"
+    [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"
+  >{{ currentSection() !== 'about' ? 'About' : 'Back' }}
   </button>
 
   <aside>Ver 1.0 - MVP</aside>

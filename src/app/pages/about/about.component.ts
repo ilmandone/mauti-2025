@@ -33,7 +33,7 @@ class AboutComponent {
     return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';
   });
   sectionsVisible = signal<Record<Section, boolean>>({
-    intro: false,
+    intro: true,
     more: false,
   });
 
