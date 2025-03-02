@@ -1,5 +1,6 @@
 @use 'effects' as e;
 @use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: relative;
@@ -9,12 +10,21 @@
     color: var(--secondary-color);
   }
 
+  .color-shift {
+    color: var(--primary-color);
+    transition: color v.$transition-time-quad ease-out;
+  }
+
   .flicker-fade-in,
   .slow-fade-in {
     opacity: 0;
   }
 
   &.visible {
+    .color-shift {
+      color: inherit;
+    }
+
     .slow-fade-in {
       @include e.slowFadeIn;
     }
