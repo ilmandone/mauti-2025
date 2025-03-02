@@ -45,6 +45,7 @@
 </article>
 
 <section more
+         [visible]="sectionsVisible().more"
          inViewport (changed)="sectionChanged('more', $event)">
 </section>
 

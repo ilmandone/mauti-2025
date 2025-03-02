@@ -38,8 +38,10 @@ class AboutComponent {
   });
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
+    const threshold = window.innerWidth / window.innerHeight > 0 ? 0.2 : 0.025;
+
     if (!this.sectionsVisible()[section])
-      this.sectionsVisible.update((cv) => ({ ...cv, [section]: $event.visible && $event.ratio > 0.3 }));
+      this.sectionsVisible.update((cv) => ({ ...cv, [section]: $event.ratio > threshold }));
   }
 }
 
