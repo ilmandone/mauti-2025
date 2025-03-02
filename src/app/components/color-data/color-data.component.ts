@@ -8,7 +8,7 @@ import { ItemOrientation } from '../../shared/commons';
     <div class="main" [class]="color()" [class.vertical]="orientation() === 'vertical'">
       <ng-content />
     </div>
-    <div class="def" [class]="color()">//////// {{ def() }}</div>
+    <div class="def" [class]="color()">///// {{ def() }}</div>
   `,
   styleUrl: './color-data.component.scss',
 })
