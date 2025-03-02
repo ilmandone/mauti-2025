@@ -123,12 +123,12 @@
 
     writing-mode: sideways-lr;
 
-    transform: translateY(-25%) scale(1.05);
+    transform: translateX(-25%) scale(1.05);
 
     backdrop-filter: url(#header-filter);
 
     &.show {
-      transform: translateY(0) scale(1);
+      transform: translateX(0) scale(1);
     }
 
     .geo-location span:not(:last-child) {
