@@ -20,7 +20,7 @@
 
   backdrop-filter: url('#noise-footer');
 
-  @include c.headerFooterPadding;
+  @include c.headerFooterPadding(true);
   @include t.text-x-small;
 
   &.show {
@@ -30,21 +30,6 @@
 
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-
-  @media screen and (min-height: 1080px) and (min-aspect-ratio: 0.9 ) {
-    width: 100vh;
-    height: 4rem;
-    bottom: -4rem;
-
-    transform-origin: top left;
-    transform: rotate(-90deg) translateY(-25%) scale(1.05);
-
-    backdrop-filter: url(#header-filter);
-
-    &.show {
-      transform: rotate(-90deg) translateY(0) scale(1);
-    }
   }
 
   //#region Scroll info
@@ -106,7 +91,7 @@
     align-items: center;
 
     & .error {
-      color: var(--primary-color) ;
+      color: var(--primary-color);
     }
 
     & span:not(:last-child) {
@@ -131,4 +116,29 @@
   }
 
   //#endregion
+
+  @media screen and (min-height: 1080px) and (min-aspect-ratio: 0.9) {
+    height: 100vh;
+    width: auto;
+
+    writing-mode: sideways-lr;
+
+    transform: translateY(-25%) scale(1.05);
+
+    backdrop-filter: url(#header-filter);
+
+    &.show {
+      transform: translateY(0) scale(1);
+    }
+
+    .geo-location span:not(:last-child) {
+      margin-right: auto;
+      margin-top: 1.5rem;
+    }
+
+    a:not(:first-child) {
+      margin-left: auto;
+      margin-bottom: 1.5rem;
+    }
+  }
 }
