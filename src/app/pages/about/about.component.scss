@@ -8,14 +8,6 @@
   padding: 6rem 15vw;
   overflow-y: auto;
 
-  .text-justify {
-    text-align: justify;
-  }
-
-  .text-secondary {
-    color: var(--secondary-color);
-  }
-
   @include t.text-primary;
 
   .logo-wrapper {
@@ -37,10 +29,6 @@
   section:not(:last-child),
   article {
     margin-bottom: 7rem;
-  }
-
-  .intro p:not(:last-child) {
-    margin-bottom: 2rem;
   }
 
   .history {
@@ -71,18 +59,6 @@
       margin-right: 10vw;
     }
 
-    .intro,
-    .more {
-      padding: 20vw 10vw;
-    }
-
-    .intro {
-      min-width: 80vw;
-    }
-    .more p {
-      min-width: 80vw;
-    }
-
     .color ul {
       display: flex;
       flex-direction: row;
@@ -106,24 +82,6 @@
           margin-right: 2rem;
         }
       }
-    }
-  }
-
-  @include u.media('d') {
-    .intro {
-      min-width: 60vw;
-    }
-    .more p {
-      min-width: 80vw;
-    }
-  }
-
-  @include u.media('dl') {
-    .intro {
-      min-width: 60vw;
-    }
-    .more p {
-      min-width: 60vw;
     }
   }
 }

@@ -1,0 +1,28 @@
+@use "utils" as u;
+
+:host {
+  position: relative;
+  display: block;
+
+
+  & p:last-child {
+    color: var(--secondary-color);
+  }
+
+  & p:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  @include u.media('tl') {
+    padding: 20vw 10vw;
+    min-width: 80vw;
+  }
+
+  @include u.media('d') {
+    min-width: 60vw;
+  }
+
+  @include u.media('dl') {
+    min-width: 60vw;
+  }
+}

@@ -6,10 +6,19 @@ import { LogoComponent } from '@components/logo/logo.component';
 import { history } from './about.configs';
 import { HorScrollDirective } from './hor-scroll.directive';
 import { InViewportDirective } from '../../shared/directives/in-viewport.directive';
+import { IntroComponent } from '../../sections/intro/intro.component';
+import { MoreComponent } from '../../sections/more/more.component';
 
 @Component({
   selector: 'app-about',
-  imports: [ColorDataComponent, HistoryStepComponent, LogoComponent, InViewportDirective],
+  imports: [
+    ColorDataComponent,
+    HistoryStepComponent,
+    LogoComponent,
+    InViewportDirective,
+    IntroComponent,
+    MoreComponent,
+  ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   hostDirectives: [{ directive: HorScrollDirective, inputs: ['itemsOr: itemsOr'] }],

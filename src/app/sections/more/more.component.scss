@@ -1,0 +1,24 @@
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  display: block;
+
+  p {
+    text-align: justify;
+    color: var(--secondary-color);
+  }
+
+  @include u.media('tl') {
+    padding: 20vw 10vw;
+    min-width: 80vw;
+  }
+
+  @include u.media('d') {
+    min-width: 80vw;
+  }
+
+  @include u.media('dl') {
+    min-width: 60vw;
+  }
+}
