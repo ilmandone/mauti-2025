@@ -1,5 +1,6 @@
 @use 'typo' as t;
 @use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: relative;
@@ -9,6 +10,10 @@
   overflow-y: auto;
 
   @include t.text-primary;
+
+  .hud-glass-transition {
+    transition: filter v.$transition-time-double v.$scroll-easy-function;
+  }
 
   .logo-wrapper {
     width: 100%;
