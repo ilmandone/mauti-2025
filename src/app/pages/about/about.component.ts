@@ -8,6 +8,7 @@ import { HorScrollDirective } from './hor-scroll.directive';
 import { InViewportDirective } from '../../shared/directives/in-viewport.directive';
 import { IntroComponent } from '../../sections/intro/intro.component';
 import { MoreComponent } from '../../sections/more/more.component';
+import { HudGlassShadowDirective } from '../../shared/directives/hud-glass-shadow.directive';
 
 type Section = 'intro' | 'more';
 
@@ -20,6 +21,7 @@ type Section = 'intro' | 'more';
     InViewportDirective,
     IntroComponent,
     MoreComponent,
+    HudGlassShadowDirective,
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
