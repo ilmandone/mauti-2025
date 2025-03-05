@@ -12,7 +12,7 @@ import { getAngle } from '@components/char-spinner/char-spinner.utils';
 })
 export class CharSpinnerComponent implements OnInit {
   private _dRef = inject(DestroyRef);
-  private _nEl = inject(ElementRef).nativeElement as HTMLElement;
+  private _el = inject(ElementRef).nativeElement as HTMLElement;
 
   private _elPos!: Coords2D;
   private _mouseEvt$ = fromEvent<MouseEvent>(document, 'mousemove');
@@ -31,24 +31,26 @@ export class CharSpinnerComponent implements OnInit {
 
   enabled = input<boolean>(true);
   data = input<Coords2D | number | 'standalone'>();
-  primaryColAngles = input<number[]>([90, 135, 180, 225])
+  primaryColAngles = input<number[]>([90, 135, 180, 225]);
 
   currentAngle = signal<number>(0);
   currentColor = computed(() => {
-    const a = this.currentAngle()
-    return `var(${this.primaryColAngles().includes(a) ? '--primary-color' : '--secondary-color'})`
-  })
+    const a = this.currentAngle();
+    return `var(${this.primaryColAngles().includes(a) ? '--primary-color' : '--secondary-color'})`;
+  });
 
   constructor() {
     effect(() => {
       if (!this.enabled()) return;
 
       const mc = this.data();
-      this.currentAngle.set(mc && mc !== 'standalone'
-        ? typeof mc === 'number'
-          ? this._snapTo45Degrees(Math.round(mc))
-          : this._getSnapAngle(mc)
-        : 0)
+      this.currentAngle.set(
+        mc && mc !== 'standalone'
+          ? typeof mc === 'number'
+            ? this._snapTo45Degrees(Math.round(mc))
+            : this._getSnapAngle(mc)
+          : 0
+      );
     });
   }
 
@@ -60,7 +62,7 @@ export class CharSpinnerComponent implements OnInit {
    */
   private _getSnapAngle(p: Coords2D): number {
     if (!this._elPos) return 0;
-    return this._snapTo45Degrees(getAngle(p,  this._elPos));
+    return this._snapTo45Degrees(getAngle(p, this._elPos));
   }
 
   /**
@@ -68,7 +70,7 @@ export class CharSpinnerComponent implements OnInit {
    * @private
    */
   private _getElPos(): Coords2D {
-    const bb = this._nEl.getBoundingClientRect();
+    const bb = this._el.getBoundingClientRect();
 
     return {
       x: bb.x + bb.width / 2,
@@ -97,7 +99,7 @@ export class CharSpinnerComponent implements OnInit {
       this._mouseEvt$.pipe(takeUntilDestroyed(this._dRef)).subscribe((r) => {
         if (!this.enabled()) return;
 
-        this.currentAngle.set(this._getSnapAngle(r))
+        this.currentAngle.set(this._getSnapAngle(r));
       });
     }
 
