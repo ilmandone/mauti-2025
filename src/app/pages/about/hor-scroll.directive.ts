@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject, input, output } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 import { ItemOrientation } from '../../shared/commons';
 
 @Directive({
@@ -11,7 +11,6 @@ export class HorScrollDirective {
   private _touchStartX = 0;
 
   itemsOr = input<ItemOrientation>();
-  scrollValue = output<number>();
 
   @HostListener('wheel', ['$event'])
   protected onScroll(event$: WheelEvent) {
@@ -23,7 +22,6 @@ export class HorScrollDirective {
       ns = this._elementRef.nativeElement.scrollWidth - window.innerWidth;
     this._elementScroll = ns;
     this._elementRef.nativeElement.scrollLeft = ns;
-    this.scrollValue.emit(this._elementRef.nativeElement.scrollLeft);
   }
 
   @HostListener('touchstart', ['$event'])
@@ -35,9 +33,7 @@ export class HorScrollDirective {
   onTouchMove(event$: TouchEvent) {
     const delta = this._touchStartX - event$.targetTouches[0].clientX;
     this._elementScrollNext = this._elementScroll - delta;
-
     this._elementRef.nativeElement.scrollLeft = -this._elementScrollNext;
-    this.scrollValue.emit(this._elementRef.nativeElement.scrollLeft);
   }
 
   @HostListener('touchend')

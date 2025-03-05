@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject, OnInit, signal } from '@angular/core';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
 import { ScreenSizeService } from '../../shared/services/screen-size.service';
@@ -9,6 +9,8 @@ import { InViewportDirective } from '../../shared/directives/in-viewport.directi
 import { IntroComponent } from '../../sections/intro/intro.component';
 import { MoreComponent } from '../../sections/more/more.component';
 import { HudGlassShadowDirective } from '../../shared/directives/hud-glass-shadow.directive';
+import { debounceTime, fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type Section = 'intro' | 'more';
 
@@ -33,11 +35,12 @@ type Section = 'intro' | 'more';
   ],
 })
 class AboutComponent implements OnInit {
+  private _el = inject(ElementRef).nativeElement;
+  private _destroyRef = inject(DestroyRef);
+
   protected readonly history = history;
+  protected screenSizeSrv = inject(ScreenSizeService);
 
-  private _hrScrollValue = inject(HorScrollDirective, { self: true });
-
-  screenSizeSrv = inject(ScreenSizeService);
   itemsOr = computed(() => {
     return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';
   });
@@ -48,9 +51,11 @@ class AboutComponent implements OnInit {
 
   scrollValue = 0;
 
+  nativeScroll = fromEvent<Event>(this._el, 'scroll').pipe(debounceTime(50));
+
   ngOnInit() {
-    this._hrScrollValue.scrollValue.subscribe((r) => {
-      this.scrollValue = r;
+    this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
+      this.scrollValue = r.timeStamp;
     });
   }
 
