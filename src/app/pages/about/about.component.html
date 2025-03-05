@@ -1,5 +1,5 @@
 <div class="logo-wrapper">
-  <app-logo hudGlassShadow [orientation]="itemsOr()" />
+  <app-logo hudGlassShadow [update]="scrollValue" [orientation]="itemsOr()" />
 </div>
 
 <section intro
@@ -10,8 +10,10 @@
 <article class="color">
   <ul>
     <li>
-      <app-color-data [def]="'main'"
-                      [orientation]="itemsOr()">
+      <app-color-data
+        hudGlassShadow [update]="scrollValue"
+        [def]="'main'"
+        [orientation]="itemsOr()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -26,8 +28,10 @@
       </app-color-data>
     </li>
     <li>
-      <app-color-data [def]="'secondary'" [color]="'secondary'"
-                      [orientation]="itemsOr()">
+      <app-color-data
+        hudGlassShadow [update]="scrollValue"
+        [def]="'secondary'" [color]="'secondary'"
+        [orientation]="itemsOr()">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
