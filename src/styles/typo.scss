@@ -15,14 +15,9 @@
   font-size: 1rem;
   line-height: 2rem;
 
-  @include u.media('tl') {
+  @include u.media('dl') {
     font-size: 1.15rem;
     line-height: 2.25rem;
-  }
-
-  @include u.media('dl') {
-    font-size: 1.25rem;
-    line-height: 2.5rem;
   }
 }
 

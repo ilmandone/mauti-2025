@@ -9,8 +9,8 @@ import { InViewportDirective } from '../../shared/directives/in-viewport.directi
 import { IntroComponent } from '../../sections/intro/intro.component';
 import { MoreComponent } from '../../sections/more/more.component';
 import { HudGlassShadowDirective } from '../../shared/directives/hud-glass-shadow.directive';
-import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, fromEvent } from 'rxjs';
 
 type Section = 'intro' | 'more';
 
@@ -51,7 +51,7 @@ class AboutComponent implements OnInit {
 
   scrollValue = 0;
 
-  nativeScroll = fromEvent<Event>(this._el, 'scroll').pipe(debounceTime(50));
+  nativeScroll = fromEvent<Event>(this._el, 'scroll').pipe(debounceTime(10));
 
   ngOnInit() {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
