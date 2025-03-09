@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ItemOrientation } from '../../shared/commons';
+import { ScreenOrientation } from '../../shared/commons';
 
 @Component({
   selector: 'app-history-step',
@@ -15,7 +15,7 @@ import { ItemOrientation } from '../../shared/commons';
 })
 export class HistoryStepComponent {
   company = input.required<string>();
-  orientation = input<ItemOrientation>('horizontal');
+  orientation = input<ScreenOrientation>('horizontal');
   role = input.required<string>();
   time = input.required<string>();
   variant = input<'primary' | 'secondary'>('primary');

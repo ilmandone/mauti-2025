@@ -1,17 +1,17 @@
-import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
-import { ItemOrientation } from '../../shared/commons';
+import { Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { ScreenSizeService } from '../../shared/services/screen-size.service';
 
 @Directive({
   selector: '[appHorScroll]',
 })
 export class HorScrollDirective {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _screenSrv = inject(ScreenSizeService);
+
   private _elementScroll = 0;
   private _elementScrollNext = 0;
   private _frameRequest!: number | null;
   private _touchStartX = 0;
-
-  itemsOr = input<ItemOrientation>();
 
   private _smoothWheelScroll() {
     const cs = this._elementRef.nativeElement.scrollLeft;
@@ -31,7 +31,7 @@ export class HorScrollDirective {
 
   @HostListener('wheel', ['$event'])
   protected onScroll(event$: WheelEvent) {
-    if (this.itemsOr() === 'horizontal') return;
+    if (this._screenSrv.screenOrientation() === 'vertical') return;
 
     let ns = this._elementScroll + event$.deltaY;
     if (ns < 0) ns = 0;

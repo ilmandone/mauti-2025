@@ -5,4 +5,4 @@ export interface Coords2D {
   y: number;
 }
 
-export type ItemOrientation = 'horizontal' | 'vertical';
+export type ScreenOrientation = 'horizontal' | 'vertical';

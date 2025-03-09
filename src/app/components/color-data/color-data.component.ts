@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core';
-import { ItemOrientation } from '../../shared/commons';
+import { ScreenOrientation } from '../../shared/commons';
 
 @Component({
   selector: 'app-color-data',
   imports: [],
   template: `
-    <div class="main" [class]="color()" [class.vertical]="orientation() === 'vertical'">
+    <div class="main" [class]="color()" [class.vertical]="orientation() === 'horizontal'">
       <ng-content />
     </div>
     <div class="def" [class]="color()">///// {{ def() }}</div>
@@ -15,5 +15,5 @@ import { ItemOrientation } from '../../shared/commons';
 export class ColorDataComponent {
   def = input<string>('');
   color = input<'primary' | 'secondary'>('primary');
-  orientation = input<ItemOrientation>('horizontal');
+  orientation = input<ScreenOrientation>('horizontal');
 }

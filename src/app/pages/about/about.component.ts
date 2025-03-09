@@ -30,7 +30,6 @@ type Section = 'intro' | 'more';
   hostDirectives: [
     {
       directive: HorScrollDirective,
-      inputs: ['itemsOr: itemsOr'],
     },
   ],
 })
@@ -39,7 +38,7 @@ class AboutComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
 
   protected readonly history = history;
-  protected screenSizeSrv = inject(ScreenSizeService);
+  protected readonly screenSrv = inject(ScreenSizeService);
 
   itemsOr = computed(() => {
     return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';

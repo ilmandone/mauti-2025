@@ -1,5 +1,5 @@
 <div class="logo-wrapper">
-  <app-logo hudGlassShadow [update]="scrollValue" [orientation]="itemsOr()" />
+  <app-logo hudGlassShadow [update]="scrollValue" [orientation]="screenSrv.screenOrientation()!" />
 </div>
 
 <section intro
@@ -13,7 +13,7 @@
       <app-color-data
         hudGlassShadow [update]="scrollValue"
         [def]="'main'"
-        [orientation]="itemsOr()">
+        [orientation]="screenSrv.screenOrientation()!">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -31,7 +31,7 @@
       <app-color-data
         hudGlassShadow [update]="scrollValue" [hudColor]="'241, 241, 241'"
         [def]="'secondary'" [color]="'secondary'"
-        [orientation]="itemsOr()">
+        [orientation]="screenSrv.screenOrientation()!">
         HEX: #e8002d,<br>
         RGB: 232, 0, 45,<br>
         RAL: RAL 3027,<br>
@@ -62,7 +62,7 @@
           hudGlassShadow [update]="scrollValue"
           [hudColor]="i === 0 ? '241, 241, 241': '246, 21, 57'"
           [company]="h.company"
-          [orientation]="itemsOr()"
+          [orientation]="screenSrv.screenOrientation()!"
           [role]="h.role"
           [time]="h.time"
           [variant]="i === 0 ? 'secondary' : 'primary'" />
