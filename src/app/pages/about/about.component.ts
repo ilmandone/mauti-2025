@@ -1,7 +1,6 @@
-import { Component, computed, DestroyRef, ElementRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, OnInit, signal } from '@angular/core';
 import { ColorDataComponent } from '@components/color-data/color-data.component';
 import { HistoryStepComponent } from '@components/history-step/history-step.component';
-import { ScreenSizeService } from '../../shared/services/screen-size.service';
 import { LogoComponent } from '@components/logo/logo.component';
 import { history } from './about.configs';
 import { HorScrollDirective } from './hor-scroll.directive';
@@ -11,6 +10,7 @@ import { MoreComponent } from '../../sections/more/more.component';
 import { HudGlassShadowDirective } from '../../shared/directives/hud-glass-shadow.directive';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, fromEvent } from 'rxjs';
+import { ScreenService } from '../../shared/services/screen.service';
 
 type Section = 'intro' | 'more';
 
@@ -38,24 +38,25 @@ class AboutComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
 
   protected readonly history = history;
-  protected readonly screenSrv = inject(ScreenSizeService);
+  protected readonly screenSrv = inject(ScreenService);
 
-  itemsOr = computed(() => {
-    return this.screenSizeSrv.relatedTo('t') === 'before' ? 'vertical' : 'horizontal';
-  });
   sectionsVisible = signal<Record<Section, boolean>>({
-    intro: true,
+    intro: false,
     more: false,
   });
-
   scrollValue = 0;
 
+  logoVisible = false;
   nativeScroll = fromEvent<Event>(this._el, 'scroll').pipe(debounceTime(10));
 
   ngOnInit() {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
       this.scrollValue = r.timeStamp;
     });
+
+    window.setTimeout(() => {
+      this.logoVisible = true;
+    }, 600);
   }
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {

@@ -1,12 +1,12 @@
 import { Directive, ElementRef, HostListener, inject } from '@angular/core';
-import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { ScreenService } from '../../shared/services/screen.service';
 
 @Directive({
   selector: '[appHorScroll]',
 })
 export class HorScrollDirective {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-  private _screenSrv = inject(ScreenSizeService);
+  private _screenSrv = inject(ScreenService);
 
   private _elementScroll = 0;
   private _elementScrollNext = 0;

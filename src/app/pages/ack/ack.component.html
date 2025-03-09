@@ -12,7 +12,7 @@
           [iteration]="2"></span>
   </p>
 
-  @if (!checkMobile() && this.screenSizeSrv.relatedTo('tl') === 'before') {
+  @if (!checkMobile() && this.screenService.relatedTo('tl') === 'before') {
     <spinners-pack (active)="spinnerRunning = $event" />
   }
 

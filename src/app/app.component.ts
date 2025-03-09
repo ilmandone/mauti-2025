@@ -3,7 +3,7 @@ import { FontsService } from './shared/services/fonts.service';
 import { Theme, ThemeService } from './shared/services/theme.service';
 import { HeaderComponent } from '@components/header/header.component';
 import { FooterComponent } from '@components/footer/footer.component';
-import { ScreenSizeService } from './shared/services/screen-size.service';
+import { ScreenService } from './shared/services/screen.service';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  private _screenSizeSrv = inject(ScreenSizeService);
+  private _screenSrv = inject(ScreenService);
   private _webFontSrv = inject(FontsService);
   private _themeSrv = inject(ThemeService);
 
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this._themeSrv.init();
-    this._screenSizeSrv.init();
+    this._screenSrv.init();
   }
 
   //#region Future implementations

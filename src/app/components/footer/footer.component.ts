@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WeatherData, WeatherService } from '../../shared/services/weather.service';
 import { AsyncPipe } from '@angular/common';
-import { ScreenSizeService } from '../../shared/services/screen-size.service';
+import { ScreenService } from '../../shared/services/screen.service';
 import { StateService } from '../../shared/services/state.service';
 import { NoiseSvgComponent } from '@components/noise-svg/noise-svg.component';
 import { ANIMATION_DELAY } from '../../shared/commons';
@@ -29,7 +29,7 @@ interface TimeData {
 export class FooterComponent {
   private _state = inject(StateService);
   private _destroyRef = inject(DestroyRef);
-  private _screenSizeSrv = inject(ScreenSizeService);
+  private _screenSrv = inject(ScreenService);
   private _weatherSrv = inject(WeatherService);
   private _ackSrv = inject(AckService);
   private _geoTimeSrv = inject(GeoTimeService);
@@ -56,7 +56,7 @@ export class FooterComponent {
   constructor() {
     effect(() => {
       if (this._state.ready()) {
-        this.isDesktop = this._screenSizeSrv.relatedTo('tl') !== 'after';
+        this.isDesktop = this._screenSrv.relatedTo('tl') !== 'after';
 
         // Get geolocation only for desktop
         if (this.isDesktop && !this.geoPosition) {

@@ -17,7 +17,7 @@ export const SCREEN_SIZES: ScreenSize[] = [..._screenSizes];
 @Injectable({
   providedIn: 'root',
 })
-export class ScreenSizeService {
+export class ScreenService {
   private _destroyRef = inject(DestroyRef);
   private _screenSizes = SCREEN_SIZES;
 
