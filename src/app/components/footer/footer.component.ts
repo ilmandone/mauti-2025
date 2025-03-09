@@ -49,7 +49,7 @@ export class FooterComponent {
     });
   });*/
 
-  geoPosition!: GeoCoords;
+  geoPosition: GeoCoords | null = null;
   timeData: TimeData | null = null;
   weatherData!: Observable<WeatherData>;
 
