@@ -32,6 +32,9 @@ type Section = 'intro' | 'more';
       directive: HorScrollDirective,
     },
   ],
+  host: {
+    '[class.start-point]': '!logoVisible',
+  },
 })
 class AboutComponent implements OnInit {
   private _el = inject(ElementRef).nativeElement;
