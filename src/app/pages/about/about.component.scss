@@ -2,6 +2,8 @@
 @use 'utils' as u;
 @use 'vars' as v;
 
+@import 'hud-glass';
+
 :host {
   position: relative;
   height: 100vh;
@@ -10,10 +12,6 @@
   overflow-y: auto;
 
   @include t.text-primary;
-
-  .hud-glass-transition {
-    transition: filter v.$transition-time-double v.$scroll-easy-function;
-  }
 
   .logo-wrapper {
     width: 100%;

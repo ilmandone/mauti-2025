@@ -1,0 +1,5 @@
+@use 'vars' as v;
+
+.hud-glass-transition {
+  transition: filter v.$transition-time-double v.$scroll-easy-function;
+}
