@@ -13,6 +13,7 @@
   --bg-color: #{c.$bg-color-light};
   --primary-color: #{c.$primary-color-light};
   --secondary-color: #{c.$secondary-color-light};
+  --hud-color: #{c.$hud-color};
 
   @each $breakpoint, $value in u.$screen-sizes {
     @media #{$value} {
@@ -22,7 +23,7 @@
 }
 
 body {
-  overflow-y: hidden;
+  overflow: hidden;
 
   &.freeze-selection {
     user-select: none;
