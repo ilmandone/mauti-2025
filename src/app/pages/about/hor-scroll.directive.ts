@@ -45,7 +45,7 @@ export class HorScrollDirective {
 
   @HostListener('wheel', ['$event'])
   protected onScroll(event$: WheelEvent) {
-    if (this._screenSrv.screenOrientation() === 'vertical' || this._screenSrv.relatedTo('tl') !== 'before') return;
+    if (window.navigator.maxTouchPoints > 0) return;
 
     let ns = this._elementScroll + event$.deltaY;
     if (ns < 0) ns = 0;
