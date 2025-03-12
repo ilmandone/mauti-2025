@@ -1,7 +1,6 @@
 @use 'vars' as v;
 
 .hud-glass-transition {
-  transform: rotateX(20deg) translateZ(200px);
   transition-property: filter, transform;
   transition-duration: v.$transition-time-double;
   transition-timing-function: v.$scroll-easy-function;
