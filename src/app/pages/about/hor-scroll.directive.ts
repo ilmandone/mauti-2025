@@ -45,8 +45,6 @@ export class HorScrollDirective {
 
   @HostListener('wheel', ['$event'])
   protected onScroll(event$: WheelEvent) {
-    if (window.navigator.maxTouchPoints > 0) return;
-
     let ns = this._elementScroll + event$.deltaY;
     if (ns < 0) ns = 0;
     if (ns > this._elementRef.nativeElement.scrollWidth - window.innerWidth)
