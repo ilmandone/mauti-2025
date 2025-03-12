@@ -20,7 +20,7 @@
   transition-duration: v.$transition-time;
   transition-timing-function: ease-in-out;
 
-  backdrop-filter: url('#noise-header');
+  backdrop-filter: url('#noise-footer');
 
   @include c.headerFooterPadding;
   @include u.zIndex('header');
@@ -61,6 +61,9 @@
   }
 
   @include u.media('d') {
+
+    backdrop-filter: none;
+
     align-items: flex-start;
   }
 

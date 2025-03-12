@@ -1,9 +1,6 @@
 <noise-svg-filter />
 
-<div class="controls"
-     [class.show]="show"
->
-
+<div class="controls" [class.show]="show">
   <button
     app-button size="small" variant="secondary"
     [routerLink]="currentSection() !== 'about' ? '/about' : '/'" type="button"

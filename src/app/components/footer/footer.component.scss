@@ -126,8 +126,6 @@
 
     transform: translateX(-25%) scale(1.05);
 
-    backdrop-filter: url(#header-filter);
-
     &.show {
       transform: translateX(0) scale(1);
     }
