@@ -9,7 +9,7 @@ import { IntroComponent } from '../../sections/intro/intro.component';
 import { MoreComponent } from '../../sections/more/more.component';
 import { HudGlassShadowDirective } from '../../shared/directives/hud-glass-shadow.directive';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, fromEvent } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { ScreenService } from '../../shared/services/screen.service';
 
 type Section = 'intro' | 'more';
@@ -50,16 +50,14 @@ class AboutComponent implements OnInit {
   scrollValue = 0;
 
   logoVisible = false;
-  nativeScroll = fromEvent<Event>(this._el, 'scroll').pipe(debounceTime(10));
+  nativeScroll = fromEvent<Event>(this._el, 'scroll');
 
   ngOnInit() {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
       this.scrollValue = r.timeStamp;
     });
 
-    window.setTimeout(() => {
-      this.logoVisible = true;
-    }, 600);
+    this.logoVisible = true;
   }
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
