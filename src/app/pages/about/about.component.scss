@@ -16,7 +16,7 @@
   > * {
     transition-property: height, margin-bottom, min-width, margin-right;
     transition-duration: v.$transition-time-quad;
-    transition-timing-function: v.$scroll-easy-function;
+    transition-timing-function: ease-out;
   }
 
   .logo-wrapper {

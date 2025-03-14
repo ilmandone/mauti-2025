@@ -1,23 +1,17 @@
 @mixin create-flicker($name, $steps: 5) {
   @keyframes #{$name} {
-    // Step iniziale con opacity 0
     0% {
       fill-opacity: 0;
     }
 
-    // Steps intermedi generati dinamicamente
     @for $i from 1 through $steps - 1 {
-      // Calcola la percentuale per questo step
       $percentage: percentage($i / $steps);
-
       #{$percentage} {
-
         $random-opacity: 0.05 + (($i * 0.137 + $i * 0.333) % 0.8);
         fill-opacity: $random-opacity;
       }
     }
 
-    // Step finale con opacity 1
     100% {
       fill-opacity: 1;
     }
@@ -51,7 +45,7 @@
 
   @for $i from 1 through 4 {
     .logo-part#{$i} {
-      animation: flicker-#{$i} 1s forwards 0.25s;
+      animation: flicker-#{$i} 0.6s forwards 1s;
     }
   }
 

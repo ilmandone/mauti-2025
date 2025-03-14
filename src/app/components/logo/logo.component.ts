@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, inject, input, OnInit, output } from '@angular/core';
+import { fromEvent, take } from 'rxjs';
 
 @Component({
   selector: 'app-logo',
@@ -6,6 +7,16 @@ import { Component, input } from '@angular/core';
   templateUrl: './logo.component.html',
   styleUrl: './logo.component.scss',
 })
-export class LogoComponent {
+export class LogoComponent implements OnInit {
+  private _el = inject(ElementRef).nativeElement as HTMLElement;
+  private _animationEndEvent = fromEvent(this._el, 'animationend').pipe(take(1));
+
   orientation = input<'horizontal' | 'vertical'>('horizontal');
+  logoVisible = output<boolean>();
+
+  ngOnInit() {
+    this._animationEndEvent.subscribe(() => {
+      this.logoVisible.emit(true);
+    });
+  }
 }

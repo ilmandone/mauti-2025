@@ -57,7 +57,7 @@ class AboutComponent implements OnInit {
       this.scrollValue = r.timeStamp;
     });
 
-    this.logoVisible = true;
+    this.logoVisible = false;
   }
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
