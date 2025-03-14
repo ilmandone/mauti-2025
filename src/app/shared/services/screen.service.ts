@@ -25,7 +25,7 @@ export class ScreenService {
   private _screenOrientation = signal<ScreenOrientation | null>(null);
 
   private _getScreenSize = () => {
-    return getComputedStyle(document.documentElement).getPropertyValue('--screen-size') as ScreenSize;
+    return getComputedStyle(document.documentElement).getPropertyValue('--screen-size').trim() as ScreenSize;
   };
 
   private _getScreenOrientation(): ScreenOrientation {
@@ -57,6 +57,7 @@ export class ScreenService {
       .pipe(takeUntilDestroyed(this._destroyRef), debounceTime(100))
       .subscribe(() => {
         const sz = this._getScreenSize() || 'm';
+        console.log(sz);
         if (sz !== this._screenSize()) this._screenSize.set(sz);
         this._screenOrientation.set(this._getScreenOrientation());
       });
