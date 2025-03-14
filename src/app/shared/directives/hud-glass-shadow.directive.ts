@@ -10,7 +10,9 @@ export class HudGlassShadowDirective implements AfterViewInit {
   private _el = inject(ElementRef).nativeElement as HTMLElement;
 
   private _resizeEvt$ = fromEvent(window, 'resize').pipe(debounceTime(50));
+  private _requestAnimationFrameId: number | null = null;
 
+  autoUpdate = input<boolean>(false);
   update = input<unknown>();
   hudColor = input<string>('246, 21, 57');
   hudAlpha = input<number>(0.4);
@@ -38,11 +40,23 @@ export class HudGlassShadowDirective implements AfterViewInit {
       drop-shadow(${halfCX}px ${c.y / 2 - vh}px 1px rgba(${this.hudColor()}, ${this.hudAlpha()}))
       drop-shadow(${-halfCX}px ${c.y + vh}px 2px var(--hud-color))`;
     this._el.style.transform = `translateZ(${Math.abs(c.x) * (iw * 0.0025)}px) rotateY(${halfCX}deg)`;
+
+    if (this._requestAnimationFrameId) window.requestAnimationFrame(this._update.bind(this));
   }
 
   constructor() {
     effect(() => {
       if (this.update()) this._update();
+    });
+
+    effect(() => {
+      const au = this.autoUpdate();
+      if (au) {
+        this._requestAnimationFrameId = window.requestAnimationFrame(this._update.bind(this));
+      } else if (this._requestAnimationFrameId) {
+        window.cancelAnimationFrame(this._requestAnimationFrameId);
+        this._requestAnimationFrameId = null;
+      }
     });
   }
 

@@ -46,7 +46,7 @@
     }
   }
 
-  &.start-point {
+  &.initial-position {
     .logo-wrapper {
       height: 70vh;
       margin-bottom: 20vh;
@@ -101,7 +101,7 @@
       }
     }
 
-    &.start-point {
+    &.initial-position {
       .logo-wrapper {
         height: 100vh;
         min-width: 100vw;
@@ -109,10 +109,7 @@
         margin-right: 20vh;
 
         transition: none;
-
       }
     }
   }
-
-
 }

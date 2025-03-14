@@ -33,12 +33,12 @@ type Section = 'intro' | 'more';
     },
   ],
   host: {
-    '[class.start-point]': '!logoVisible',
+    '[class.initial-position]': '!logoVisible',
   },
 })
 class AboutComponent implements OnInit {
-  private _el = inject(ElementRef).nativeElement;
   private _destroyRef = inject(DestroyRef);
+  private _el = inject(ElementRef).nativeElement;
 
   protected readonly history = history;
   protected readonly screenSrv = inject(ScreenService);
@@ -47,14 +47,15 @@ class AboutComponent implements OnInit {
     intro: false,
     more: false,
   });
-  scrollValue = 0;
+  scrollUpdate = 0;
 
+  hudAutoUpdate = true;
   logoVisible = false;
   nativeScroll = fromEvent<Event>(this._el, 'scroll');
 
   ngOnInit() {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
-      this.scrollValue = r.timeStamp;
+      this.scrollUpdate = r.timeStamp;
     });
 
     this.logoVisible = false;
@@ -65,6 +66,14 @@ class AboutComponent implements OnInit {
 
     if (!this.sectionsVisible()[section])
       this.sectionsVisible.update((cv) => ({ ...cv, [section]: $event.ratio > threshold }));
+  }
+
+  logoVisibleChange($event: boolean) {
+    this.logoVisible = $event;
+    if ($event)
+      window.setTimeout(() => {
+        this.hudAutoUpdate = false;
+      }, 1000);
   }
 }
 

@@ -1,6 +1,6 @@
 <div class="logo-wrapper">
-  <app-logo (logoVisible)="logoVisible = $event" hudGlassShadow [update]="scrollValue"
-            [orientation]="screenSrv.screenOrientation()!" />
+  <app-logo (logoVisible)="logoVisibleChange($event)" hudGlassShadow [update]="scrollUpdate"
+            [orientation]="screenSrv.screenOrientation()!" [autoUpdate]="hudAutoUpdate" />
 </div>
 
 <section intro
@@ -12,7 +12,7 @@
   <ul>
     <li>
       <app-color-data
-        hudGlassShadow [update]="scrollValue"
+        hudGlassShadow [update]="scrollUpdate"
         [def]="'main'"
         [orientation]="screenSrv.screenOrientation()!">
         HEX: #e8002d,<br>
@@ -30,7 +30,7 @@
     </li>
     <li>
       <app-color-data
-        hudGlassShadow [update]="scrollValue" [hudColor]="'241, 241, 241'"
+        hudGlassShadow [update]="scrollUpdate" [hudColor]="'241, 241, 241'"
         [def]="'secondary'" [color]="'secondary'"
         [orientation]="screenSrv.screenOrientation()!">
         HEX: #e8002d,<br>
@@ -60,7 +60,7 @@
     @for (h of history; track h.company; let i = $index) {
       <li>
         <app-history-step
-          hudGlassShadow [update]="scrollValue"
+          hudGlassShadow [update]="scrollUpdate"
           [hudColor]="i === 0 ? '241, 241, 241': '246, 21, 57'"
           [company]="h.company"
           [orientation]="screenSrv.screenOrientation()!"
