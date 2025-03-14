@@ -1,19 +1,145 @@
+@mixin create-flicker($name, $steps: 5) {
+  @keyframes #{$name} {
+    // Step iniziale con opacity 0
+    0% {
+      fill-opacity: 0;
+    }
+
+    // Steps intermedi generati dinamicamente
+    @for $i from 1 through $steps - 1 {
+      // Calcola la percentuale per questo step
+      $percentage: percentage($i / $steps);
+
+      #{$percentage} {
+
+        $random-opacity: 0.05 + (($i * 0.137 + $i * 0.333) % 0.8);
+        fill-opacity: $random-opacity;
+      }
+    }
+
+    // Step finale con opacity 1
+    100% {
+      fill-opacity: 1;
+    }
+  }
+}
+
+@include create-flicker('flicker-1', 7);
+@include create-flicker('flicker-2', 6);
+@include create-flicker('flicker-3', 8);
+@include create-flicker('flicker-4', 4);
+
 :host {
   position: relative;
   display: block;
 
+  svg {
+    fill: var(--primary-color);
+    fill-opacity: 0;
+    stroke-width: 2px;
+    stroke: var(--primary-color);
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+
+    animation: show-logo 1s forwards;
+  }
+
   #logo {
     width: 36vw;
-
     padding: 2rem 0;
-    fill: var(--primary-color);
+  }
+
+  @for $i from 1 through 4 {
+    .logo-part#{$i} {
+      animation: flicker-#{$i} 1s forwards 0.25s;
+    }
   }
 
   #logo-vertical {
     width: auto;
     height: 35vh;
-
     padding: 0 3rem;
-    fill: var(--primary-color);
   }
 }
+
+@keyframes show-logo {
+  0% {
+    stroke-dashoffset: 2000;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+
+}
+
+/*
+@keyframes flicker1 {
+  0% {
+    fill-opacity: 0;
+  }
+  25% {
+    fill-opacity: 0.2;
+  }
+  50% {
+    fill-opacity: 1;
+  }
+  75% {
+    fill-opacity: 0.6;
+  }
+  100% {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes flicker2 {
+  0% {
+    fill-opacity: 0;
+  }
+  20% {
+    fill-opacity: 0.8;
+  }
+  40% {
+    fill-opacity: 0.5;
+  }
+  70% {
+
+  }
+  100% {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes flicker3 {
+  0%, 100% {
+    fill-opacity: 1;
+  }
+  30% {
+    fill-opacity: 0.6;
+  }
+  60% {
+    fill-opacity: 0.9;
+  }
+  80% {
+    fill-opacity: 0.5;
+  }
+}
+
+@keyframes flicker4 {
+  0%, 100% {
+    fill-opacity: 0.9;
+  }
+  15% {
+    fill-opacity: 0.7;
+  }
+  45% {
+    fill-opacity: 1;
+  }
+  65% {
+    fill-opacity: 0.5;
+  }
+  85% {
+    fill-opacity: 0.8;
+  }
+}
+*/
