@@ -1,12 +1,20 @@
-import { Directive, effect, ElementRef, HostListener, inject } from '@angular/core';
+import { DestroyRef, Directive, effect, ElementRef, HostListener, inject } from '@angular/core';
 import { ScreenService } from '../../shared/services/screen.service';
+import { fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appHorScroll]',
 })
 export class HorScrollDirective {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _destroyRef = inject(DestroyRef);
   private _screenSrv = inject(ScreenService);
+  private _wheelEvent = fromEvent<WheelEvent>(document, 'wheel', { passive: true });
+
+  private _touchEndEvent = fromEvent<TouchEvent>(document, 'touchend', { passive: true });
+  private _touchMoveEvent = fromEvent<TouchEvent>(document, 'touchmove', { passive: true });
+  private _touchStartEvent = fromEvent<TouchEvent>(document, 'touchstart', { passive: true });
 
   private _elementScroll = 0;
   private _elementScrollNext = 0;
@@ -41,9 +49,22 @@ export class HorScrollDirective {
         this._elementRef.nativeElement.scrollLeft = 0;
       }
     });
+
+    this._wheelEvent.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r) => {
+      this.onScroll(r);
+    });
+
+    this._touchEndEvent.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
+      this.onTouchEnd();
+    });
+    this._touchMoveEvent.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r) => {
+      this.onTouchMove(r);
+    });
+    this._touchStartEvent.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r) => {
+      this.onTouchStart(r);
+    });
   }
 
-  @HostListener('wheel', ['$event'])
   protected onScroll(event$: WheelEvent) {
     let ns = this._elementScroll + event$.deltaY;
     if (ns < 0) ns = 0;
@@ -55,7 +76,6 @@ export class HorScrollDirective {
     this._frameRequest = requestAnimationFrame(this._smoothWheelScroll.bind(this));
   }
 
-  @HostListener('touchstart', ['$event'])
   onTouchStart(event$: TouchEvent) {
     this._touchStartX = event$.targetTouches[0].clientX;
   }
@@ -67,7 +87,6 @@ export class HorScrollDirective {
     this._elementRef.nativeElement.scrollLeft = -this._elementScrollNext;
   }
 
-  @HostListener('touchend')
   onTouchEnd() {
     this._elementScroll = this._elementScrollNext;
     this._elementScrollNext = 0;
