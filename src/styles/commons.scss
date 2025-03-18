@@ -1,10 +1,10 @@
 @use "utils" as u;
 
 @mixin headerFooterPadding($isFooter: false) {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
 
   @include u.media('t') {
-    padding: 1.5rem 1.75rem;
+    padding: 1.25rem 1.5rem;
   }
 
   @include u.media('d') {

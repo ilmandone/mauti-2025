@@ -39,7 +39,7 @@
   }
 
   #logo {
-    width: 36vw;
+    width: 40vw;
     padding: 2rem 0;
   }
 
@@ -67,74 +67,3 @@
   }
 
 }
-
-/*
-@keyframes flicker1 {
-  0% {
-    fill-opacity: 0;
-  }
-  25% {
-    fill-opacity: 0.2;
-  }
-  50% {
-    fill-opacity: 1;
-  }
-  75% {
-    fill-opacity: 0.6;
-  }
-  100% {
-    fill-opacity: 1;
-  }
-}
-
-@keyframes flicker2 {
-  0% {
-    fill-opacity: 0;
-  }
-  20% {
-    fill-opacity: 0.8;
-  }
-  40% {
-    fill-opacity: 0.5;
-  }
-  70% {
-
-  }
-  100% {
-    fill-opacity: 1;
-  }
-}
-
-@keyframes flicker3 {
-  0%, 100% {
-    fill-opacity: 1;
-  }
-  30% {
-    fill-opacity: 0.6;
-  }
-  60% {
-    fill-opacity: 0.9;
-  }
-  80% {
-    fill-opacity: 0.5;
-  }
-}
-
-@keyframes flicker4 {
-  0%, 100% {
-    fill-opacity: 0.9;
-  }
-  15% {
-    fill-opacity: 0.7;
-  }
-  45% {
-    fill-opacity: 1;
-  }
-  65% {
-    fill-opacity: 0.5;
-  }
-  85% {
-    fill-opacity: 0.8;
-  }
-}
-*/

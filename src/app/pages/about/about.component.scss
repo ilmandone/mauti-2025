@@ -60,7 +60,8 @@
     width: 100vw;
     padding: 0 0 0 7vw;
 
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
 
     display: flex;
     flex-direction: row;
