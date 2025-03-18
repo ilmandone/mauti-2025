@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
       <defs>
         <filter id="noise-footer" x="0" y="0" height="100%">
           <feOffset in="SourceGraphic" dx="8" dy="-8" result="offset" />
-          <feGaussianBlur in="offset" stdDeviation="8" result="blur" />
+          <feGaussianBlur in="offset" stdDeviation="2" result="blur" />
           <feDisplacementMap
             in="SourceGraphic"
             in2="waves"
-            scale="60"
+            scale="30"
             xChannelSelector="G"
             yChannelSelector="B"
             result="ripples"
