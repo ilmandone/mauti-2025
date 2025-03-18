@@ -1,6 +1,7 @@
 @use "reset";
 @use "text-hidden";
 @use "icons";
+@use "scrollbar" as sc;
 @use "vars" as v;
 @use "typo" as t;
 @use "colors" as c;
@@ -28,6 +29,8 @@ body {
   &.freeze-selection {
     user-select: none;
   }
+
+  @include sc.custom;
 
   // Themes
   @include th.dark();
