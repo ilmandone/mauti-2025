@@ -1,0 +1,25 @@
+@mixin custom($width: 0.5rem, $thumb-color: var(--primary-color), $track-color: var(--bg-color), $thumb-hover-color: #555) {
+  // Per Chrome, Edge, Safari
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 0;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $thumb-hover-color;
+  }
+
+  // Per Firefox
+  //scrollbar-width: thin;
+  scrollbar-color: $thumb-color $track-color;
+}
