@@ -13,8 +13,10 @@
 
   @include t.text-primary;
 
+  transition: padding v.$transition-time ease-out;
+
   > * {
-    transition-property: height, margin-bottom, min-width, margin-right;
+    transition-property: height, margin-bottom, margin-left, margin-right;
     transition-duration: v.$transition-time-quad;
     transition-timing-function: ease-out;
   }
@@ -102,11 +104,14 @@
     }
 
     &.initial-position {
+
+      padding: 0;
+
       .logo-wrapper {
         height: 100vh;
-        min-width: 100vw;
         margin-bottom: 0;
-        margin-right: 20vh;
+        margin-left: 37.5vw;
+        margin-right: 37.5vw;
 
         transition: none;
       }

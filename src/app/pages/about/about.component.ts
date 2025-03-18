@@ -57,8 +57,6 @@ class AboutComponent implements OnInit {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
       this.scrollUpdate = r.timeStamp;
     });
-
-    this.logoVisible = false;
   }
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
