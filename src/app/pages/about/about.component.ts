@@ -39,6 +39,9 @@ type Section = 'intro' | 'more';
 class AboutComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
   private _el = inject(ElementRef).nativeElement;
+  private _screenSrv = inject(ScreenService);
+
+  nativeScroll = fromEvent<Event>(this._el, 'scroll');
 
   protected readonly history = history;
   protected readonly screenSrv = inject(ScreenService);
@@ -47,20 +50,29 @@ class AboutComponent implements OnInit {
     intro: false,
     more: false,
   });
-  scrollUpdate = 0;
 
   hudAutoUpdate = true;
   logoVisible = false;
-  nativeScroll = fromEvent<Event>(this._el, 'scroll');
+
+  scrollUpdate = 0;
+  scrollProgress = 0;
 
   ngOnInit() {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
       this.scrollUpdate = r.timeStamp;
+
+      const scrollTotal =
+        this._screenSrv.screenOrientation() === 'horizontal'
+          ? this._el.scrollWidth - window.innerWidth
+          : this._el.scrollHeight - window.innerHeight;
+      const sp = this._screenSrv.screenOrientation() === 'horizontal' ? this._el.scrollLeft : this._el.scroll;
+
+      this.scrollProgress = Math.round((sp / scrollTotal) * 100);
     });
   }
 
   sectionChanged(section: Section, $event: { visible: boolean; ratio: number }) {
-    const threshold = window.innerWidth / window.innerHeight > 0 ? 0.2 : 0.025;
+    const threshold = this._screenSrv.screenOrientation() === 'horizontal' ? 0.2 : 0.025;
 
     if (!this.sectionsVisible()[section])
       this.sectionsVisible.update((cv) => ({ ...cv, [section]: $event.ratio > threshold }));

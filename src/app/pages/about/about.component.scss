@@ -16,9 +16,29 @@
   transition: padding v.$transition-time ease-out;
 
   > * {
-    transition-property: margin-bottom, margin-left, margin-right;
+    transition-property: height, margin-bottom, margin-left, margin-right;
     transition-duration: v.$transition-time-quad;
     transition-timing-function: ease-out;
+  }
+
+  .background-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 70vh;
+
+    color: transparent;
+    opacity: 0.5;
+    -webkit-text-stroke: 2px var(--primary-color);
+
+    pointer-events: none;
   }
 
   .logo-wrapper {
