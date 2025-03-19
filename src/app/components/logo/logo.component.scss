@@ -1,3 +1,5 @@
+@use 'utils' as u;
+
 @mixin create-flicker($name, $steps: 5) {
   @keyframes #{$name} {
     0% {
@@ -27,6 +29,8 @@
   position: relative;
   display: block;
 
+  padding: 4vw;
+
   svg {
     fill: var(--primary-color);
     fill-opacity: 0;
@@ -39,8 +43,7 @@
   }
 
   #logo {
-    width: 40vw;
-    padding: 2rem 0;
+    width: 45vw;
   }
 
   @for $i from 1 through 4 {
@@ -52,8 +55,21 @@
 
   #logo-vertical {
     width: auto;
-    height: 38vh;
-    padding: 0 3rem;
+    height: 30vh;
+  }
+
+  @include u.media('t') {
+    #logo {
+      width: 30vw;
+    }
+  }
+
+  @include u.media('tl') {
+    padding: 4vh;
+
+    border-color: var(--primary-color);
+    border-width: 2px 0;
+    border-style: groove;
   }
 }
 
