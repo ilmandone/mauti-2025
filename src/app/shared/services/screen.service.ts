@@ -57,7 +57,6 @@ export class ScreenService {
       .pipe(takeUntilDestroyed(this._destroyRef), debounceTime(100))
       .subscribe(() => {
         const sz = this._getScreenSize() || 'm';
-        console.log(sz);
         if (sz !== this._screenSize()) this._screenSize.set(sz);
         this._screenOrientation.set(this._getScreenOrientation());
       });
