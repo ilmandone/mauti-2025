@@ -3,7 +3,7 @@
 
 :host {
   position: relative;
-  display: block;
+  display: inline-block;
 
   padding: 0.5rem 0;
 
@@ -14,7 +14,7 @@
     @include t.text-small;
 
     &.vertical {
-      height: 70vh;
+      min-height: 60vh;
       writing-mode: sideways-lr;
     }
 

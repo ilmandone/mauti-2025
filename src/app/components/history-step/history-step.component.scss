@@ -21,13 +21,14 @@
     }
 
     &.horizontal {
-      min-height: 65vh;
+      min-height: 35vh;
       padding: 2rem 3rem;
       writing-mode: sideways-lr;
     }
   }
 
   .def {
+    display: inline-flex;
     padding: 0.5rem 0;
     @include t.text-x-small;
 

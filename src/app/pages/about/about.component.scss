@@ -16,7 +16,7 @@
   transition: padding v.$transition-time ease-out;
 
   > * {
-    transition-property: height, margin-bottom, margin-left, margin-right;
+    transition-property: margin-bottom, margin-left, margin-right;
     transition-duration: v.$transition-time-quad;
     transition-timing-function: ease-out;
   }
