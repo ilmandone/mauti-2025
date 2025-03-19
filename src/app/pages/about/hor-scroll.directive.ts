@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, effect, ElementRef, HostListener, inject } from '@angular/core';
+import { DestroyRef, Directive, effect, ElementRef, HostListener, inject, OnInit } from '@angular/core';
 import { ScreenService } from '../../shared/services/screen.service';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -6,10 +6,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Directive({
   selector: '[appHorScroll]',
 })
-export class HorScrollDirective {
+export class HorScrollDirective implements OnInit {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _destroyRef = inject(DestroyRef);
   private _screenSrv = inject(ScreenService);
+
   private _wheelEvent = fromEvent<WheelEvent>(document, 'wheel', { passive: true });
 
   private _touchEndEvent = fromEvent<TouchEvent>(document, 'touchend', { passive: true });
@@ -63,6 +64,10 @@ export class HorScrollDirective {
     this._touchStartEvent.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r) => {
       this.onTouchStart(r);
     });
+  }
+
+  ngOnInit() {
+    this._elementScroll = 0;
   }
 
   protected onScroll(event$: WheelEvent) {
