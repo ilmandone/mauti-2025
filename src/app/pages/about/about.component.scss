@@ -2,7 +2,7 @@
 @use 'utils' as u;
 @use 'vars' as v;
 
-@import 'hud-glass';
+@use 'hud-glass';
 
 :host {
   position: relative;
