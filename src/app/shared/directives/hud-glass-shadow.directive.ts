@@ -28,7 +28,7 @@ export class HudGlassShadowDirective implements AfterViewInit {
     const vh = Math.round((iw < ih ? iw : ih) / 400);
     const bb = this._el.getBoundingClientRect();
     const c = {
-      x: -Math.round((bb.left + bb.width / 2 - iw / 2) / (iw / 80)),
+      x: -Math.round((bb.left + bb.width / 2 - iw / 2) / (iw / 60)),
       y: Math.round((bb.top + bb.height / 2 - ih / 2) / (ih / 60)),
     };
 
