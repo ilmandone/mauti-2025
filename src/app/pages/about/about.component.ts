@@ -61,11 +61,10 @@ class AboutComponent implements OnInit {
     this.nativeScroll.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((r: Event) => {
       this.scrollUpdate = r.timeStamp;
 
+      const sh = this._screenSrv.screenOrientation();
       const scrollTotal =
-        this._screenSrv.screenOrientation() === 'horizontal'
-          ? this._el.scrollWidth - window.innerWidth
-          : this._el.scrollHeight - window.innerHeight;
-      const sp = this._screenSrv.screenOrientation() === 'horizontal' ? this._el.scrollLeft : this._el.scroll;
+        sh === 'horizontal' ? this._el.scrollWidth - window.innerWidth : this._el.scrollHeight - window.innerHeight;
+      const sp = sh === 'horizontal' ? this._el.scrollLeft : this._el.scrollTop;
 
       this.scrollProgress = Math.round((sp / scrollTotal) * 100);
     });
