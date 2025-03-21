@@ -1,10 +1,9 @@
 import { Component, ElementRef, inject, input, OnInit, output } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-logo',
-  imports: [NgOptimizedImage],
+  imports: [],
   templateUrl: './logo.component.html',
   styleUrl: './logo.component.scss',
 })
