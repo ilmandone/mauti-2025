@@ -39,7 +39,8 @@ export class HudGlassShadowDirective implements AfterViewInit {
       blur(${bf}px)
       drop-shadow(${halfCX}px ${c.y / 2 - vh}px 1px rgba(${this.hudColor()}, ${this.hudAlpha()}))
       drop-shadow(${-halfCX}px ${c.y + vh}px 2px var(--hud-color))`;
-    this._el.style.transform = `translateZ(${Math.abs(c.x) * (iw * 0.003)}px) rotateY(${halfCX}deg)`;
+
+    this._el.style.transform = `scale(${1 + Math.abs(c.x * 0.01)}) rotateY(${halfCX}deg)`;
 
     if (this._requestAnimationFrameId) window.requestAnimationFrame(this._update.bind(this));
   }
