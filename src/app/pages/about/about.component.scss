@@ -32,7 +32,7 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 70vh;
+    font-size: 60vw;
 
     color: transparent;
     opacity: 0.5;
@@ -86,6 +86,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    .background-progress {
+      font-size: 70vh;
+    }
 
     .logo-wrapper {
       height: 100vh;
