@@ -9,7 +9,7 @@
 
   padding: 4vw;
 
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
 
   .emoticon {
     margin-bottom: 4vh;
