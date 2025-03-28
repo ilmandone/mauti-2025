@@ -1,2 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @use "reset";
+@use "a11y" as a;
+@use "colors" as c;
+@use "typo" as t;
+
+:root {
+  --bg-color: #{c.$bg-color-light};
+  --primary-color: #{c.$primary-color-light};
+  --secondary-color: #{c.$secondary-color-light};
+  --text-color: #{c.$text-color-light};
+}
+
+body {
+  // A11y
+  .visually-hidden {
+    @include a.visually-hidden;
+  }
+
+  // Body text
+  @include t.text-primary;
+
+  strong {
+    font-weight: 600;
+  }
+}
