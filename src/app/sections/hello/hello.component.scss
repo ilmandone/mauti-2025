@@ -1,0 +1,50 @@
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  padding: 4vw;
+
+  min-height: 100vh;
+
+  .emoticon {
+    margin-bottom: 4vh;
+    font-size: 12vw;
+    font-weight: 500;
+
+    .primary {
+      color: var(--primary-color);
+    }
+
+    .secondary {
+      color: var(--secondary-color);
+    }
+  }
+
+  img {
+    width: 100%;
+    max-width: 94rem;
+  }
+
+  @include u.media('t') {
+    .emoticon {
+      font-size: 8vw;
+    }
+  }
+
+  @include u.media('t') {
+    .emoticon {
+      font-size: 6.5vw;
+    }
+  }
+
+  @include u.media('dl') {
+    .emoticon {
+      font-size: 5vw;
+    }
+  }
+}
