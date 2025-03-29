@@ -1,7 +1,21 @@
+@use 'utils' as u;
+
 :host {
   position: relative;
-  display: block;
+  display: flex;
+  justify-content: flex-end;
 
-  background-color: var(--secondary-color);
-  
+  picture {
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 2vw;
+    background-color: var(--secondary-color);
+  }
+
+  @include u.media('tl') {
+    picture {
+      padding: 1.5vw;
+    }
+  }
 }

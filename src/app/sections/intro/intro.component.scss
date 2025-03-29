@@ -10,17 +10,17 @@
   @include c.sectionPadding;
 
   p.huge {
-    @include t.text-huge;
-
     margin-top: 6vh;
+
+    @include t.text-huge;
   }
 
   .color-wrapper {
+    margin-top: 12vh;
+
     display: flex;
     flex-direction: column;
     gap: 3vh;
-
-    margin-top: 12vh;
 
     span {
       display: block;
@@ -46,7 +46,7 @@
 
     .color-wrapper {
       flex-direction: row;
-      gap: 2vw;
+      column-gap: 2vw;
       margin-top: 16vh;
 
       app-color-card {
@@ -55,12 +55,11 @@
     }
 
     .about {
+      margin: 4vh 0 0 0;
+
       flex-direction: row;
       align-items: center;
-
-      gap: 2vw;
-
-      margin: 4vh 0 0 0;
+      column-gap: 4vw;
 
       &__left {
         flex: 2;
