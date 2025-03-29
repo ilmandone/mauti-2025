@@ -20,7 +20,29 @@
 
     margin-top: 4vh;
 
-    @include u.media('tl') {
+    span {
+      display: block;
+    }
+  }
+
+  .about-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    margin: 4vh 0;
+
+    p {
+      padding: 0 4vw;
+    }
+
+    app-logo-block {
+      margin-top: 4vh;
+    }
+  }
+
+  @include u.media('tl') {
+
+    .color-wrapper {
       flex-direction: row;
       gap: 2vw;
 
@@ -29,8 +51,20 @@
       }
     }
 
-    span {
-      display: block;
+    .about-wrapper {
+      flex-direction: row;
+      align-items: center;
+
+      gap: 2vw;
+
+      p {
+        flex: 2;
+        padding: 0;
+      }
+
+      app-logo-block {
+        flex: 3;
+      }
     }
   }
 }
