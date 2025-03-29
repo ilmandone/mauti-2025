@@ -1,0 +1,10 @@
+@use 'commons' as c;
+@use 'typo' as t;
+
+:host {
+  position: relative;
+  display: flex;
+
+  @include c.sectionPadding;
+  @include t.text-huge;
+}
