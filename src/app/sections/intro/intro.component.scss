@@ -1,10 +1,36 @@
 @use 'commons' as c;
 @use 'typo' as t;
+@use 'utils' as u;
 
 :host {
   position: relative;
   display: flex;
+  flex-direction: column;
 
   @include c.sectionPadding;
-  @include t.text-huge;
+
+  p.huge {
+    @include t.text-huge;
+  }
+
+  .color-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+
+    margin-top: 4vh;
+
+    @include u.media('tl') {
+      flex-direction: row;
+      gap: 2vw;
+
+      app-color-card {
+        flex: 1;
+      }
+    }
+
+    span {
+      display: block;
+    }
+  }
 }
