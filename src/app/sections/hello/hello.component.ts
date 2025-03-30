@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  selector: 'app-hello',
+  selector: 'section[hello]',
   imports: [NgOptimizedImage],
   templateUrl: './hello.component.html',
   styleUrl: './hello.component.scss',
