@@ -36,7 +36,9 @@
   @include u.media('tl') {
     .text-wrapper {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
+
+      gap: 12vw;
 
       p.huge {
         flex: 3;
