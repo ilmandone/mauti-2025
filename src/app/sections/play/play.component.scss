@@ -1,8 +1,10 @@
 @use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
 
 :host {
   position: relative;
-  margin-top: 8vh;
+  margin-top: 6vh;
 
   display: flex;
   flex-direction: column;
@@ -10,8 +12,27 @@
   @include c.sectionPadding;
 
   background-image: url("/vectors/bg-play-3d.svg");
-  background-size: 100vw;
+  background-size: 150vw;
   background-repeat: no-repeat;
+  background-position: top right;
 
-  min-height: 100vh;
+  p.huge {
+    margin-top: 45vh;
+    padding-top: 2vh;
+    border-top: 4px solid var(--text-color);
+    @include t.text-huge;
+  }
+
+  p.text {
+    margin-top: 5vh;
+  }
+
+  @include u.media('t') {
+    margin-top: 6vh;
+    background-size: 125vw;
+  }
+
+  @include u.media('dm') {
+    background-size: 100vw;
+  }
 }
