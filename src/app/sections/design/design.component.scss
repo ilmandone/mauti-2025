@@ -6,4 +6,8 @@
   flex-direction: column;
 
   @include c.sectionPadding;
+
+  app-d-strip {
+    width: 92vw;
+  }
 }
