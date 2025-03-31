@@ -1,0 +1,9 @@
+@use 'commons' as c;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include c.sectionPadding;
+}
