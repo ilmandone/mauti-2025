@@ -10,6 +10,7 @@
   @include c.sectionPadding;
 
   app-d-strip {
+    margin-top: 6vh;
     width: 92vw;
   }
 
@@ -18,7 +19,7 @@
     flex-direction: column;
 
     p {
-      margin-top: 6vh;
+      margin-top: 8vh;
     }
 
     p.huge {
