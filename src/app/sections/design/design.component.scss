@@ -1,4 +1,6 @@
 @use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
 
 :host {
   position: relative;
@@ -9,5 +11,39 @@
 
   app-d-strip {
     width: 92vw;
+  }
+
+  .text-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-top: 6vh;
+    }
+
+    p.huge {
+
+      max-width: 56rem;
+      @include t.text-huge;
+    }
+
+    p.text {
+      max-width: 30rem;
+    }
+  }
+
+  @include u.media('tl') {
+    .text-wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+
+      p.huge {
+        flex: 3;
+      }
+
+      p.text {
+        flex: 2;
+      }
+    }
   }
 }
