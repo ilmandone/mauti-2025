@@ -1,0 +1,17 @@
+@use 'commons' as c;
+
+:host {
+  position: relative;
+  margin-top: 8vh;
+
+  display: flex;
+  flex-direction: column;
+
+  @include c.sectionPadding;
+
+  background-image: url("/vectors/bg-play-3d.svg");
+  background-size: 100vw;
+  background-repeat: no-repeat;
+
+  min-height: 100vh;
+}
