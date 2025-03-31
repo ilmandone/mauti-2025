@@ -25,16 +25,20 @@ export class DStripComponent implements OnInit {
       color: '--bg-color',
     },
     {
-      bg: '--secondary-color',
-      color: '--bg-color',
-    },
-    {
       bg: '--bg-color',
       color: '--text-color',
     },
     {
+      bg: '--secondary-color',
+      color: '--bg-color',
+    },
+    {
       bg: '--primary-color',
       color: '--bg-color',
+    },
+    {
+      bg: '--bg-color',
+      color: '--primary-color',
     },
   ];
 
@@ -50,7 +54,7 @@ export class DStripComponent implements OnInit {
   stripList = signal<ColorStep[]>([]);
 
   private _generateStrip() {
-    const amount = this._screenMap.get(this._screen.size() ?? 't') || 4;
+    const amount = this._screenMap.get(this._screen.size() ?? 't') || 3;
     const newSequence: ColorStep[] = [];
 
     for (let i = 0; i < amount; i++) {
