@@ -1,0 +1,10 @@
+:host {
+  position: absolute;
+  display: flex;
+
+  overflow: hidden;
+
+  svg {
+    height: 100%;
+  }
+}
