@@ -4,19 +4,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const _screenSizes = ['t', 'tl', 'd', 'dm', 'dl', 'dxl'] as const;
 export type ScreenSize = (typeof _screenSizes)[number];
-export const SCREEN_SIZE: ScreenSize[] = [..._screenSizes];
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
   private _destroyRef = inject(DestroyRef);
-  private _screenSize = signal<ScreenSize | null>(null);
+  private _size = signal<ScreenSize | null>(null);
   private _vh = signal<number>(0);
 
   private _setScreenSize() {
     const c = getComputedStyle(document.documentElement).getPropertyValue('--screen-size') as ScreenSize;
-    this._screenSize.set(c);
+    this._size.set(c);
   }
 
   private _setVH(): void {
@@ -24,8 +23,8 @@ export class ScreenService {
     document.documentElement.style.setProperty('--vh', `${this._vh() * 0.01}px`);
   }
 
-  get screenSize(): Signal<ScreenSize | null> {
-    return this._screenSize.asReadonly();
+  get size(): Signal<ScreenSize | null> {
+    return this._size.asReadonly();
   }
 
   get vh(): Signal<number> {
