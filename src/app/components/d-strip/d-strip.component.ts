@@ -2,6 +2,7 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ScreenService, ScreenSize } from '../../shared/services/screen.service';
 
 interface ColorStep {
   bg: string;
@@ -15,6 +16,7 @@ interface ColorStep {
   styleUrl: './d-strip.component.scss',
 })
 export class DStripComponent implements OnInit {
+  private _screen = inject(ScreenService);
   private _destroyRef = inject(DestroyRef);
 
   private _colorSequence: ColorStep[] = [
@@ -36,10 +38,29 @@ export class DStripComponent implements OnInit {
     },
   ];
 
+  private _screenMap = new Map<ScreenSize, number>([
+    ['t', 4],
+    ['tl', 4],
+    ['d', 5],
+    ['dm', 5],
+    ['dl', 6],
+    ['dxl', 6],
+  ]);
+
   stripList = signal<ColorStep[]>([]);
 
   private _generateStrip() {
-    console.log('GENERATE STRIP');
+    const amount = this._screenMap.get(this._screen.size() ?? 't') || 4;
+    const newSequence: ColorStep[] = [];
+
+    for (let i = 0; i < amount; i++) {
+      const originalIndex = i % this._colorSequence.length;
+      console.log(originalIndex);
+      newSequence.push({ ...this._colorSequence[originalIndex] });
+    }
+    console.log(newSequence);
+
+    this.stripList.set(newSequence);
   }
 
   ngOnInit() {

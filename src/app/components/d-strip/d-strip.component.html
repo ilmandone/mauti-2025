@@ -1,7 +1,7 @@
 @for (sl of stripList(); track $index) {
-  <ng-container *ngTemplateOutlet="dStrip"></ng-container>
+  <ng-container *ngTemplateOutlet="dStrip; context: {$implicit: sl}"></ng-container>
 }
 
-<ng-template #dStrip>
-  <div>UGO</div>
+<ng-template #dStrip let-data>
+  <div>UGO: {{ data.bg }}</div>
 </ng-template>
