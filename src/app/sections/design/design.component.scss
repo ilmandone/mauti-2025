@@ -10,7 +10,7 @@
   @include c.sectionPadding;
 
   app-d-strip {
-    margin-top: 6vh;
+    margin-top: 10vh;
     width: 92vw;
   }
 
@@ -18,17 +18,14 @@
     display: flex;
     flex-direction: column;
 
-    p {
-      margin-top: 8vh;
-    }
-
     p.huge {
-
+      margin-top: 6vh;
       max-width: 56rem;
       @include t.text-huge;
     }
 
     p.text {
+      margin-top: 6vh;
       max-width: 30rem;
     }
   }
@@ -38,7 +35,7 @@
       flex-direction: row;
       justify-content: flex-start;
 
-      gap: 12vw;
+      gap: 10vw;
 
       p.huge {
         flex: 3;
