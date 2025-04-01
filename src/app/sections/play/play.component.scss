@@ -11,28 +11,32 @@
 
   @include c.sectionPadding;
 
-  background-image: url("/vectors/bg-play-3d.svg");
-  background-size: 150vw;
-  background-repeat: no-repeat;
-  background-position: top right;
+  .play-image {
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+
+    img {
+      max-width: none;
+      height: 100%;
+    }
+  }
 
   p.huge {
-    margin-top: 45vh;
-    padding-top: 2vh;
+    margin-top: 4vh;
+    padding-top: 1.5vh;
     border-top: 4px solid var(--text-color);
     @include t.text-huge;
   }
 
   p.text {
-    margin-top: 5vh;
+    margin-top: 4vh;
   }
 
-  @include u.media('t') {
-    margin-top: 6vh;
-    background-size: 125vw;
-  }
-
-  @include u.media('dm') {
-    background-size: 100vw;
+  @media screen and (min-aspect-ratio: 3/2) {
+    .play-image img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }
