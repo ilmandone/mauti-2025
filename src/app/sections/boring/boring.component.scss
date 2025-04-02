@@ -1,0 +1,36 @@
+@use 'commons' as c;
+@use 'utils' as u;
+@use 'typo' as t;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include c.sectionPadding;
+
+  p.huge {
+    padding-bottom: 1.5vh;
+
+    @include t.text-huge;
+    border-bottom: 4px solid var(--text-color);
+  }
+
+  p.list {
+    font-weight: 400;
+    margin-top: 2vh;
+    font-size: 6vw;
+  }
+
+  @include u.media('tl') {
+    p.list {
+      font-size: 4vw;
+    }
+  }
+
+  @include u.media('d') {
+    p.list {
+      font-size: 3vw;
+    }
+  }
+}

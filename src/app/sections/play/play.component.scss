@@ -36,8 +36,11 @@
     position: relative;
     margin-top: 4vh;
     padding-top: 1.5vh;
-    border-top: 4px solid var(--text-color);
+
     z-index: 1;
+
+    border-top: 4px solid var(--text-color);
+
     @include t.text-huge;
   }
 
