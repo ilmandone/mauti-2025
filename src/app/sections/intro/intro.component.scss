@@ -1,0 +1,78 @@
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include c.sectionPadding;
+
+  p.huge {
+    margin-top: 6vh;
+
+    @include t.text-huge;
+  }
+
+  .color-wrapper {
+    margin-top: 12vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+
+    span {
+      display: block;
+    }
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+
+    margin: 8vh 0 4vh 0;
+
+    &__left {
+      padding: 0 4vw;
+    }
+
+    app-logo-block {
+      margin-top: 4vh;
+    }
+  }
+
+  @include u.media('tl') {
+
+    .color-wrapper {
+      flex-direction: row;
+      column-gap: 2vw;
+      margin-top: 16vh;
+
+      app-color-card {
+        flex: 1;
+      }
+    }
+
+    .about {
+      margin: 10vh 0 0 0;
+
+      flex-direction: row;
+      align-items: center;
+      column-gap: 4vw;
+
+      &__left {
+        flex: 3;
+        padding: 0;
+
+        p {
+          max-width: 27rem;
+        }
+      }
+
+      app-logo-block {
+        flex: 3;
+      }
+    }
+  }
+}

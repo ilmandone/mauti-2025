@@ -1,0 +1,61 @@
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  margin-top: 12vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  height: 80vh;
+
+  @include c.sectionPadding;
+
+  .play-image-wrapper {
+    width: 100%;
+    height: 72vh;
+  }
+
+  picture {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+
+    img {
+      max-width: none;
+      height: 100%;
+    }
+  }
+
+  p.huge {
+    position: relative;
+    margin-top: 4vh;
+    padding-top: 1.5vh;
+
+    z-index: 1;
+
+    border-top: 4px solid var(--text-color);
+
+    @include t.text-huge;
+  }
+
+  p.text {
+    position: relative;
+    max-width: 57rem;
+    margin: 6vh 0 4vh;
+    z-index: 1;
+  }
+
+  @include u.media('tl') {
+    margin-top: 16vh;
+  }
+
+  @include u.media('dm') {
+    margin-top: 22vh;
+  }
+}

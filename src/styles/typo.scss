@@ -1,3 +1,5 @@
+@use 'utils' as u;
+
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@600&display=swap');
 
@@ -7,11 +9,24 @@
   font-optical-sizing: auto;
 
   text-rendering: geometricPrecision;
-  text-transform: uppercase;
 }
 
 @mixin text-primary() {
   @extend %font-basic;
   font-weight: 500;
   color: var(--text-color);
+}
+
+@mixin text-huge() {
+  @extend %font-basic;
+  font-weight: 600;
+  color: var(--text-color);
+
+  font-size: 2rem;
+  line-height: 2rem;
+
+  @include u.media('t') {
+    font-size: 3rem;
+    line-height: 2.75rem;
+  }
 }

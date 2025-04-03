@@ -1,0 +1,29 @@
+@use 'utils' as u;
+@use 'vars' as v;
+
+:host {
+  position: relative;
+  display: block;
+
+  box-sizing: border-box;
+  padding: 5vw;
+
+  transition: padding v.$transition-time ease-in-out;
+
+  @include u.media('tl') {
+    padding: 5vw;
+  }
+
+  @include u.media('d') {
+    padding: 3vw;
+  }
+
+  &.primary {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+  }
+
+  &.secondary {
+    background-color: var(--secondary-color);
+  }
+}

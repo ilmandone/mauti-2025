@@ -1,0 +1,49 @@
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include c.sectionPadding;
+
+  app-d-strip {
+    margin-top: 10vh;
+    width: 92vw;
+  }
+
+  .text-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    p.huge {
+      margin-top: 6vh;
+      max-width: 56rem;
+      @include t.text-huge;
+    }
+
+    p.text {
+      margin-top: 6vh;
+      max-width: 30rem;
+    }
+  }
+
+  @include u.media('tl') {
+    .text-wrapper {
+      flex-direction: row;
+      justify-content: flex-start;
+
+      gap: 10vw;
+
+      p.huge {
+        flex: 3;
+      }
+
+      p.text {
+        flex: 2;
+      }
+    }
+  }
+}

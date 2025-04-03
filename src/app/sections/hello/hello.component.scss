@@ -1,4 +1,6 @@
+@use 'commons' as c;
 @use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: relative;
@@ -7,14 +9,16 @@
   justify-content: flex-end;
   align-items: flex-start;
 
-  padding: 4vw;
-
   min-height: calc(var(--vh, 1vh) * 100);
+  transition: min-height v.$transition-time ease-in-out;
+
+  @include c.sectionPadding;
 
   .emoticon {
     margin-bottom: 4vh;
     font-size: 12vw;
     font-weight: 500;
+    text-transform: uppercase;
 
     .primary {
       color: var(--primary-color);

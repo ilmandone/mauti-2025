@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use "reset";
+@use "utils" as u;
 @use "a11y" as a;
 @use "colors" as c;
 @use "typo" as t;
@@ -9,6 +10,13 @@
   --primary-color: #{c.$primary-color-light};
   --secondary-color: #{c.$secondary-color-light};
   --text-color: #{c.$text-color-light};
+
+  // Set screen size value for js reference
+  @each $breakpoint, $value in u.$screen-sizes {
+    @media #{$value} {
+      --screen-size: #{$breakpoint}
+    }
+  }
 }
 
 body {
