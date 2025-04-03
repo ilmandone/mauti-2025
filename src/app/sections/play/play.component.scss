@@ -50,4 +50,12 @@
     margin: 6vh 0 4vh;
     z-index: 1;
   }
+
+  @include u.media('tl') {
+    margin-top: 16vh;
+  }
+
+  @include u.media('dm') {
+    margin-top: 22vh;
+  }
 }

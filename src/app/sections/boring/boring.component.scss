@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
 
+  margin-top: 6vh;
+
   @include c.sectionPadding;
 
   p.huge {
@@ -56,6 +58,9 @@
   }
 
   @include u.media('tl') {
+
+    margin-top: 10vh;
+
     p.list {
       font-size: 4vw;
     }

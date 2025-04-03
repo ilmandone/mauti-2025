@@ -55,14 +55,14 @@
     }
 
     .about {
-      margin: 4vh 0 0 0;
+      margin: 10vh 0 0 0;
 
       flex-direction: row;
       align-items: center;
       column-gap: 4vw;
 
       &__left {
-        flex: 2;
+        flex: 3;
         padding: 0;
 
         p {
