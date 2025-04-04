@@ -1,6 +1,6 @@
-@use 'commons' as c;
-@use 'typo' as t;
-@use 'utils' as u;
+@use '../../../styles/commons' as c;
+@use '../../../styles/typo' as t;
+@use '../../../styles/utils' as u;
 
 :host {
   position: fixed;
