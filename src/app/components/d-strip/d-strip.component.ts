@@ -59,10 +59,8 @@ export class DStripComponent implements OnInit {
 
     for (let i = 0; i < amount; i++) {
       const originalIndex = i % this._colorSequence.length;
-      console.log(originalIndex);
       newSequence.push({ ...this._colorSequence[originalIndex] });
     }
-    console.log(newSequence);
 
     this.stripList.set(newSequence);
   }
