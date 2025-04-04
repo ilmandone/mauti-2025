@@ -1,3 +1,5 @@
+$padding: 4vw;
+
 @mixin sectionPadding() {
-  padding: 4vw;
+  padding: $padding;
 }
