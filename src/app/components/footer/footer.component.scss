@@ -1,0 +1,28 @@
+@use 'commons' as c;
+@use 'typo' as t;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 40vh;
+
+  @include c.sectionPadding;
+
+  p {
+    @include t.text-huge;
+  }
+
+  .social {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+
+    margin-top: 4vh;
+
+    > *:not(:last-child) {
+      margin-right: 5vw;
+    }
+  }
+}
