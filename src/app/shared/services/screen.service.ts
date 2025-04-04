@@ -1,9 +1,10 @@
-import { DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const _screenSizes = ['t', 'tl', 'd', 'dm', 'dl', 'dxl'] as const;
 export type ScreenSize = (typeof _screenSizes)[number];
+export const SCREEN_SIZE: ScreenSize[] = [..._screenSizes];
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,18 @@ export class ScreenService {
 
   get vh(): Signal<number> {
     return this._vh.asReadonly();
+  }
+
+  relativeTo(size: ScreenSize): Signal<'before' | 'after' | 'equal' | null> {
+    return computed<'before' | 'after' | 'equal' | null>(() => {
+      const sz = this._size();
+
+      if (!sz) return null;
+
+      const refIndex = SCREEN_SIZE.indexOf(size);
+      const currentIndex = SCREEN_SIZE.indexOf(sz);
+      return currentIndex < refIndex ? 'before' : currentIndex > refIndex ? 'after' : 'equal';
+    });
   }
 
   init() {
