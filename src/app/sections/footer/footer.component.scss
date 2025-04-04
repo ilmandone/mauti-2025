@@ -14,15 +14,7 @@
     @include t.text-huge;
   }
 
-  .social {
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-
+  social-links {
     margin-top: 4vh;
-
-    > *:not(:last-child) {
-      margin-right: 5vw;
-    }
   }
 }
