@@ -10,6 +10,8 @@ export class ViewportService implements OnDestroy {
 
   private _centerObserver: IntersectionObserver;
   private _multiObserver: IntersectionObserver;
+  private _observedElements = new Map<Element, Set<ObservableTypes>>();
+  private _thresholds!: number[];
 
   private _centered = signal<{ el: Element; isIntersecting: boolean } | null>(null);
   private _ratio = signal<{ el: Element; value: number } | null>(null);
@@ -19,9 +21,11 @@ export class ViewportService implements OnDestroy {
    * @private
    */
   private _getThresholds() {
-    return Array.from({ length: this.THRESHOLDS_STEPS + 1 }, (_, index) =>
-      Number((index * (1 / this.THRESHOLDS_STEPS)).toFixed(3))
-    );
+    if (!this._thresholds)
+      this._thresholds = Array.from({ length: this.THRESHOLDS_STEPS + 1 }, (_, index) =>
+        Number((index * (1 / this.THRESHOLDS_STEPS)).toFixed(3))
+      );
+    return this._thresholds;
   }
 
   //#region Getters
@@ -62,18 +66,54 @@ export class ViewportService implements OnDestroy {
   //#region Add and remove elements from observable
 
   add(e: ElementRef, regType: ObservableTypes = 'center') {
-    if (regType === 'center' || regType === 'all') this._centerObserver.observe(e.nativeElement);
-    if (regType === 'multi' || regType === 'all') this._multiObserver.observe(e.nativeElement);
+    if (!e?.nativeElement) return;
+
+    const element = e.nativeElement;
+
+    if (!this._observedElements.has(element)) {
+      this._observedElements.set(element, new Set());
+    }
+
+    const observedTypes = this._observedElements.get(element)!;
+
+    if ((regType === 'center' || regType === 'all') && !observedTypes.has('center')) {
+      this._centerObserver.observe(element);
+      observedTypes.add('center');
+    }
+
+    if ((regType === 'multi' || regType === 'all') && !observedTypes.has('multi')) {
+      this._multiObserver.observe(element);
+      observedTypes.add('multi');
+    }
   }
 
   remove(e: ElementRef, regType: ObservableTypes = 'center') {
-    if (regType === 'center' || regType === 'all') this._centerObserver.unobserve(e.nativeElement);
-    if (regType === 'multi' || regType === 'all') this._multiObserver.unobserve(e.nativeElement);
+    if (!e?.nativeElement) return;
+
+    const element = e.nativeElement;
+    const observedTypes = this._observedElements.get(element);
+
+    if (!observedTypes) return;
+
+    if (regType === 'center' || regType === 'all') {
+      this._centerObserver.unobserve(element);
+      observedTypes.delete('center');
+    }
+
+    if (regType === 'multi' || regType === 'all') {
+      this._multiObserver.unobserve(element);
+      observedTypes.delete('multi');
+    }
+
+    if (observedTypes.size === 0) {
+      this._observedElements.delete(element);
+    }
   }
 
   //#endregion
 
   ngOnDestroy() {
     this._centerObserver.disconnect();
+    this._multiObserver.disconnect();
   }
 }
