@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @use "reset";
+@use "lenis";
 @use "utils" as u;
 @use "a11y" as a;
 @use "colors" as c;
 @use "typo" as t;
 
-@import "lenis";
 
 :root {
   --bg-color: #{c.$bg-color-light};
