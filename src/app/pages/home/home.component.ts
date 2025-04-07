@@ -9,6 +9,7 @@ import { FooterComponent } from '../../sections/footer/footer.component';
 import { HeaderComponent } from '../../sections/header/header.component';
 import { ViewportDirective } from '../../shared/directives/viewport.directive';
 import { StateService } from '../../shared/services/state.service';
+import { CustomCursorComponent } from '@components/custom-cursor/custom-cursor.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { StateService } from '../../shared/services/state.service';
     FooterComponent,
     HeaderComponent,
     ViewportDirective,
+    CustomCursorComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

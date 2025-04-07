@@ -1,0 +1,17 @@
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: block;
+  pointer-events: none;
+
+  .content {
+    width: 2rem;
+    height: 2rem;
+
+    background-color: var(--primary-color);
+
+    transform: translate(-50%, -50%);
+  }
+}
