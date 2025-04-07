@@ -1,6 +1,7 @@
-@use '../../../styles/commons' as c;
-@use '../../../styles/typo' as t;
-@use '../../../styles/utils' as u;
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
 
 :host {
   position: fixed;
@@ -14,7 +15,13 @@
   justify-content: space-between;
   align-items: center;
 
+  transition: transform v.$transition-time ease-in;
+
   @include u.zIndex('header');
+
+  &.hidden {
+    transform: translateY(-100%);
+  }
 
   .social {
     > *:not(:last-child) {
