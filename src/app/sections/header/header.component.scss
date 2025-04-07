@@ -15,12 +15,23 @@
   justify-content: space-between;
   align-items: center;
 
-  transition: transform v.$transition-time ease-in;
+  transform: translateY(-30%);
+  opacity: 0;
 
   @include u.zIndex('header');
 
+  &.ready {
+    transform: translateY(0);
+    opacity: 1;
+    transition-property: transform, filter, opacity;
+    transition-duration: v.$transition-time * 2;
+    transition-timing-function: ease-out;
+
+  }
+
   &.hidden {
     transform: translateY(-100%);
+    transition: transform v.$transition-time ease-in !important;
   }
 
   .social {
@@ -33,3 +44,4 @@
     font-weight: 700;
   }
 }
+
