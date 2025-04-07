@@ -5,6 +5,8 @@
 @use "colors" as c;
 @use "typo" as t;
 
+@import "lenis";
+
 :root {
   --bg-color: #{c.$bg-color-light};
   --primary-color: #{c.$primary-color-light};
