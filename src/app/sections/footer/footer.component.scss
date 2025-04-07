@@ -1,0 +1,20 @@
+@use '../../../styles/commons' as c;
+@use '../../../styles/typo' as t;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 40vh;
+
+  @include c.sectionPadding;
+
+  p {
+    @include t.text-huge;
+  }
+
+  social-links {
+    margin-top: 4vh;
+  }
+}

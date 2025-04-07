@@ -5,10 +5,23 @@ import { WebDevelopmentComponent } from '../../sections/web-development/web-deve
 import { DesignComponent } from '../../sections/design/design.component';
 import { PlayComponent } from '../../sections/play/play.component';
 import { BoringComponent } from '../../sections/boring/boring.component';
+import { FooterComponent } from '../../sections/footer/footer.component';
+import { HeaderComponent } from '../../sections/header/header.component';
+import { ViewportDirective } from '../../shared/directives/viewport.directive';
 
 @Component({
   selector: 'app-home',
-  imports: [HelloComponent, IntroComponent, WebDevelopmentComponent, DesignComponent, PlayComponent, BoringComponent],
+  imports: [
+    HelloComponent,
+    IntroComponent,
+    WebDevelopmentComponent,
+    DesignComponent,
+    PlayComponent,
+    BoringComponent,
+    FooterComponent,
+    HeaderComponent,
+    ViewportDirective,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

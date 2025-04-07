@@ -1,0 +1,28 @@
+@use '../../../styles/commons' as c;
+@use '../../../styles/typo' as t;
+@use '../../../styles/utils' as u;
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  padding: calc(#{c.$padding * 0.25}) c.$padding;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include u.zIndex('header');
+
+  .social {
+    > *:not(:last-child) {
+      margin-right: 2vw;
+    }
+  }
+
+  .extra {
+    font-weight: 700;
+  }
+}

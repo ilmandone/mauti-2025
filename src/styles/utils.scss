@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $reference: (
   "pl": "(max-width: 567px)",
   "t": "(min-width: 768px)",
@@ -10,11 +12,11 @@ $reference: (
   "mouse": "(hover:hover) and (pointer:fine)",
 ) !default;
 
-$screen-sizes: map-remove($reference, "touch", "mouse", "pl");
+$screen-sizes: map.remove($reference, "touch", "mouse", "pl");
 
 @mixin media($breakpoint) {
-  @if map-has-key($reference, $breakpoint) {
-    @media #{map-get($reference, $breakpoint)} {
+  @if map.has-key($reference, $breakpoint) {
+    @media #{map.get($reference, $breakpoint)} {
       @content;
     }
   }
@@ -29,7 +31,7 @@ $depth: (
 );
 
 @mixin zIndex($value) {
-  @if map-has-key($depth, $value) {
-    z-index: #{map-get($depth, $value)};
+  @if map.has-key($depth, $value) {
+    z-index: #{map.get($depth, $value)};
   }
 }

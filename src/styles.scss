@@ -31,4 +31,22 @@ body {
   strong {
     font-weight: 600;
   }
+
+  // Common links
+  a {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: underline;
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+      }
+    }
+  }
 }
