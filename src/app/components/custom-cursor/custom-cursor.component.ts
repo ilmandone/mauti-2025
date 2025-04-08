@@ -1,6 +1,7 @@
-import { Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StateService } from '../../shared/services/state.service';
 
 interface Coords {
   x: number;
@@ -15,15 +16,26 @@ interface Coords {
 })
 export class CustomCursorComponent implements OnInit, OnDestroy {
   private readonly EASING_FACTOR = 40;
+
   private _destroyRef = inject(DestroyRef);
   private _element = inject(ElementRef);
+  private _state = inject(StateService);
+
   private _raf!: number;
   private _targetCoords: Coords = { x: 0, y: 0 };
   private _currentCoords: Coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   private _angle = 0;
   private _minDistance = 48;
 
+  text!: string;
+
   @ViewChild('content', { read: ElementRef, static: true }) private _content!: ElementRef<HTMLElement>;
+
+  constructor() {
+    effect(() => {
+      console.log(this._state.atTop());
+    });
+  }
 
   private _update() {
     const dx = this._targetCoords.x - this._currentCoords.x;
@@ -63,6 +75,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
         });
 
       this._raf = requestAnimationFrame(this._update.bind(this));
+      this.text = 'SCROLL';
     }
   }
 

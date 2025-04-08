@@ -7,10 +7,15 @@
   pointer-events: none;
 
   .content {
-    width: 2rem;
-    height: 2rem;
+    padding: 0.5rem;
+    min-width: 2rem;
+    min-height: 2rem;
+
+    border-radius: 0.25rem;
+    text-align: center;
 
     background-color: var(--primary-color);
+    color: var(--bg-color);
 
     transform: translate(-50%, -50%);
   }
