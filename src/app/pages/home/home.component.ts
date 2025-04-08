@@ -31,7 +31,8 @@ import { CustomCursorComponent } from '@components/custom-cursor/custom-cursor.c
 export default class HomeComponent {
   private _state = inject(StateService);
 
-  footerInPage($event: boolean) {
-    this._state.setAtBottom($event);
+  inPageChange(section: 'top' | 'bottom', $event: boolean) {
+    if (section === 'top') this._state.setAtTop($event);
+    else this._state.setAtBottom($event);
   }
 }
