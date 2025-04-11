@@ -1,7 +1,18 @@
-import { Component, DestroyRef, effect, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  ElementRef,
+  HostBinding,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StateService } from '../../shared/services/state.service';
+import { shrinkAnimation } from '@components/custom-cursor/custom-cursor.animation';
 
 interface Coords {
   x: number;
@@ -13,6 +24,7 @@ interface Coords {
   imports: [],
   templateUrl: './custom-cursor.component.html',
   styleUrl: './custom-cursor.component.scss',
+  animations: [shrinkAnimation],
 })
 export class CustomCursorComponent implements OnInit, OnDestroy {
   private readonly EASING_FACTOR = 40;
@@ -22,18 +34,26 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private _state = inject(StateService);
 
   private _raf!: number;
-  private _targetCoords: Coords = { x: 0, y: 0 };
+  private _targetCoords: Coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   private _currentCoords: Coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   private _angle = 0;
   private _minDistance = 48;
 
+  visible = false;
   text!: string;
+  textState: 'normal' | 'shrunk' = 'shrunk';
 
-  @ViewChild('content', { read: ElementRef, static: true }) private _content!: ElementRef<HTMLElement>;
+  @ViewChild('content', { read: ElementRef }) private _content!: ElementRef<HTMLElement>;
+
+  @HostBinding('class.blended') hasBlendedClass = false;
 
   constructor() {
     effect(() => {
-      console.log(this._state.atTop());
+      const isAtTop = this._state.atTop();
+
+      this._minDistance = isAtTop ? 48 : 0;
+      this.hasBlendedClass = !isAtTop;
+      this.textState = isAtTop ? 'normal' : 'shrunk';
     });
   }
 
@@ -67,7 +87,8 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (navigator.maxTouchPoints === 0) {
+    this.visible = navigator.maxTouchPoints === 0;
+    if (this.visible) {
       fromEvent<PointerEvent>(window, 'pointermove')
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe((event: PointerEvent) => {
