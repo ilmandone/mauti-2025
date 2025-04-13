@@ -2,6 +2,14 @@
 @use 'utils' as u;
 @use 'vars' as v;
 
+@mixin transition($delay: 1, $duration: v.$transition-time) {
+  transition-property: opacity, transform;
+  transition-timing-function: ease-out;
+  transition-duration: $duration;
+
+  transition-delay: v.$transition-time * $delay;
+}
+
 :host {
   position: relative;
   display: flex;
@@ -20,6 +28,11 @@
     font-weight: 500;
     text-transform: uppercase;
 
+    opacity: 0;
+    transform: translateY(2vh);
+
+    @include transition(2, v.$transition-time);
+
     .primary {
       color: var(--primary-color);
     }
@@ -32,6 +45,21 @@
   img {
     width: 100%;
     max-width: 94rem;
+
+    opacity: 0;
+    transform: translateY(2vh);
+
+    @include transition(3, v.$transition-time * 2);
+  }
+
+  &.visible {
+
+    img,
+    .emoticon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
   }
 
   @include u.media('t') {

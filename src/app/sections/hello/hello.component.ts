@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -7,4 +7,12 @@ import { NgOptimizedImage } from '@angular/common';
   templateUrl: './hello.component.html',
   styleUrl: './hello.component.scss',
 })
-export class HelloComponent {}
+export class HelloComponent implements OnInit {
+  @HostBinding('class.visible') visible = false;
+
+  ngOnInit() {
+    window.setTimeout(() => {
+      this.visible = true;
+    }, 0);
+  }
+}
