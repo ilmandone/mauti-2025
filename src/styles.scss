@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+@use "reset";
+@use "lenis";
+@use "utils" as u;
+@use "a11y" as a;
+@use "colors" as c;
+@use "typo" as t;
+
+
+:root {
+  --bg-color: #{c.$bg-color-light};
+  --primary-color: #{c.$primary-color-light};
+  --secondary-color: #{c.$secondary-color-light};
+  --text-color: #{c.$text-color-light};
+
+  // Set screen size value for js reference
+  @each $breakpoint, $value in u.$screen-sizes {
+    @media #{$value} {
+      --screen-size: #{$breakpoint}
+    }
+  }
+}
+
+body {
+  // A11y
+  .visually-hidden {
+    @include a.visually-hidden;
+  }
+
+  // Body text
+  @include t.text-primary;
+
+  strong {
+    font-weight: 600;
+  }
+
+  // Common links
+  a {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: underline;
+
+    @include u.media('mouse') {
+      &:hover,
+      &:focus {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+      }
+    }
+  }
+}

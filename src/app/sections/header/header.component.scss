@@ -1,0 +1,46 @@
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
+@use 'vars' as v;
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  padding: calc(#{c.$padding * 0.25}) c.$padding;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transform: translateY(-30%);
+  opacity: 0;
+
+  @include u.zIndex('header');
+
+  &.ready {
+    transform: translateY(0);
+    opacity: 1;
+    transition-property: transform, filter, opacity;
+    transition-duration: v.$transition-time * 2;
+    transition-timing-function: ease-out;
+  }
+
+  &.hidden {
+    transform: translateY(-100%);
+    transition: transform v.$transition-time ease-in !important;
+  }
+
+  .social {
+    > *:not(:last-child) {
+      margin-right: 2vw;
+    }
+  }
+
+  .extra {
+    font-weight: 700;
+  }
+}
+
