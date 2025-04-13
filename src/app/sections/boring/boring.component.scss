@@ -56,6 +56,11 @@
     li:not(:last-child) {
       margin-bottom: 0.5vh;
     }
+
+    li:first-child {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
   }
 
   @include u.media('tl') {
