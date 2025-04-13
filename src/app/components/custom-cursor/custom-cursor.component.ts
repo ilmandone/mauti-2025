@@ -34,8 +34,8 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private _state = inject(StateService);
 
   private _raf!: number;
-  private _targetCoords: Coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  private _currentCoords: Coords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  private _targetCoords: Coords = { x: window.innerWidth / 2, y: -100 };
+  private _currentCoords: Coords = { x: window.innerWidth / 2, y: -100 };
   private _angle = 0;
   private _minDistance = 48;
 
