@@ -26,7 +26,6 @@
     transition-property: transform, filter, opacity;
     transition-duration: v.$transition-time * 2;
     transition-timing-function: ease-out;
-
   }
 
   &.hidden {
