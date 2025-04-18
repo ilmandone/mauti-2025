@@ -40,6 +40,11 @@
 
   @include c.sectionPadding;
 
+  .hand {
+    display: inline-block;
+    transform-origin: bottom left;
+  }
+
   .emoticon {
     margin-bottom: 4vh;
     font-size: 12vw;
