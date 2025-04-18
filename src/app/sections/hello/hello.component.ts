@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, HostBinding, inject, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, inject, NgZone, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { createTimeline } from 'animejs';
+import { createTimeline, onScroll } from 'animejs';
 
 @Component({
   selector: 'section[hello]',
@@ -10,6 +10,7 @@ import { createTimeline } from 'animejs';
 })
 export class HelloComponent implements OnInit, AfterViewInit {
   private _ngZone = inject(NgZone);
+  private _elementRef = inject(ElementRef);
 
   @HostBinding('class.visible') visible = false;
 
@@ -21,7 +22,15 @@ export class HelloComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     window.setTimeout(() => {
-      const tl = createTimeline({ loop: true });
+      const tl = createTimeline({
+        loop: true,
+        autoplay: onScroll({
+          target: '.hand',
+          enter: 'bottom top',
+          leave: 'top bottom',
+          debug: true,
+        }),
+      });
 
       tl.add('.hand', { rotate: 15, duration: 150 })
         .add('.hand', { rotate: 7, duration: 200 })
