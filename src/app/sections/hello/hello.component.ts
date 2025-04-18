@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { createTimeline, onScroll } from 'animejs';
 
@@ -9,9 +9,6 @@ import { createTimeline, onScroll } from 'animejs';
   styleUrl: './hello.component.scss',
 })
 export class HelloComponent implements OnInit, AfterViewInit {
-  private _ngZone = inject(NgZone);
-  private _elementRef = inject(ElementRef);
-
   @HostBinding('class.visible') visible = false;
 
   ngOnInit() {
