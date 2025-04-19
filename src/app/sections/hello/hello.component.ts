@@ -25,17 +25,16 @@ export class HelloComponent implements OnInit, AfterViewInit {
           target: '.hand',
           enter: 'bottom top',
           leave: 'top bottom',
-          debug: true,
         }),
       });
 
-      tl.add('.hand', { rotate: 15, duration: 150 })
-        .add('.hand', { rotate: 7, duration: 200 })
+      tl.add('.hand', { rotate: 12, duration: 150 })
+        .add('.hand', { rotate: 4, duration: 200 })
         .add('.hand', {
           rotate: 12,
           duration: 150,
         })
-        .add('.hand', { rotate: 0, duration: 600 })
+        .add('.hand', { rotate: 0, duration: 400 })
         .add({ duration: 1000 });
     }, 1000);
   }
