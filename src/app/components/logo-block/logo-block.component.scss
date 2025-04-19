@@ -11,6 +11,21 @@
     box-sizing: border-box;
     padding: 2vw;
     background-color: var(--secondary-color);
+
+    &.extra {
+      position: absolute;
+      background: transparent;
+
+      img {
+        clip-path: polygon(0% 0%, 100% 0, 100% 0%, 0 0%);
+      }
+    }
+
+    img:not(:first-child) {
+      position: absolute;
+      top: 1vw;
+      left: 1vw;
+    }
   }
 
   @include u.media('tl') {
