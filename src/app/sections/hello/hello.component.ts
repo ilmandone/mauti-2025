@@ -11,6 +11,27 @@ import { createTimeline, onScroll } from 'animejs';
 export class HelloComponent implements OnInit, AfterViewInit {
   @HostBinding('class.visible') visible = false;
 
+  private _handAnimation() {
+    const tl = createTimeline({
+      loop: true,
+      autoplay: onScroll({
+        target: '.hand',
+        enter: 'bottom top',
+        leave: 'top bottom',
+      }),
+    });
+
+    tl.add('.hand', { rotate: 12, duration: 150 })
+      .add('.hand', { rotate: 4, duration: 200 })
+      .add('.hand', {
+        rotate: 12,
+        duration: 150,
+      })
+      .add({ duration: 100 })
+      .add('.hand', { rotate: 0, duration: 400 })
+      .add({ duration: 1200 });
+  }
+
   ngOnInit() {
     window.setTimeout(() => {
       this.visible = true;
@@ -19,23 +40,7 @@ export class HelloComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     window.setTimeout(() => {
-      const tl = createTimeline({
-        loop: true,
-        autoplay: onScroll({
-          target: '.hand',
-          enter: 'bottom top',
-          leave: 'top bottom',
-        }),
-      });
-
-      tl.add('.hand', { rotate: 12, duration: 150 })
-        .add('.hand', { rotate: 4, duration: 200 })
-        .add('.hand', {
-          rotate: 12,
-          duration: 150,
-        })
-        .add('.hand', { rotate: 0, duration: 400 })
-        .add({ duration: 1000 });
+      this._handAnimation();
     }, 1000);
   }
 }
