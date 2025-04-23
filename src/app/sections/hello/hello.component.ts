@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostBinding, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, inject, NgZone, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { createTimeline, onScroll } from 'animejs';
 
@@ -9,6 +9,8 @@ import { createTimeline, onScroll } from 'animejs';
   styleUrl: './hello.component.scss',
 })
 export class HelloComponent implements OnInit, AfterViewInit {
+  private _ngZone = inject(NgZone);
+
   @HostBinding('class.visible') visible = false;
 
   private _handAnimation() {
@@ -39,8 +41,10 @@ export class HelloComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    window.setTimeout(() => {
-      this._handAnimation();
-    }, 1000);
+    this._ngZone.runOutsideAngular(() => {
+      window.setTimeout(() => {
+        this._handAnimation();
+      }, 1000);
+    });
   }
 }

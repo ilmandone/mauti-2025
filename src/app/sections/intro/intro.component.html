@@ -34,7 +34,7 @@
   </app-color-card>
 </div>
 
-<div class="about">
+<div #about class="about">
   <div class="about__left">
     <p>
       My career path has been an exciting journey from freelancing to working with large enterprises.
@@ -47,5 +47,5 @@
     </p>
   </div>
 
-  <app-logo-block />
+  <app-logo-block [parent]="aboutEl()" />
 </div>
