@@ -35,15 +35,16 @@ export class LogoBlockComponent implements AfterViewInit {
         rotate: 16,
         y: '18vw',
         x: '-18vw',
+        filter: 'blur(4px)',
       },
       'start'
     )
       .add(
         pics[0],
         {
-          rotate: -15,
+          rotate: -25,
           duration: 1000,
-          x: '25vw',
+          x: '45vw',
           y: '-5vw',
         },
         'start'
