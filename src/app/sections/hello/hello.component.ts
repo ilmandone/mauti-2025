@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, HostBinding, inject, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { createTimeline, onScroll } from 'animejs';
+import { createTimeline, createTimer, onScroll, Timeline } from 'animejs';
 
 @Component({
   selector: 'section[hello]',
@@ -8,10 +8,10 @@ import { createTimeline, onScroll } from 'animejs';
   templateUrl: './hello.component.html',
   styleUrl: './hello.component.scss',
 })
-export class HelloComponent implements OnInit, AfterViewInit {
-  private _ngZone = inject(NgZone);
-
-  @HostBinding('class.visible') visible = false;
+export class HelloComponent implements AfterViewInit, OnInit {
+  private _emoticon = viewChild<ElementRef<HTMLElement>>('emoticon');
+  private _hello = viewChild<ElementRef<HTMLElement>>('helloImg');
+  private _introTL!: Timeline;
 
   private _handAnimation() {
     const tl = createTimeline({
@@ -34,17 +34,51 @@ export class HelloComponent implements OnInit, AfterViewInit {
       .add({ duration: 1200 });
   }
 
+  private _introAnimation() {
+    const emoticon = this._emoticon()?.nativeElement;
+    const hello = this._hello()?.nativeElement;
+
+    if (!emoticon || !hello) return;
+
+    if (emoticon) {
+      this._introTL = createTimeline({
+        autoplay: false,
+        onComplete: () => {
+          this._handAnimation();
+        },
+      })
+        .add(
+          hello,
+          {
+            opacity: [{ from: 0 }, { to: 1 }],
+            rotateX: [{ from: '-45deg' }, { to: 0 }],
+          },
+          0
+        )
+        .add(
+          emoticon,
+          {
+            y: [{ from: '-75vh' }, { to: 0 }],
+            ease: 'outBounce',
+            delay: 500,
+            duration: 2000,
+          },
+          0
+        )
+        .init();
+    }
+  }
+
   ngOnInit() {
-    window.setTimeout(() => {
-      this.visible = true;
-    }, 0);
+    this._introAnimation();
   }
 
   ngAfterViewInit() {
-    this._ngZone.runOutsideAngular(() => {
-      window.setTimeout(() => {
-        this._handAnimation();
-      }, 1000);
+    createTimer({
+      duration: 500,
+      onComplete: () => {
+        this._introTL.play();
+      },
     });
   }
 }
