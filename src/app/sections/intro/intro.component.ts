@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, viewChild } from '@angular/core';
 import { ColorCardComponent } from '@components/color-card/color-card.component';
 import { LogoBlockComponent } from '@components/logo-block/logo-block.component';
 
@@ -8,4 +8,6 @@ import { LogoBlockComponent } from '@components/logo-block/logo-block.component'
   templateUrl: './intro.component.html',
   styleUrl: './intro.component.scss',
 })
-export class IntroComponent {}
+export class IntroComponent {
+  aboutEl = viewChild<ElementRef<HTMLElement>>('about');
+}

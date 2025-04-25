@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class StateService {
   private _atBottom = signal<boolean>(false);
   private _atTop = signal<boolean>(true);
+  private _isTouch = navigator.maxTouchPoints !== 0;
 
   get atTop() {
     return this._atTop.asReadonly();
@@ -13,6 +14,10 @@ export class StateService {
 
   get atBottom() {
     return this._atBottom.asReadonly();
+  }
+
+  get isTouch() {
+    return this._isTouch;
   }
 
   setAtBottom(v: boolean) {
