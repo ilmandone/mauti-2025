@@ -20,7 +20,7 @@ export class HeaderComponent implements AfterViewInit {
 
   @HostBinding('class.hidden')
   get atBottom() {
-    return this._state.atBottom();
+    return this._state.atBottom() || !this.ready;
   }
 
   ngAfterViewInit() {

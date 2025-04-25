@@ -52,8 +52,8 @@ export class HelloComponent implements AfterViewInit, OnInit {
           {
             opacity: [{ from: 0 }, { to: 1 }],
             rotateX: [{ from: '-45deg' }, { to: 0 }],
-            duration: 1500,
-            ease: 'outBounce',
+            duration: 2500,
+            ease: 'outElastic',
           },
           0
         )
@@ -62,7 +62,7 @@ export class HelloComponent implements AfterViewInit, OnInit {
           {
             y: [{ from: '-75vh' }, { to: 0 }],
             duration: 2000,
-            delay: 200,
+            delay: 400,
             ease: 'outBounce',
           },
           0
