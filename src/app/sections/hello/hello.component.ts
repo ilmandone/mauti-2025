@@ -52,6 +52,8 @@ export class HelloComponent implements AfterViewInit, OnInit {
           {
             opacity: [{ from: 0 }, { to: 1 }],
             rotateX: [{ from: '-45deg' }, { to: 0 }],
+            duration: 1500,
+            ease: 'outBounce',
           },
           0
         )
@@ -59,9 +61,9 @@ export class HelloComponent implements AfterViewInit, OnInit {
           emoticon,
           {
             y: [{ from: '-75vh' }, { to: 0 }],
-            ease: 'outBounce',
-            delay: 500,
             duration: 2000,
+            delay: 200,
+            ease: 'outBounce',
           },
           0
         )
