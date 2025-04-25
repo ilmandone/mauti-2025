@@ -4,6 +4,12 @@
 
   overflow: hidden;
 
+
+  .svg-wrapper {
+    height: 100%;
+    perspective: 80vw;
+  }
+
   svg {
     height: 100%;
   }
