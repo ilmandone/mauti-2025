@@ -40,6 +40,7 @@ export class LogoBlockComponent implements AfterViewInit {
         target: this.parent()?.nativeElement,
         enter: 'center top',
         leave: 'center bottom',
+        sync: true,
       }),
     })
       .sync(pic1anim, 0)
