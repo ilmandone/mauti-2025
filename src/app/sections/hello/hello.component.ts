@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { createTimeline, createTimer, onScroll, Timeline } from 'animejs';
 
@@ -8,7 +8,7 @@ import { createTimeline, createTimer, onScroll, Timeline } from 'animejs';
   templateUrl: './hello.component.html',
   styleUrl: './hello.component.scss',
 })
-export class HelloComponent implements AfterViewInit, OnInit {
+export class HelloComponent implements AfterViewInit {
   private _emoticon = viewChild<ElementRef<HTMLElement>>('emoticon');
   private _hello = viewChild<ElementRef<HTMLElement>>('helloImg');
   private _introTL!: Timeline;
@@ -59,8 +59,8 @@ export class HelloComponent implements AfterViewInit, OnInit {
         .add(
           hello,
           {
-            opacity: [{ from: 0 }, { to: 1 }],
             rotateX: [{ from: '-45deg' }, { to: 0 }],
+            opacity: [{ from: 0 }, { to: 1 }],
             duration: 2500,
             ease: 'outElastic',
           },
@@ -80,11 +80,8 @@ export class HelloComponent implements AfterViewInit, OnInit {
     }
   }
 
-  ngOnInit() {
-    this._introAnimation();
-  }
-
   ngAfterViewInit() {
+    this._introAnimation();
     createTimer({
       duration: 500,
       onComplete: () => {
