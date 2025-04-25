@@ -14,16 +14,17 @@ export class HelloComponent implements AfterViewInit, OnInit {
   private _introTL!: Timeline;
 
   private _handAnimation() {
-    const tl = createTimeline({
-      loop: true,
-      autoplay: onScroll({
-        target: '.hand',
-        enter: 'bottom top',
-        leave: 'top bottom',
-      }),
-    });
+    const commonOptions = {
+      target: '.hand',
+      enter: 'bottom top',
+      leave: 'top bottom',
+    };
 
-    tl.add('.hand', { rotate: 12, duration: 150 })
+    createTimeline({
+      loop: true,
+      autoplay: onScroll(commonOptions),
+    })
+      .add('.hand', { rotate: 12, duration: 150 })
       .add('.hand', { rotate: 4, duration: 200 })
       .add('.hand', {
         rotate: 12,
@@ -32,6 +33,14 @@ export class HelloComponent implements AfterViewInit, OnInit {
       .add({ duration: 100 })
       .add('.hand', { rotate: 0, duration: 400 })
       .add({ duration: 1200 });
+
+    createTimeline({
+      loop: true,
+      alternate: true,
+      autoplay: onScroll(commonOptions),
+    })
+      .add({ duration: 1200 })
+      .add('.eye', { x: 8, duration: 650, ease: 'inQuad', delay: 200 });
   }
 
   private _introAnimation() {
