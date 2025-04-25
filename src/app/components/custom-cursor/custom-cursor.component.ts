@@ -87,7 +87,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.visible = navigator.maxTouchPoints === 0;
+    this.visible = !this._state.isTouch;
     if (this.visible) {
       fromEvent<PointerEvent>(window, 'pointermove')
         .pipe(takeUntilDestroyed(this._destroyRef))
