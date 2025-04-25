@@ -7,7 +7,7 @@ import { INTRO_DELAY_TIME } from '../../shared/commons';
   selector: 'header[section]',
   template: `
     <social-links />
-    <div class="extra">1.0 - MVP</div>
+    <div class="extra">1.1 - INTRO</div>
   `,
   styleUrl: './header.component.scss',
   imports: [SocialLinksComponent],
