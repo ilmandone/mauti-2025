@@ -36,11 +36,22 @@ export class HelloComponent implements AfterViewInit {
 
     createTimeline({
       loop: true,
-      alternate: true,
       autoplay: onScroll(commonOptions),
     })
-      .add({ duration: 1200 })
-      .add('.eye', { x: 8, duration: 650, ease: 'inQuad', delay: 200 });
+      .add('.eye', {
+        delay: 1500,
+        duration: 400,
+        keyframes: [
+          { scaleY: 0.15, scaleX: 0.75 },
+          { scaleY: 1, scaleX: 1 },
+          { scaleY: 0.15, scaleX: 0.75 },
+          {
+            scaleY: 1,
+            scaleX: 1,
+          },
+        ],
+      })
+      .add({ duration: 2200 });
   }
 
   private _introAnimation() {
