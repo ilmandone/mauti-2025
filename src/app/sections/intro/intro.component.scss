@@ -9,10 +9,14 @@
 
   @include c.sectionPadding;
 
-  p.huge {
+  .huge {
     margin-top: 6vh;
 
     @include t.text-huge;
+
+    &__block {
+      display: inline-flex;
+    }
   }
 
   .color-wrapper {
