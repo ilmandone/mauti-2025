@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, inject, NgZone } from '@angular/core';
 import { animate } from 'animejs';
-import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
+import {
+  getDefaultScrollObs,
+  getFadeInHorizontalAnimationParams,
+  getFadeInVerticalAnimationParams,
+} from '../../shared/commons';
 
 @Component({
   selector: 'section[play]',
@@ -15,6 +19,11 @@ export class PlayComponent implements AfterViewInit {
     const target = '.play-texts';
     animate('.play-texts__title', getFadeInHorizontalAnimationParams(target, false));
     animate('.play-texts__text', getFadeInVerticalAnimationParams(target, false));
+    animate('.play-texts__top-line', {
+      width: [{ from: 0 }, { to: '100%' }],
+      duration: 700,
+      autoplay: getDefaultScrollObs(target),
+    });
   }
 
   ngAfterViewInit() {
