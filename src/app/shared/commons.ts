@@ -26,9 +26,9 @@ export const getFadeInHorizontalAnimationParams = (
   debug = false
 ): AnimationParams => {
   return {
-    delay: 300,
-    duration: 1000,
-    x: [{ from: -60 }, { to: 0 }],
+    delay: 400,
+    duration: 1200,
+    x: [{ from: '-3vw' }, { to: 0 }],
     opacity: [{ from: 0 }, { to: 1 }],
     autoplay: onScroll({
       debug,

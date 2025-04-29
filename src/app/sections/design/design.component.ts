@@ -13,8 +13,8 @@ export class DesignComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
   private _setAnimation() {
-    animate('.design-texts__title', getFadeInVerticalAnimationParams('.design-texts', false));
-    animate('.design-texts__text', getFadeInHorizontalAnimationParams('.design-texts'));
+    animate('.design-texts__title', getFadeInHorizontalAnimationParams('.design-texts', false));
+    animate('.design-texts__text', getFadeInVerticalAnimationParams('.design-texts'));
   }
 
   ngAfterViewInit() {

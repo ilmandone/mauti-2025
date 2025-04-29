@@ -13,8 +13,8 @@ export class WebDevelopmentComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
   private _setAnimation() {
-    animate('.web-title', getFadeInVerticalAnimationParams(this._elRef.nativeElement, false));
-    animate('.web-text', getFadeInHorizontalAnimationParams(this._elRef.nativeElement, false));
+    animate('.web-title', getFadeInHorizontalAnimationParams(this._elRef.nativeElement, false));
+    animate('.web-text', getFadeInVerticalAnimationParams(this._elRef.nativeElement, false));
   }
 
   ngAfterViewInit() {
