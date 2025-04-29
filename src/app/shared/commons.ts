@@ -4,7 +4,7 @@ export const INTRO_DELAY_TIME = 140;
 
 export const getFadeInVerticalAnimationParams = (
   target: TargetsParam | undefined,
-  staggered: boolean = true,
+  staggered = true,
   debug = false
 ): AnimationParams => {
   return {
@@ -23,11 +23,12 @@ export const getFadeInVerticalAnimationParams = (
 
 export const getFadeInHorizontalAnimationParams = (
   target: TargetsParam | undefined = undefined,
+  staggered = true,
   debug = false
 ): AnimationParams => {
   return {
-    delay: 400,
-    duration: 1200,
+    delay: staggered ? stagger(100, { start: 300 }) : 300,
+    duration: staggered ? stagger(800, { start: 500 }) : 1200,
     x: [{ from: '-3vw' }, { to: 0 }],
     opacity: [{ from: 0 }, { to: 1 }],
     autoplay: onScroll({

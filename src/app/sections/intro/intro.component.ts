@@ -18,6 +18,7 @@ export class IntroComponent implements AfterViewInit {
   private _setAnimation() {
     animate('.intro-text__title', getFadeInVerticalAnimationParams('.intro-text'));
     animate('.about__left', getFadeInHorizontalAnimationParams(this.aboutEl().nativeElement, false));
+    animate('app-color-card', getFadeInVerticalAnimationParams('.color-wrapper'));
   }
 
   ngAfterViewInit() {
