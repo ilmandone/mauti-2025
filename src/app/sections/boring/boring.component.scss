@@ -11,14 +11,14 @@
 
   @include c.sectionPadding;
 
-  p.huge {
+  .boring-title {
     padding-bottom: 1.5vh;
     border-bottom: 4px solid var(--text-color);
 
     @include t.text-huge;
   }
 
-  p.list {
+  .boring-list {
     font-weight: 400;
     margin-top: 2vh;
     font-size: 6vw;
@@ -66,7 +66,7 @@
   @include u.media('tl') {
     margin-top: 10vh;
 
-    p.list {
+    p.boring-list {
       font-size: 4vw;
     }
 
@@ -84,7 +84,7 @@
   }
 
   @include u.media('d') {
-    p.list {
+    p.boring-list {
       font-size: 3vw;
     }
   }
