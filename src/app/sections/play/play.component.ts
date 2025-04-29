@@ -12,9 +12,9 @@ export class PlayComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
   private _setAnimation() {
-    const target = '.texts-wrapper';
-    animate('.play-title', getFadeInHorizontalAnimationParams(target, false));
-    animate('.play-text', getFadeInVerticalAnimationParams(target, false));
+    const target = '.play-texts';
+    animate('.play-texts__title', getFadeInHorizontalAnimationParams(target, false));
+    animate('.play-texts__text', getFadeInVerticalAnimationParams(target, false));
   }
 
   ngAfterViewInit() {
