@@ -1,6 +1,15 @@
-import { AnimationParams, onScroll, stagger, TargetsParam } from 'animejs';
+import { AnimationParams, onScroll, ScrollObserver, stagger, TargetsParam } from 'animejs';
 
 export const INTRO_DELAY_TIME = 140;
+
+export const getDefaultScrollObs = (target: TargetsParam | undefined = undefined, debug = false): ScrollObserver => {
+  return onScroll({
+    debug,
+    target,
+    enter: 'bottom top',
+    leave: 'top bottom',
+  });
+};
 
 export const getFadeInVerticalAnimationParams = (
   target: TargetsParam | undefined,
@@ -12,12 +21,7 @@ export const getFadeInVerticalAnimationParams = (
     duration: staggered ? stagger(1000, { start: 700 }) : 1500,
     opacity: [{ from: 0 }, { to: 1 }],
     y: [{ from: 60 }, { to: 0 }],
-    autoplay: onScroll({
-      debug,
-      target,
-      enter: 'bottom top',
-      leave: 'top bottom',
-    }),
+    autoplay: getDefaultScrollObs(target, debug),
   };
 };
 
@@ -31,11 +35,6 @@ export const getFadeInHorizontalAnimationParams = (
     duration: staggered ? stagger(800, { start: 500 }) : 1200,
     x: [{ from: '-3vw' }, { to: 0 }],
     opacity: [{ from: 0 }, { to: 1 }],
-    autoplay: onScroll({
-      debug,
-      target,
-      enter: 'bottom top',
-      leave: 'top bottom',
-    }),
+    autoplay: getDefaultScrollObs(target, debug),
   };
 };
