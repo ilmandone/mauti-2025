@@ -22,12 +22,12 @@
   p {
     margin-top: 6vh;
 
-    &.huge {
+    &.web-title {
       max-width: 56rem;
       @include t.text-huge;
     }
 
-    &.text {
+    &.web-text {
       max-width: 30rem;
     }
   }

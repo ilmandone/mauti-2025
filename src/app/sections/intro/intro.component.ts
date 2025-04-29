@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from 
 import { ColorCardComponent } from '@components/color-card/color-card.component';
 import { LogoBlockComponent } from '@components/logo-block/logo-block.component';
 import { animate } from 'animejs';
-import { getHugeTextAnimationOptions } from '../../shared/commons';
+import { getTitleAnimationOptions } from '../../shared/commons';
 
 @Component({
   selector: 'section[intro]',
@@ -16,7 +16,7 @@ export class IntroComponent implements AfterViewInit {
   aboutEl = viewChild<ElementRef<HTMLElement>>('about');
 
   private _setAnimation() {
-    animate('.huge__block', getHugeTextAnimationOptions());
+    animate('.intro-text__title', getTitleAnimationOptions('.intro-text'));
   }
 
   ngAfterViewInit() {

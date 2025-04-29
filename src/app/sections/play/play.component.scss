@@ -32,19 +32,20 @@
     }
   }
 
-  p.huge {
+  .texts-wrapper {
     position: relative;
     margin-top: 4vh;
-    padding-top: 1.5vh;
-
-    z-index: 1;
-
     border-top: 4px solid var(--text-color);
+    padding-top: 1.5vh;
+  }
 
+  .play-title {
+    position: relative;
+    z-index: 1;
     @include t.text-huge;
   }
 
-  p.text {
+  .play-text {
     position: relative;
     max-width: 57rem;
     margin: 6vh 0 4vh;

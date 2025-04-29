@@ -9,12 +9,12 @@
 
   @include c.sectionPadding;
 
-  .huge {
+  .intro-text {
     margin-top: 6vh;
 
     @include t.text-huge;
 
-    &__block {
+    &__title {
       display: inline-flex;
     }
   }
