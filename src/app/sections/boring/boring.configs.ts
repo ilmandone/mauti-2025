@@ -1,4 +1,4 @@
-interface HistoryStep {
+export interface HistoryStep {
   startDate: Date;
   endDate: Date;
   company: string;
