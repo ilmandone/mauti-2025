@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject, NgZone } from '@angular/core';
 import { animate } from 'animejs';
-import { getTitleAnimationOptions } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
 
 @Component({
   selector: 'section[play]',
@@ -12,7 +12,9 @@ export class PlayComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
   private _setAnimation() {
-    animate('.play-title', getTitleAnimationOptions('.texts-wrapper', false));
+    const target = '.texts-wrapper';
+    animate('.play-title', getFadeInHorizontalAnimationParams(target, false));
+    animate('.play-text', getFadeInVerticalAnimationParams(target, false));
   }
 
   ngAfterViewInit() {

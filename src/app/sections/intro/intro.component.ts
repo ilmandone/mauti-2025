@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from 
 import { ColorCardComponent } from '@components/color-card/color-card.component';
 import { LogoBlockComponent } from '@components/logo-block/logo-block.component';
 import { animate } from 'animejs';
-import { getTitleAnimationOptions } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
 
 @Component({
   selector: 'section[intro]',
@@ -13,10 +13,11 @@ import { getTitleAnimationOptions } from '../../shared/commons';
 export class IntroComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
-  aboutEl = viewChild<ElementRef<HTMLElement>>('about');
+  aboutEl = viewChild.required<ElementRef<HTMLElement>>('about');
 
   private _setAnimation() {
-    animate('.intro-text__title', getTitleAnimationOptions('.intro-text'));
+    animate('.intro-text__title', getFadeInVerticalAnimationParams('.intro-text'));
+    animate('.about__left p', getFadeInHorizontalAnimationParams(this.aboutEl().nativeElement, false));
   }
 
   ngAfterViewInit() {

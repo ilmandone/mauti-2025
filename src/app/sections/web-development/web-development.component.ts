@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, NgZone } from '@angular/core';
 import { animate } from 'animejs';
-import { getTitleAnimationOptions } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
 
 @Component({
   selector: 'section[web-development]',
@@ -13,7 +13,8 @@ export class WebDevelopmentComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
 
   private _setAnimation() {
-    animate('.web-title', getTitleAnimationOptions(this._elRef.nativeElement, false));
+    animate('.web-title', getFadeInVerticalAnimationParams(this._elRef.nativeElement, false));
+    animate('.web-text', getFadeInHorizontalAnimationParams(this._elRef.nativeElement, false));
   }
 
   ngAfterViewInit() {
