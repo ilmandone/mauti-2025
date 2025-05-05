@@ -15,7 +15,7 @@ export class ScreenService {
   private _vh = signal<number>(0);
 
   private _setScreenSize() {
-    const c = getComputedStyle(document.documentElement).getPropertyValue('--screen-size') as ScreenSize;
+    const c = getComputedStyle(document.documentElement).getPropertyValue('--screen-size').trim() as ScreenSize;
     this._size.set(c);
   }
 
