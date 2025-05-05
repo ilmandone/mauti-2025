@@ -18,9 +18,9 @@
   <span class="boring-list__item">Proficient in Agile / Scrum methodology</span>
 </p>
 
-<ul class="career-wrapper">
+<ul #career class="career">
   @for (c of careerSteps; track $index) {
-    <li>
+    <li class="career__item">
       <div class="years">/// {{ c.startDate.getFullYear() }} - {{ c.endDate.getFullYear() }}</div>
       <div class="role">{{ c.role }}</div>
       <div class="company">{{ c.company }}</div>

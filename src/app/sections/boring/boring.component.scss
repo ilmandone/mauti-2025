@@ -24,8 +24,9 @@
     font-size: 6vw;
   }
 
-  ul.career-wrapper {
+  ul.career {
     margin-top: 6vh;
+    perspective: 50vw;
 
     li {
       width: 100%;
@@ -35,6 +36,8 @@
       column-gap: 0.5rem;
 
       background-color: var(--secondary-color);
+
+      transform-origin: top center;
 
       .years {
         white-space: nowrap;
@@ -70,7 +73,7 @@
       font-size: 4vw;
     }
 
-    ul.career-wrapper li {
+    ul.career li {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -90,7 +93,7 @@
   }
 
   @include u.media('dm') {
-    ul.career-wrapper {
+    ul.career {
       margin-top: 12vh;
       width: 70vw;
       margin-left: 22vw;

@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, inject, NgZone } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from '@angular/core';
 import { careerSteps } from './boring.configs';
-import { animate, stagger, utils } from 'animejs';
+import { animate, onScroll, stagger, utils } from 'animejs';
 import { getDefaultScrollObs } from '../../shared/commons';
 
 @Component({
@@ -12,6 +12,7 @@ import { getDefaultScrollObs } from '../../shared/commons';
 export class BoringComponent implements AfterViewInit {
   private _elRef = inject(ElementRef);
   private _ngZone = inject(NgZone);
+  private _career = viewChild<ElementRef<HTMLElement>>('career');
 
   careerSteps = careerSteps;
 
@@ -25,6 +26,22 @@ export class BoringComponent implements AfterViewInit {
       }),
       duration: 1000,
       autoplay: getDefaultScrollObs(this._elRef.nativeElement),
+    });
+
+    const careerItems = this._elRef.nativeElement.querySelectorAll('.career__item');
+    animate(careerItems, {
+      opacity: [{ from: 0 }, { to: 1 }],
+      rotateX: [{ from: -90 }, { to: 0 }],
+      delay: stagger(150, {
+        from: utils.random(0, 15),
+      }),
+      ease: 'outElastic',
+      duration: 3000,
+      autoplay: onScroll({
+        target: this._career()?.nativeElement,
+        enter: '80% top',
+        leave: '20% bottom',
+      }),
     });
   }
 
