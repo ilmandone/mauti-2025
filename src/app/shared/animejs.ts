@@ -1,6 +1,14 @@
 import { AnimationParams, onScroll, ScrollObserver, stagger, TargetsParam } from 'animejs';
 
-export const getDefaultScrollObs = (target: TargetsParam | undefined = undefined, debug = false): ScrollObserver => {
+/**
+ * Return anime js onScroll plugin with default configuration
+ * @param target {TargetsParam | undefined}
+ * @param debug {boolean}
+ */
+export const getDefaultScrollObs = (
+  target: TargetsParam | undefined = undefined,
+  debug: boolean = false
+): ScrollObserver => {
   return onScroll({
     debug,
     target,

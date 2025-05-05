@@ -37,11 +37,11 @@ export class BoringComponent implements AfterViewInit {
         from: utils.random(0, 15),
       }),
       ease: 'outElastic',
-      duration: 3000,
+      duration: 2500,
       autoplay: onScroll({
         target: this._career()?.nativeElement,
-        enter: '80% top',
-        leave: '20% bottom',
+        enter: '90% top',
+        leave: '10% bottom',
       }),
     });
   }

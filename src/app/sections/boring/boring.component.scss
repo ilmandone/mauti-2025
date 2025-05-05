@@ -40,6 +40,7 @@
       transform-origin: top center;
 
       .years {
+        margin-bottom: 0.25rem;
         white-space: nowrap;
         font-size: 0.875rem;
       }
@@ -51,7 +52,8 @@
       }
 
       .company {
-        font-size: 1.1rem;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
         text-transform: uppercase;
       }
     }
@@ -99,11 +101,16 @@
       margin-left: 22vw;
 
       li {
+        .years {
+          margin-bottom: 0;
+        }
+
         .role {
           font-size: 1.5rem;
         }
 
         .company {
+          margin-top: 0;
           font-size: 1rem;
         }
       }
