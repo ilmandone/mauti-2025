@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from '@angular/core';
+import { careerSteps } from './boring.configs';
+import { animate, onScroll, stagger, utils } from 'animejs';
 
-interface HistoryStep {
-  startDate: Date;
-  endDate: Date;
-  company: string;
-  role: string;
-}
+import { getDefaultScrollObs } from '../../shared/animejs';
 
 @Component({
   selector: 'section[boring]',
@@ -13,43 +10,45 @@ interface HistoryStep {
   templateUrl: './boring.component.html',
   styleUrl: './boring.component.scss',
 })
-export class BoringComponent {
-  careerSteps: HistoryStep[] = [
-    {
-      startDate: new Date(2024, 0),
-      endDate: new Date(Date.now()),
-      company: 'XTel',
-      role: 'Senior front-end developer',
-    },
-    {
-      startDate: new Date(2021, 0),
-      endDate: new Date(2024, 0),
-      company: 'Tekne / Var Group',
-      role: 'Front-end architect / senior developer',
-    },
-    {
-      startDate: new Date(2018, 0),
-      endDate: new Date(2021, 0),
-      company: 'YNAP / Yoox',
-      role: 'Senior front-end developer',
-    },
-    {
-      startDate: new Date(2015, 0),
-      endDate: new Date(2018, 0),
-      company: 'Life Longari Loman',
-      role: 'Digital art director - UX/UI designer',
-    },
-    {
-      startDate: new Date(2013, 0),
-      endDate: new Date(2015, 0),
-      company: 'Neri Wolff - Quadrante',
-      role: 'UX/UI designer',
-    },
-    {
-      startDate: new Date(2015, 0),
-      endDate: new Date(2018, 0),
-      company: 'Net Sinergy',
-      role: 'UX/UI designer - Front-end developer',
-    },
-  ];
+export class BoringComponent implements AfterViewInit {
+  private _elRef = inject(ElementRef);
+  private _ngZone = inject(NgZone);
+  private _career = viewChild<ElementRef<HTMLElement>>('career');
+
+  careerSteps = careerSteps;
+
+  private _setAnimation() {
+    const boringListItem = this._elRef.nativeElement.querySelectorAll('.boring-list__item');
+
+    animate(boringListItem, {
+      opacity: [{ from: 0 }, { to: 1 }],
+      delay: stagger(150, {
+        from: utils.random(0, 6),
+      }),
+      duration: 1000,
+      autoplay: getDefaultScrollObs(this._elRef.nativeElement),
+    });
+
+    const careerItems = this._elRef.nativeElement.querySelectorAll('.career__item');
+    animate(careerItems, {
+      opacity: [{ from: 0 }, { to: 1 }],
+      rotateX: [{ from: -90 }, { to: 0 }],
+      delay: stagger(150, {
+        from: utils.random(0, 15),
+      }),
+      ease: 'outElastic',
+      duration: 2500,
+      autoplay: onScroll({
+        target: this._career()?.nativeElement,
+        enter: '90% top',
+        leave: '10% bottom',
+      }),
+    });
+  }
+
+  ngAfterViewInit() {
+    this._ngZone.runOutsideAngular(() => {
+      this._setAnimation();
+    });
+  }
 }

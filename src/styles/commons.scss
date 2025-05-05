@@ -1,5 +1,9 @@
+@use 'utils' as u;
+
 $padding: 4vw;
 
 @mixin sectionPadding() {
-  padding: $padding;
+  padding: $padding * 2 $padding $padding;
+
+  @include u.media('')
 }
