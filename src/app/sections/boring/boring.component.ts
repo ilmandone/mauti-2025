@@ -16,13 +16,14 @@ export class BoringComponent implements AfterViewInit {
   careerSteps = careerSteps;
 
   private _setAnimation() {
-    animate('.boring-list__item', {
+    const boringListItem = this._elRef.nativeElement.querySelectorAll('.boring-list__item');
+
+    animate(boringListItem, {
       opacity: [{ from: 0 }, { to: 1 }],
-      delay: stagger(350, {
-        grid: [6, 4],
-        from: utils.random(0, 11 * 2),
+      delay: stagger(150, {
+        from: utils.random(0, 6),
       }),
-      duration: 450,
+      duration: 1000,
       autoplay: getDefaultScrollObs(this._elRef.nativeElement),
     });
   }
