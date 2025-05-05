@@ -4,7 +4,7 @@ import {
   getDefaultScrollObs,
   getFadeInHorizontalAnimationParams,
   getFadeInVerticalAnimationParams,
-} from '../../shared/commons';
+} from '../../shared/animejs';
 
 @Component({
   selector: 'section[play]',

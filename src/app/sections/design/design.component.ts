@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, NgZone } from '@angular/core';
 import { DStripComponent } from '@components/d-strip/d-strip.component';
 import { animate } from 'animejs';
-import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/animejs';
 
 @Component({
   selector: 'section[design]',

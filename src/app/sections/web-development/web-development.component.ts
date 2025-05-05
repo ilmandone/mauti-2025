@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, NgZone } from '@angular/core';
 import { animate } from 'animejs';
-import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/animejs';
 
 @Component({
   selector: 'section[web-development]',

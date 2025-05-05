@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from 
 import { ColorCardComponent } from '@components/color-card/color-card.component';
 import { LogoBlockComponent } from '@components/logo-block/logo-block.component';
 import { animate } from 'animejs';
-import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/commons';
+import { getFadeInHorizontalAnimationParams, getFadeInVerticalAnimationParams } from '../../shared/animejs';
 
 @Component({
   selector: 'section[intro]',

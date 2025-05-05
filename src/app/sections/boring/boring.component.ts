@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, inject, NgZone, viewChild } from '@angular/core';
 import { careerSteps } from './boring.configs';
 import { animate, onScroll, stagger, utils } from 'animejs';
-import { getDefaultScrollObs } from '../../shared/commons';
+
+import { getDefaultScrollObs } from '../../shared/animejs';
 
 @Component({
   selector: 'section[boring]',
