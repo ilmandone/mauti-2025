@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { BabylonAnimation } from '../babylon-animation';
+import { animate, onScroll } from 'animejs';
 
 @Component({
   selector: 'player-babylon',
@@ -7,13 +8,42 @@ import { BabylonAnimation } from '../babylon-animation';
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
+  private _ngZone = inject(NgZone);
+
   private _canvasEl = viewChild.required<ElementRef<HTMLCanvasElement>>('canvasElement');
   private _animation!: BabylonAnimation;
+
+  private _setAnimation() {
+    animate(this._canvasEl().nativeElement, {
+      progress: [{ from: 0 }, { to: 100 }],
+      onUpdate: (e) => {
+        console.log(e.progress);
+      },
+      autoplay: onScroll({
+        enter: 'bottom top',
+        leave: 'top bottom',
+        debug: true,
+        sync: true,
+        onEnter: () => {
+          console.log('ENTER');
+        },
+        onLeave: () => {
+          console.log('LEAVE');
+        },
+      }),
+    });
+  }
 
   ngOnInit() {
     this._animation = new BabylonAnimation(this._canvasEl().nativeElement);
     this._animation.init();
+  }
+
+  ngAfterViewInit() {
+    this._ngZone.runOutsideAngular(() => {
+      this._setAnimation();
+    });
   }
 
   ngOnDestroy() {

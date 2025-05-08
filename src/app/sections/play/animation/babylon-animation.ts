@@ -4,13 +4,23 @@ export class BabylonAnimation {
   private readonly _canvas!: HTMLCanvasElement;
   private _engine!: Engine;
   private _scene!: Scene;
-  private _camera!: FreeCamera;
 
   constructor(canvas: HTMLCanvasElement) {
     this._canvas = canvas;
   }
 
   //#region Private
+
+  private _windowResizeHandlerBind = this._windowResizeHandler.bind(this);
+  private _renderLoopHandlerBind = this._renderLoopHandler.bind(this);
+
+  private _renderLoopHandler() {
+    this._scene.render();
+  }
+
+  private _windowResizeHandler() {
+    this._engine.resize();
+  }
 
   private _createScene(engine: Engine) {
     const scene = new Scene(engine);
@@ -20,15 +30,9 @@ export class BabylonAnimation {
     return scene;
   }
 
-  private _windowResizeHandler() {
-    this._engine.resize();
-  }
-
-  private _run(engine: Engine, scene: Scene) {
-    window.addEventListener('resize', this._windowResizeHandler.bind(this));
-    engine.runRenderLoop(() => {
-      scene.render();
-    });
+  private _run(engine: Engine) {
+    window.addEventListener('resize', this._windowResizeHandlerBind);
+    engine.runRenderLoop(this._renderLoopHandlerBind);
   }
 
   //#endregion
@@ -38,11 +42,16 @@ export class BabylonAnimation {
   init() {
     this._engine = new Engine(this._canvas, true);
     this._scene = this._createScene(this._engine);
-    this._run(this._engine, this._scene);
+    this._run(this._engine);
   }
 
+  pauseLoop() {}
+
+  restartLoop() {}
+
   destroy() {
-    window.removeEventListener('resize', this._windowResizeHandler);
+    this._engine.stopRenderLoop(this._renderLoopHandlerBind);
+    window.removeEventListener('resize', this._windowResizeHandlerBind);
   }
 
   //#endregion
