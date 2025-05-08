@@ -2,30 +2,6 @@
 @use "utils" as u;
 @use "vars" as v;
 
-@mixin transition($delay: 1, $duration: v.$transition-time) {
-  transition-property: opacity, transform;
-  transition-timing-function: linear(
-      0,
-      0.359 12%,
-      0.836 30.5%,
-      1 37.8%,
-      0.909 43.9%,
-      0.887 46.8%,
-      0.88 49.7%,
-      0.902 55.1%,
-      1 65.5%,
-      0.978 69.2%,
-      0.97 72.9%,
-      1 84.5%,
-      1
-  );
-  transition-duration: $duration;
-
-  transform-origin: top center;
-
-  transition-delay: v.$transition-time * $delay;
-}
-
 :host {
   position: relative;
   display: flex;
@@ -40,16 +16,16 @@
 
   @include c.sectionPadding;
 
+  .hand {
+    display: inline-block;
+    transform-origin: bottom left;
+  }
+
   .emoticon {
     margin-bottom: 4vh;
     font-size: 12vw;
     font-weight: 500;
     text-transform: uppercase;
-
-    opacity: 0;
-    transform: translateY(2vh) rotateX(-25deg);
-
-    @include transition(1, v.$transition-time * 2);
 
     .primary {
       color: var(--primary-color);
@@ -58,24 +34,18 @@
     .secondary {
       color: var(--secondary-color);
     }
+
+    .eye {
+      display: inline-block;
+      transform-origin: center 30%;
+    }
   }
 
   img {
     width: 100%;
     max-width: 94rem;
 
-    opacity: 0;
-    transform: translateY(2vh) rotateX(-25deg);
-
-    @include transition(2, v.$transition-time * 3);
-  }
-
-  &.visible {
-    img,
-    .emoticon {
-      opacity: 1;
-      transform: translateY(0) rotateX(0);
-    }
+    transform-origin: top center;
   }
 
   @include u.media("t") {

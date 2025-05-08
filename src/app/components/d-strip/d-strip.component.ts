@@ -1,8 +1,7 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { debounceTime, fromEvent } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ScreenService, ScreenSize } from '../../shared/services/screen.service';
+import { DStripSpinnerDirective } from '@components/d-strip/d-strip-spinner.directive';
 
 interface ColorStep {
   bg: string;
@@ -11,13 +10,12 @@ interface ColorStep {
 
 @Component({
   selector: 'app-d-strip',
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, DStripSpinnerDirective],
   templateUrl: './d-strip.component.html',
   styleUrl: './d-strip.component.scss',
 })
-export class DStripComponent implements OnInit {
+export class DStripComponent {
   private _screen = inject(ScreenService);
-  private _destroyRef = inject(DestroyRef);
 
   private _colorSequence: ColorStep[] = [
     {
@@ -51,9 +49,7 @@ export class DStripComponent implements OnInit {
     ['dxl', 6],
   ]);
 
-  stripList = signal<ColorStep[]>([]);
-
-  private _generateStrip() {
+  stripList = computed(() => {
     const amount = this._screenMap.get(this._screen.size() ?? 't') || 3;
     const newSequence: ColorStep[] = [];
 
@@ -62,16 +58,10 @@ export class DStripComponent implements OnInit {
       newSequence.push({ ...this._colorSequence[originalIndex] });
     }
 
-    this.stripList.set(newSequence);
-  }
+    return newSequence;
+  });
 
-  ngOnInit() {
-    fromEvent(window, 'resize')
-      .pipe(takeUntilDestroyed(this._destroyRef), debounceTime(50))
-      .subscribe(() => {
-        this._generateStrip();
-      });
-
-    this._generateStrip();
-  }
+  dWidth = computed(() => {
+    return `${window.innerWidth / this.stripList().length}px`;
+  });
 }

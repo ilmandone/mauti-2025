@@ -1,15 +1,26 @@
-<p class="huge">
+<p class="boring-title">
   Boring, boring, boring
 </p>
 
-<p class="list">
-  Javascript * Typescript * C# * Node JS * HTML * CSS / SCSS / SASS * Angular / React / Vue and more * GitHub /
-  Bitbucket * Docker * Atlassian’s tools suite * Three / BabylonJS * UE5 * Proficient in Agile / Scrum methodology
+<p class="boring-list">
+  <span class="boring-list__item">Javascript</span> *
+  <span class="boring-list__item">Typescript</span> *
+  <span class="boring-list__item">C#</span> *
+  <span class="boring-list__item">Node JS</span> *
+  <span class="boring-list__item">HTML</span> *
+  <span class="boring-list__item">CSS / SCSS / SASS</span> *
+  <span class="boring-list__item">Angular / React / Vue and more</span> *
+  <span class="boring-list__item">GitHub / Bitbucket</span> *
+  <span class="boring-list__item">Docker</span> *
+  <span class="boring-list__item">Atlassian’s tools suite</span> *
+  <span class="boring-list__item">Three / BabylonJS</span> *
+  <span class="boring-list__item">UE5</span> *
+  <span class="boring-list__item">Proficient in Agile / Scrum methodology</span>
 </p>
 
-<ul class="career-wrapper">
+<ul #career class="career">
   @for (c of careerSteps; track $index) {
-    <li>
+    <li class="career__item">
       <div class="years">/// {{ c.startDate.getFullYear() }} - {{ c.endDate.getFullYear() }}</div>
       <div class="role">{{ c.role }}</div>
       <div class="company">{{ c.company }}</div>
