@@ -5,10 +5,11 @@ import {
   getFadeInHorizontalAnimationParams,
   getFadeInVerticalAnimationParams,
 } from '../../shared/animejs';
+import { PlayerComponent } from './animation/player/player.component';
 
 @Component({
   selector: 'section[play]',
-  imports: [],
+  imports: [PlayerComponent],
   templateUrl: './play.component.html',
   styleUrl: './play.component.scss',
 })
