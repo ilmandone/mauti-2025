@@ -17,19 +17,19 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private _setAnimation() {
     animate(this._canvasEl().nativeElement, {
       progress: [{ from: 0 }, { to: 100 }],
-      onUpdate: (e) => {
-        console.log(e.progress);
-      },
       autoplay: onScroll({
         enter: 'bottom top',
         leave: 'top bottom',
         debug: true,
         sync: true,
         onEnter: () => {
-          console.log('ENTER');
+          this._animation.restartLoop();
         },
         onLeave: () => {
-          console.log('LEAVE');
+          this._animation.pauseLoop();
+        },
+        onUpdate: (e) => {
+          console.log(e.progress);
         },
       }),
     });

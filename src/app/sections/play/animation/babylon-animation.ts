@@ -30,11 +30,6 @@ export class BabylonAnimation {
     return scene;
   }
 
-  private _run(engine: Engine) {
-    window.addEventListener('resize', this._windowResizeHandlerBind);
-    engine.runRenderLoop(this._renderLoopHandlerBind);
-  }
-
   //#endregion
 
   //#region Public
@@ -42,12 +37,16 @@ export class BabylonAnimation {
   init() {
     this._engine = new Engine(this._canvas, true);
     this._scene = this._createScene(this._engine);
-    this._run(this._engine);
+    window.addEventListener('resize', this._windowResizeHandlerBind);
   }
 
-  pauseLoop() {}
+  pauseLoop() {
+    this._engine.stopRenderLoop(this._renderLoopHandlerBind);
+  }
 
-  restartLoop() {}
+  restartLoop() {
+    this._engine.runRenderLoop(this._renderLoopHandlerBind);
+  }
 
   destroy() {
     this._engine.stopRenderLoop(this._renderLoopHandlerBind);
