@@ -1,9 +1,23 @@
-import { Engine, FreeCamera, Scene, Vector3 } from '@babylonjs/core';
+import {
+  ArcRotateCamera,
+  DirectionalLight,
+  Engine,
+  HemisphericLight,
+  InstancedMesh,
+  Mesh,
+  MeshBuilder,
+  Scene,
+  Vector3,
+} from '@babylonjs/core';
 
 export class BabylonAnimation {
   private readonly _canvas!: HTMLCanvasElement;
+  private readonly INSTANCE_AMOUNT = 60;
+  private _camera!: ArcRotateCamera;
   private _engine!: Engine;
   private _scene!: Scene;
+  private _boxes: InstancedMesh[] = [];
+  private _progress = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this._canvas = canvas;
@@ -22,12 +36,47 @@ export class BabylonAnimation {
     this._engine.resize();
   }
 
+  private _createInstances(mesh: Mesh) {
+    for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
+      const inst = mesh.createInstance('cube' + i);
+      const v = i * 0.2;
+      inst.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
+      inst.metadata = { v };
+      this._boxes.push(inst);
+    }
+  }
+
+  private _updateInstances(p: number) {
+    this._boxes.forEach((box) => {
+      const v = box.metadata['v'];
+      box.position.z = Math.cos(v * p * 0.5);
+      box.position.y = Math.sin(v * p * 0.5);
+      box.rotation.z = v * p;
+    });
+  }
+
+  private _updateCamera(p: number) {
+    console.log(p);
+    this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * p;
+    this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * p;
+    this._camera.fov = 0.01 + 0.29 * p;
+    this._camera.radius = 20 - 15 * p;
+  }
+
   private _createScene(engine: Engine) {
     const scene = new Scene(engine);
-    const camera = new FreeCamera('mainCamera', new Vector3(0, 5, -10), scene);
-    camera.setTarget(Vector3.Zero());
+    const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
+    camera.fov = 0.01;
 
-    return scene;
+    new DirectionalLight('DirectionalLight', new Vector3(0, -3, 1.5), scene);
+    new HemisphericLight('HemiLight', new Vector3(0, 1, 0), scene);
+
+    const cube = MeshBuilder.CreateBox('box', { width: 1, height: 1, depth: 0.15 }, scene);
+    cube.rotation.y = Math.PI / 2;
+
+    this._createInstances(cube);
+
+    return { scene, camera };
   }
 
   //#endregion
@@ -36,12 +85,22 @@ export class BabylonAnimation {
 
   init() {
     this._engine = new Engine(this._canvas, true);
-    this._scene = this._createScene(this._engine);
+    const { camera, scene } = this._createScene(this._engine);
+    this._scene = scene;
+    this._camera = camera;
     window.addEventListener('resize', this._windowResizeHandlerBind);
   }
 
   pauseLoop() {
     this._engine.stopRenderLoop(this._renderLoopHandlerBind);
+  }
+
+  progress(p: number) {
+    if (p !== this._progress) {
+      this._progress = p;
+      this._updateInstances(p);
+      this._updateCamera(p);
+    }
   }
 
   restartLoop() {

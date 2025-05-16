@@ -29,7 +29,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
           this._animation.pauseLoop();
         },
         onUpdate: (e) => {
-          console.log(e.progress);
+          this._animation.progress(e.progress);
         },
       }),
     });
