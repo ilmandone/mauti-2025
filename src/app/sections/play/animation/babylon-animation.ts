@@ -51,6 +51,11 @@ export class BabylonAnimation {
 
   //#region Creation
 
+  /**
+   * Create cube instances
+   * @param mesh
+   * @private
+   */
   private _createInstances(mesh: Mesh) {
     for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
       const inst = mesh.createInstance('cube' + i);
@@ -67,6 +72,11 @@ export class BabylonAnimation {
     }
   }
 
+  /**
+   * Create scene
+   * @param engine
+   * @private
+   */
   private _createScene(engine: Engine) {
     const scene = new Scene(engine);
     scene.clearColor = new Color4(255, 255, 255, 1);
@@ -85,13 +95,18 @@ export class BabylonAnimation {
 
     this._createInstances(cube);
 
-    return { scene, camera };
+    return { _scene: scene, _camera: camera };
   }
 
   //#endregion
 
   //#region Updates
 
+  /**
+   * Clamp and convert linear progress to an ease-in-out function
+   * @param value
+   * @private
+   */
   private _mapValue(value: number): number {
     const clampedValue = Math.max(0, Math.min(1, value));
 
@@ -102,6 +117,11 @@ export class BabylonAnimation {
     return normalizedValue * normalizedValue * (3 - 2 * normalizedValue);
   }
 
+  /**
+   * Update instances by progress
+   * @param p
+   * @private
+   */
   private _updateInstances(p: number) {
     const prog = this._mapValue(p);
     this._boxes.forEach((box) => {
@@ -113,6 +133,11 @@ export class BabylonAnimation {
     });
   }
 
+  /**
+   * Update camera by progress
+   * @param p
+   * @private
+   */
   private _updateCamera(p: number) {
     const prog = this._mapValue(p);
     this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * prog;
@@ -127,9 +152,8 @@ export class BabylonAnimation {
 
   init() {
     this._engine = new Engine(this._canvas, true);
-    const { camera, scene } = this._createScene(this._engine);
-    this._scene = scene;
-    this._camera = camera;
+    Object.assign(this, this._createScene(this._engine));
+
     window.addEventListener('resize', this._windowResizeHandlerBind);
   }
 
