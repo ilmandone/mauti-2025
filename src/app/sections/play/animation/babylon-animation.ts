@@ -1,5 +1,6 @@
 import {
   ArcRotateCamera,
+  Color4,
   DirectionalLight,
   Engine,
   HemisphericLight,
@@ -27,6 +28,12 @@ export class BabylonAnimation {
     this._canvas = canvas;
   }
 
+  private readonly COLORS = [
+    [0.35, 0.96, 0.93],
+    [1, 0.05, 0.177],
+    [1, 1, 1],
+  ];
+
   //#region Private
 
   private _windowResizeHandlerBind = this._windowResizeHandler.bind(this);
@@ -40,6 +47,51 @@ export class BabylonAnimation {
     this._engine.resize();
   }
 
+  //#endregion
+
+  //#region Creation
+
+  private _createInstances(mesh: Mesh) {
+    for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
+      const inst = mesh.createInstance('cube' + i);
+      const v = i * 0.2;
+
+      inst.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
+
+      const color = this.COLORS[i % 3];
+
+      inst.instancedBuffers['color'] = new Color4(...color);
+      inst.metadata = { v };
+      inst.visibility = 1;
+      this._boxes.push(inst);
+    }
+  }
+
+  private _createScene(engine: Engine) {
+    const scene = new Scene(engine);
+    scene.clearColor = new Color4(255, 255, 255, 1);
+
+    const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
+    camera.fov = 0.01;
+
+    new DirectionalLight('DirectionalLight', new Vector3(0, -3, 1.5), scene);
+    new HemisphericLight('HemiLight', new Vector3(0, 1, 0), scene);
+
+    const cube = MeshBuilder.CreateBox('box', { width: 1, height: 1, depth: 0.15 }, scene);
+    cube.registerInstancedBuffer('color', 4);
+    cube.instancedBuffers['color'] = new Color4(0, 0, 0, 0);
+    cube.rotation.y = Math.PI / 2;
+    cube.isVisible = false;
+
+    this._createInstances(cube);
+
+    return { scene, camera };
+  }
+
+  //#endregion
+
+  //#region Updates
+
   private _mapValue(value: number): number {
     const clampedValue = Math.max(0, Math.min(1, value));
 
@@ -48,17 +100,6 @@ export class BabylonAnimation {
 
     const normalizedValue = (clampedValue - this.CLAMP_BOTTOM) / (this.CLAMP_TOP - this.CLAMP_BOTTOM);
     return normalizedValue * normalizedValue * (3 - 2 * normalizedValue);
-  }
-
-  private _createInstances(mesh: Mesh) {
-    for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
-      const inst = mesh.createInstance('cube' + i);
-      const v = i * 0.2;
-
-      inst.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
-      inst.metadata = { v };
-      this._boxes.push(inst);
-    }
   }
 
   private _updateInstances(p: number) {
@@ -78,22 +119,6 @@ export class BabylonAnimation {
     this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * prog;
     this._camera.fov = 0.01 + 0.49 * prog;
     this._camera.radius = 20 - 18 * prog;
-  }
-
-  private _createScene(engine: Engine) {
-    const scene = new Scene(engine);
-    const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
-    camera.fov = 0.01;
-
-    new DirectionalLight('DirectionalLight', new Vector3(0, -3, 1.5), scene);
-    new HemisphericLight('HemiLight', new Vector3(0, 1, 0), scene);
-
-    const cube = MeshBuilder.CreateBox('box', { width: 1, height: 1, depth: 0.15 }, scene);
-    cube.rotation.y = Math.PI / 2;
-
-    this._createInstances(cube);
-
-    return { scene, camera };
   }
 
   //#endregion
