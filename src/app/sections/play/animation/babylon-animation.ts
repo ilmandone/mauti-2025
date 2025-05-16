@@ -12,7 +12,11 @@ import {
 
 export class BabylonAnimation {
   private readonly _canvas!: HTMLCanvasElement;
+
   private readonly INSTANCE_AMOUNT = 60;
+  private readonly CLAMP_TOP = 0.9;
+  private readonly CLAMP_BOTTOM = 0.1;
+
   private _camera!: ArcRotateCamera;
   private _engine!: Engine;
   private _scene!: Scene;
@@ -36,10 +40,21 @@ export class BabylonAnimation {
     this._engine.resize();
   }
 
+  private _mapValue(value: number): number {
+    const clampedValue = Math.max(0, Math.min(1, value));
+
+    if (clampedValue <= this.CLAMP_BOTTOM) return 0;
+    if (clampedValue > this.CLAMP_TOP) return 1;
+
+    const normalizedValue = (clampedValue - this.CLAMP_BOTTOM) / (this.CLAMP_TOP - this.CLAMP_BOTTOM);
+    return normalizedValue * normalizedValue * (3 - 2 * normalizedValue);
+  }
+
   private _createInstances(mesh: Mesh) {
     for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
       const inst = mesh.createInstance('cube' + i);
       const v = i * 0.2;
+
       inst.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
       inst.metadata = { v };
       this._boxes.push(inst);
@@ -47,20 +62,22 @@ export class BabylonAnimation {
   }
 
   private _updateInstances(p: number) {
+    const prog = this._mapValue(p);
     this._boxes.forEach((box) => {
       const v = box.metadata['v'];
-      box.position.z = Math.cos(v * p * 0.5);
-      box.position.y = Math.sin(v * p * 0.5);
-      box.rotation.z = v * p;
+
+      box.position.z = Math.cos(v * prog * 0.125);
+      box.position.y = Math.sin(v * prog);
+      box.rotation.z = v * prog;
     });
   }
 
   private _updateCamera(p: number) {
-    console.log(p);
-    this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * p;
-    this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * p;
-    this._camera.fov = 0.01 + 0.29 * p;
-    this._camera.radius = 20 - 15 * p;
+    const prog = this._mapValue(p);
+    this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * prog;
+    this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * prog;
+    this._camera.fov = 0.01 + 0.49 * prog;
+    this._camera.radius = 20 - 18 * prog;
   }
 
   private _createScene(engine: Engine) {
