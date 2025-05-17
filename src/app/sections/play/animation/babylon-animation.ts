@@ -38,11 +38,6 @@ export class BabylonAnimation {
   //#region Private
 
   private _windowResizeHandlerBind = this._windowResizeHandler.bind(this);
-  private _renderLoopHandlerBind = this._renderLoopHandler.bind(this);
-
-  private _renderLoopHandler() {
-    this._scene.render();
-  }
 
   private _windowResizeHandler() {
     this._engine.resize();
@@ -104,7 +99,7 @@ export class BabylonAnimation {
 
     const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
     camera.fov = 0.01;
-    camera.setTarget(new Vector3(0, 0, 1.75));
+    camera.setTarget(new Vector3(0, 0.1, 1.75));
 
     const box = this._createBox(scene);
     this._createInstances(box);
@@ -168,11 +163,9 @@ export class BabylonAnimation {
     this._engine = new Engine(this._canvas, true);
     Object.assign(this, this._createScene(this._engine));
 
-    window.addEventListener('resize', this._windowResizeHandlerBind);
-  }
+    this.progress(1);
 
-  pauseLoop() {
-    this._engine.stopRenderLoop(this._renderLoopHandlerBind);
+    window.addEventListener('resize', this._windowResizeHandlerBind);
   }
 
   progress(p: number) {
@@ -180,15 +173,11 @@ export class BabylonAnimation {
       this._progress = p;
       this._updateInstances(p);
       this._updateCamera(p);
+      this._scene.render();
     }
   }
 
-  restartLoop() {
-    this._engine.runRenderLoop(this._renderLoopHandlerBind);
-  }
-
   destroy() {
-    this._engine.stopRenderLoop(this._renderLoopHandlerBind);
     window.removeEventListener('resize', this._windowResizeHandlerBind);
   }
 

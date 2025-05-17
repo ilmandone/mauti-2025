@@ -21,12 +21,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         enter: 'bottom top',
         leave: 'top bottom',
         sync: true,
-        onEnter: () => {
-          this._animation.restartLoop();
-        },
-        onLeave: () => {
-          this._animation.pauseLoop();
-        },
         onUpdate: (e) => {
           this._animation.progress(e.progress);
         },
