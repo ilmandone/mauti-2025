@@ -137,7 +137,7 @@ export class BabylonAnimation {
       const v = box.metadata['v'];
 
       box.position.z = Math.cos(v * prog * 0.125);
-      box.position.y = Math.sin(v * prog);
+      box.position.y = Math.sin(v * prog * 0.25);
       box.rotation.z = v * prog;
     });
   }
@@ -152,7 +152,7 @@ export class BabylonAnimation {
     this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * prog;
     this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * prog;
     this._camera.fov = 0.01 + 0.34 * prog;
-    this._camera.radius = 20 - 18 * prog;
+    this._camera.radius = 20 - 15 * prog;
   }
 
   //#endregion
