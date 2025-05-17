@@ -155,7 +155,7 @@ export class BabylonAnimation {
     const prog = this._mapValue(p);
     this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * prog;
     this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * prog;
-    this._camera.fov = 0.01 + 0.29 * prog;
+    this._camera.fov = 0.01 + 0.34 * prog;
     this._camera.radius = 20 - 18 * prog;
   }
 
