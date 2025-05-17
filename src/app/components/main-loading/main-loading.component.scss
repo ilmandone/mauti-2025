@@ -1,0 +1,25 @@
+@use "typo" as t;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  h1,
+  .dots {
+    @include t.text-huge;
+  }
+
+  h1 {
+    span.primary {
+      color: var(--primary-color);
+    }
+
+    span.sec {
+      color: var(--secondary-color);
+    }
+  }
+}
