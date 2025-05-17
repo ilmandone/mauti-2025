@@ -104,6 +104,7 @@ export class BabylonAnimation {
 
     const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
     camera.fov = 0.01;
+    camera.setTarget(new Vector3(0, 0, 1.75));
 
     const box = this._createBox(scene);
     this._createInstances(box);
