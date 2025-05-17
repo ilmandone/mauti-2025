@@ -20,7 +20,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       autoplay: onScroll({
         enter: 'bottom top',
         leave: 'top bottom',
-        debug: true,
         sync: true,
         onEnter: () => {
           this._animation.restartLoop();

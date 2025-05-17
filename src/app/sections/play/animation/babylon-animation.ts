@@ -1,13 +1,13 @@
 import {
   ArcRotateCamera,
+  Color3,
   Color4,
-  DirectionalLight,
   Engine,
-  HemisphericLight,
   InstancedMesh,
   Mesh,
   MeshBuilder,
   Scene,
+  StandardMaterial,
   Vector3,
 } from '@babylonjs/core';
 
@@ -32,6 +32,7 @@ export class BabylonAnimation {
     [0.35, 0.96, 0.93],
     [1, 0.05, 0.177],
     [1, 1, 1],
+    [0.2, 0.2, 0.2],
   ];
 
   //#region Private
@@ -52,6 +53,26 @@ export class BabylonAnimation {
   //#region Creation
 
   /**
+   * Create the main mesh and material
+   * @param scene
+   * @private
+   */
+  private _createBox(scene: Scene) {
+    const boxMat = new StandardMaterial('box-mat', scene);
+    boxMat.disableLighting = true;
+    boxMat.emissiveColor = Color3.White();
+
+    const box = MeshBuilder.CreateBox('box', { width: 1, height: 1, depth: 0.15 }, scene);
+    box.registerInstancedBuffer('color', 4);
+    box.instancedBuffers['color'] = new Color4(0, 0, 0, 0);
+    box.rotation.y = Math.PI / 2;
+    box.isVisible = false;
+    box.material = boxMat;
+
+    return box;
+  }
+
+  /**
    * Create cube instances
    * @param mesh
    * @private
@@ -63,7 +84,7 @@ export class BabylonAnimation {
 
       inst.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
 
-      const color = this.COLORS[i % 3];
+      const color = this.COLORS[i % 4];
 
       inst.instancedBuffers['color'] = new Color4(...color);
       inst.metadata = { v };
@@ -84,16 +105,8 @@ export class BabylonAnimation {
     const camera = new ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 20, Vector3.Zero(), scene);
     camera.fov = 0.01;
 
-    new DirectionalLight('DirectionalLight', new Vector3(0, -3, 1.5), scene);
-    new HemisphericLight('HemiLight', new Vector3(0, 1, 0), scene);
-
-    const cube = MeshBuilder.CreateBox('box', { width: 1, height: 1, depth: 0.15 }, scene);
-    cube.registerInstancedBuffer('color', 4);
-    cube.instancedBuffers['color'] = new Color4(0, 0, 0, 0);
-    cube.rotation.y = Math.PI / 2;
-    cube.isVisible = false;
-
-    this._createInstances(cube);
+    const box = this._createBox(scene);
+    this._createInstances(box);
 
     return { _scene: scene, _camera: camera };
   }
@@ -142,7 +155,7 @@ export class BabylonAnimation {
     const prog = this._mapValue(p);
     this._camera.alpha = -Math.PI / 2 - (-Math.PI / 4) * prog;
     this._camera.beta = Math.PI / 2 + (-Math.PI / 4) * prog;
-    this._camera.fov = 0.01 + 0.49 * prog;
+    this._camera.fov = 0.01 + 0.29 * prog;
     this._camera.radius = 20 - 18 * prog;
   }
 
