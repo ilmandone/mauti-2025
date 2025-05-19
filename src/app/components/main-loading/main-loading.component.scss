@@ -14,8 +14,8 @@
   }
 
   h1 {
-    @include t.text-huge;
     margin-bottom: 1rem;
+    @include t.text-huge;
 
     span.primary {
       color: var(--primary-color);

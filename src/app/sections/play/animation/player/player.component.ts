@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, viewChild } from '@angular/core';
-import { BabylonAnimation } from '../babylon-animation';
 import { animate, onScroll } from 'animejs';
+import { ThreeJSAnimation } from '../threejs-animation';
 
 @Component({
   selector: 'player-babylon',
@@ -11,11 +11,11 @@ import { animate, onScroll } from 'animejs';
 export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private _ngZone = inject(NgZone);
 
-  private _canvasEl = viewChild.required<ElementRef<HTMLCanvasElement>>('canvasElement');
-  private _animation!: BabylonAnimation;
+  private _containerEl = viewChild.required<ElementRef<HTMLCanvasElement>>('containerElement');
+  private _animation!: ThreeJSAnimation;
 
   private _setAnimation() {
-    animate(this._canvasEl().nativeElement, {
+    animate(this._containerEl().nativeElement, {
       progress: [{ from: 0 }, { to: 100 }],
       autoplay: onScroll({
         enter: 'bottom top',
@@ -29,7 +29,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._animation = new BabylonAnimation(this._canvasEl().nativeElement);
+    this._animation = new ThreeJSAnimation(this._containerEl().nativeElement);
     this._animation.init();
   }
 
