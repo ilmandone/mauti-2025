@@ -116,4 +116,10 @@
       }
     }
   }
+
+  @include u.media('dl') {
+    ul.career {
+      margin-top: 15vh;
+    }
+  }
 }
