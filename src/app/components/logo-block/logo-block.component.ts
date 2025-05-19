@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, input, NgZone, viewChildren } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { createTimeline, onScroll, waapi } from 'animejs';
+import { animate, createTimeline, onScroll } from 'animejs';
 
 @Component({
   selector: 'app-logo-block',
@@ -18,14 +18,14 @@ export class LogoBlockComponent implements AfterViewInit {
   private _startAnimation() {
     const pics = this._pics().map((p) => p.nativeElement);
 
-    const pic1anim = waapi.animate(pics[1], {
+    const pic1anim = animate(pics[1], {
       duration: 1400,
       rotate: 16,
       x: '-25vw',
       y: '20vw',
     });
 
-    const pic2anim = waapi.animate(pics[0], {
+    const pic2anim = animate(pics[0], {
       duration: 1400,
       rotate: -20,
       x: '-16vw',
