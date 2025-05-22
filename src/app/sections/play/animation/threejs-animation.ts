@@ -1,10 +1,13 @@
 import {
+  AmbientLight,
   BoxGeometry,
   Color,
+  Euler,
+  HemisphereLight,
   InstancedMesh,
   Matrix4,
   Mesh,
-  MeshBasicMaterial,
+  MeshStandardMaterial,
   PerspectiveCamera,
   Scene,
   Vector3,
@@ -61,12 +64,14 @@ export class ThreeJSAnimation {
     const positionX = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
 
     const positionY = Math.sin(v * p);
-    const positionZ = Math.cos(v * p);
+    const positionZ = Math.cos(v * p + 1.5);
 
-    matrix.makeRotationFromEuler(m.rotation);
+    const newRotation = m.rotation.toArray();
+    newRotation[0] = Math.PI * 2 * p;
+    matrix.makeRotationFromEuler(new Euler(...newRotation));
+    matrix.setPosition(positionX, positionY, positionZ);
     matrix.scale(m.scale);
 
-    matrix.setPosition(m.position.x + positionX, positionY, positionZ);
     return matrix;
   }
 
@@ -74,9 +79,15 @@ export class ThreeJSAnimation {
 
   //#region Creation
 
+  /**
+   * Create the main mesh
+   * @param scene
+   * @private
+   */
   private _createBox(scene: Scene) {
     const geometry = new BoxGeometry(1, 1, 0.15);
-    const material = new MeshBasicMaterial({ color: 0xffffff });
+    const material = new MeshStandardMaterial({ color: 0xffffff });
+
     const box = new Mesh(geometry, material);
     box.rotation.y = Math.PI / 2;
     box.visible = false;
@@ -85,6 +96,12 @@ export class ThreeJSAnimation {
     return box;
   }
 
+  /**
+   * Create instances of the main mesh
+   * @param cube
+   * @param scene
+   * @private
+   */
   private _createInstances(cube: Mesh, scene: Scene) {
     const instances = new InstancedMesh(cube.geometry, cube.material, this.INSTANCE_AMOUNT);
 
@@ -93,16 +110,21 @@ export class ThreeJSAnimation {
       instances.setMatrixAt(i, matrix);
 
       const color = this.COLORS[i % 4];
-
       instances.setColorAt(i, new Color(...color));
     }
 
     instances.instanceMatrix.needsUpdate = true;
+    instances.instanceColor!.needsUpdate = true;
     scene.add(instances);
 
     return instances;
   }
 
+  /**
+   * Create scene
+   * @param container
+   * @private
+   */
   private _createScene(container: HTMLElement) {
     const renderer = new WebGLRenderer({ antialias: true });
     renderer.setClearColor(0xffffff, 0);
@@ -111,11 +133,17 @@ export class ThreeJSAnimation {
     const scene = new Scene();
 
     const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
-    camera.position.y = 2;
-    camera.position.x = -2;
+    camera.position.z = 0;
+    camera.position.y = 1.5;
+    camera.position.x = 0;
 
     camera.lookAt(new Vector3(0, 0, 0));
+
+    const light = new AmbientLight(0xffffff, 1);
+    scene.add(light);
+
+    const hemiLight = new HemisphereLight(0xffffff, 0x444444, 1.5);
+    scene.add(hemiLight);
 
     this._box = this._createBox(scene);
     this._instances = this._createInstances(this._box, scene);
@@ -127,6 +155,11 @@ export class ThreeJSAnimation {
 
   //#region Update
 
+  /**
+   * Clamp and convert linear progress to an ease-in-out function
+   * @param value
+   * @private
+   */
   private _mapValue(value: number): number {
     const clampedValue = Math.max(0, Math.min(1, value));
 
@@ -137,6 +170,11 @@ export class ThreeJSAnimation {
     return normalizedValue * normalizedValue * (3 - 2 * normalizedValue);
   }
 
+  /**
+   * Update instances positions
+   * @param p
+   * @private
+   */
   private _updateInstances(p: number) {
     const prog = this._mapValue(p);
 
@@ -148,6 +186,16 @@ export class ThreeJSAnimation {
     this._instances.instanceMatrix.needsUpdate = true;
   }
 
+  private _updateCamera(p: number) {
+    const posZ = 2 * p;
+    const posX = p / 2;
+    const posY = 2.5 - 2 * p;
+
+    this._camera.position.set(posX, posY, posZ);
+    this._camera.lookAt(0, 0, 0);
+    this._camera.updateMatrix();
+  }
+
   //#endregion
 
   //#region Public
@@ -155,6 +203,7 @@ export class ThreeJSAnimation {
   init() {
     this._createScene(this._container);
     Object.assign(this, this._createScene(this._container));
+    this._updateCamera(0);
 
     this._windowResizeHandler();
     window.addEventListener('resize', this._windowResizeHandlerBind);
@@ -164,8 +213,7 @@ export class ThreeJSAnimation {
     if (p !== this._progress) {
       this._progress = p;
       this._updateInstances(p);
-      /*this._updateInstances(p);
-      this._updateCamera(p);*/
+      this._updateCamera(p);
       this._renderer.render(this._scene, this._camera);
     }
   }
