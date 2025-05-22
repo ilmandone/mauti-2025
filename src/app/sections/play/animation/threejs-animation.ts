@@ -14,6 +14,9 @@ import {
 export class ThreeJSAnimation {
   private readonly _container: HTMLElement;
   private readonly INSTANCE_AMOUNT = 60;
+  private readonly CLAMP_TOP = 0.9;
+  private readonly CLAMP_BOTTOM = 0.1;
+
   private readonly COLORS = [
     [0.35, 0.96, 0.93],
     [1, 0.05, 0.177],
@@ -25,6 +28,8 @@ export class ThreeJSAnimation {
   private _renderer!: WebGLRenderer;
   private _scene!: Scene;
   private _camera!: PerspectiveCamera;
+  private _instances!: InstancedMesh;
+  private _box!: Mesh;
 
   constructor(container: HTMLElement) {
     this._container = container;
@@ -43,6 +48,28 @@ export class ThreeJSAnimation {
     this._camera.updateProjectionMatrix();
   }
 
+  /**
+   * Return the transformation matrix for the i instance
+   * @param {number} i
+   * @param {Mesh} m
+   * @param {number} p
+   * @private
+   */
+  private _getInstanceMatrix(i: number, m: Mesh, p: number): Matrix4 {
+    const v = i * 0.2;
+    const matrix = new Matrix4();
+    const positionX = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
+
+    const positionY = Math.sin(v * p);
+    const positionZ = Math.cos(v * p);
+
+    matrix.makeRotationFromEuler(m.rotation);
+    matrix.scale(m.scale);
+
+    matrix.setPosition(m.position.x + positionX, positionY, positionZ);
+    return matrix;
+  }
+
   //#endregion
 
   //#region Creation
@@ -50,33 +77,30 @@ export class ThreeJSAnimation {
   private _createBox(scene: Scene) {
     const geometry = new BoxGeometry(1, 1, 0.15);
     const material = new MeshBasicMaterial({ color: 0xffffff });
-    const cube = new Mesh(geometry, material);
-    cube.rotation.y = Math.PI / 2;
-    scene.add(cube);
+    const box = new Mesh(geometry, material);
+    box.rotation.y = Math.PI / 2;
+    box.visible = false;
+    scene.add(box);
 
-    return cube;
+    return box;
   }
 
   private _createInstances(cube: Mesh, scene: Scene) {
     const instances = new InstancedMesh(cube.geometry, cube.material, this.INSTANCE_AMOUNT);
 
     for (let i = 0; i < this.INSTANCE_AMOUNT; i++) {
-      const v = i * 0.2;
-      const matrix = new Matrix4();
-      const positionX = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
+      const matrix = this._getInstanceMatrix(i, cube, 0);
+      instances.setMatrixAt(i, matrix);
+
       const color = this.COLORS[i % 4];
 
-      matrix.makeRotationFromEuler(cube.rotation);
-      matrix.scale(cube.scale);
-
-      matrix.setPosition(cube.position.x + positionX, cube.position.y, cube.position.z);
-      instances.setMatrixAt(i, matrix);
       instances.setColorAt(i, new Color(...color));
     }
 
     instances.instanceMatrix.needsUpdate = true;
-
     scene.add(instances);
+
+    return instances;
   }
 
   private _createScene(container: HTMLElement) {
@@ -93,10 +117,35 @@ export class ThreeJSAnimation {
 
     camera.lookAt(new Vector3(0, 0, 0));
 
-    const b = this._createBox(scene);
-    this._createInstances(b, scene);
+    this._box = this._createBox(scene);
+    this._instances = this._createInstances(this._box, scene);
 
     return { _renderer: renderer, _scene: scene, _camera: camera };
+  }
+
+  //#endregion
+
+  //#region Update
+
+  private _mapValue(value: number): number {
+    const clampedValue = Math.max(0, Math.min(1, value));
+
+    if (clampedValue <= this.CLAMP_BOTTOM) return 0;
+    if (clampedValue > this.CLAMP_TOP) return 1;
+
+    const normalizedValue = (clampedValue - this.CLAMP_BOTTOM) / (this.CLAMP_TOP - this.CLAMP_BOTTOM);
+    return normalizedValue * normalizedValue * (3 - 2 * normalizedValue);
+  }
+
+  private _updateInstances(p: number) {
+    const prog = this._mapValue(p);
+
+    for (let i = 0; i < this._instances.count; i += 1) {
+      const matrix = this._getInstanceMatrix(i, this._box, prog);
+      this._instances.setMatrixAt(i, matrix);
+    }
+
+    this._instances.instanceMatrix.needsUpdate = true;
   }
 
   //#endregion
@@ -114,6 +163,7 @@ export class ThreeJSAnimation {
   progress(p: number) {
     if (p !== this._progress) {
       this._progress = p;
+      this._updateInstances(p);
       /*this._updateInstances(p);
       this._updateCamera(p);*/
       this._renderer.render(this._scene, this._camera);
