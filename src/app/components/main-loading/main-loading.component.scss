@@ -8,14 +8,9 @@
   justify-content: center;
   align-items: center;
 
-  .dots {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-
   h1 {
-    @include t.text-huge;
     margin-bottom: 1rem;
+    @include t.text-huge;
 
     span.primary {
       color: var(--primary-color);
@@ -24,6 +19,22 @@
     span.sec {
       color: var(--secondary-color);
     }
+  }
+
+  .progress-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+
+  .dots {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 
   .message {
