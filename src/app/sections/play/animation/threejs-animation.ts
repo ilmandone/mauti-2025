@@ -1,11 +1,7 @@
 import {
   AmbientLight,
   BoxGeometry,
-  Color,
-  Euler,
   HemisphereLight,
-  InstancedMesh,
-  Matrix4,
   Mesh,
   MeshStandardMaterial,
   PerspectiveCamera,
@@ -20,19 +16,14 @@ export class ThreeJSAnimation {
   private readonly CLAMP_TOP = 0.9;
   private readonly CLAMP_BOTTOM = 0.1;
 
-  private readonly COLORS = [
-    [0.35, 0.96, 0.93],
-    [1, 0.05, 0.177],
-    [1, 1, 1],
-    [0.275, 0.275, 0.275],
-  ];
+  private readonly COLORS = [0xe8002d, 0x5af4ed, 0xffffff, 0x454545];
 
   private _progress!: number;
   private _renderer!: WebGLRenderer;
   private _scene!: Scene;
   private _camera!: PerspectiveCamera;
-  private _instances!: InstancedMesh;
   private _box!: Mesh;
+  private _clones!: Mesh[];
 
   constructor(container: HTMLElement) {
     this._container = container;
@@ -51,30 +42,6 @@ export class ThreeJSAnimation {
     this._camera.updateProjectionMatrix();
   }
 
-  /**
-   * Return the transformation matrix for the i instance
-   * @param {number} i
-   * @param {Mesh} m
-   * @param {number} p
-   * @private
-   */
-  private _getInstanceMatrix(i: number, m: Mesh, p: number): Matrix4 {
-    const v = i * 0.2;
-    const matrix = new Matrix4();
-    const positionX = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
-
-    const positionY = Math.sin(v * p);
-    const positionZ = Math.cos(v * p + 1.5);
-
-    const newRotation = m.rotation.toArray();
-    newRotation[0] = Math.PI * 2 * p;
-    matrix.makeRotationFromEuler(new Euler(...newRotation));
-    matrix.setPosition(positionX, positionY, positionZ);
-    matrix.scale(m.scale);
-
-    return matrix;
-  }
-
   //#endregion
 
   //#region Creation
@@ -86,7 +53,7 @@ export class ThreeJSAnimation {
    */
   private _createBox(scene: Scene) {
     const geometry = new BoxGeometry(1, 1, 0.15);
-    const material = new MeshStandardMaterial({ color: 0xffffff });
+    const material = new MeshStandardMaterial();
 
     const box = new Mesh(geometry, material);
     box.rotation.y = Math.PI / 2;
@@ -97,27 +64,38 @@ export class ThreeJSAnimation {
   }
 
   /**
-   * Create instances of the main mesh
-   * @param cube
+   * Return cube materials for clones
+   * @private
+   */
+  private _makeMaterials(): MeshStandardMaterial[] {
+    return this.COLORS.map((c) => {
+      return new MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.3 });
+    });
+  }
+
+  /**
+   * Create the box clones
+   * @param m
    * @param scene
    * @private
    */
-  private _createInstances(cube: Mesh, scene: Scene) {
-    const instances = new InstancedMesh(cube.geometry, cube.material, this.INSTANCE_AMOUNT);
+  private _makeClones(m: Mesh, scene: Scene): Mesh[] {
+    const clones: Mesh[] = [];
 
-    for (let i = 0; i < this.INSTANCE_AMOUNT; i++) {
-      const matrix = this._getInstanceMatrix(i, cube, 0);
-      instances.setMatrixAt(i, matrix);
+    const mats = this._makeMaterials();
 
-      const color = this.COLORS[i % 4];
-      instances.setColorAt(i, new Color(...color));
+    for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
+      const clone = m.clone();
+      const v = i * 0.2;
+
+      clone.position.x = v - (this.INSTANCE_AMOUNT / 2) * 0.2;
+      clone.material = mats[i % 4];
+      clone.visible = true;
+      clones.push(clone);
+      scene.add(clone);
     }
 
-    instances.instanceMatrix.needsUpdate = true;
-    instances.instanceColor!.needsUpdate = true;
-    scene.add(instances);
-
-    return instances;
+    return clones;
   }
 
   /**
@@ -132,10 +110,8 @@ export class ThreeJSAnimation {
 
     const scene = new Scene();
 
-    const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 0;
-    camera.position.y = 1.5;
-    camera.position.x = 0;
+    const camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 2;
 
     camera.lookAt(new Vector3(0, 0, 0));
 
@@ -146,7 +122,7 @@ export class ThreeJSAnimation {
     scene.add(hemiLight);
 
     this._box = this._createBox(scene);
-    this._instances = this._createInstances(this._box, scene);
+    this._clones = this._makeClones(this._box, scene);
 
     return { _renderer: renderer, _scene: scene, _camera: camera };
   }
@@ -171,25 +147,27 @@ export class ThreeJSAnimation {
   }
 
   /**
-   * Update instances positions
+   * Update clone positions
    * @param p
    * @private
    */
-  private _updateInstances(p: number) {
+  private _updateClones(p: number) {
     const prog = this._mapValue(p);
 
-    for (let i = 0; i < this._instances.count; i += 1) {
-      const matrix = this._getInstanceMatrix(i, this._box, prog);
-      this._instances.setMatrixAt(i, matrix);
+    for (let i = 0; i < this.INSTANCE_AMOUNT; i += 1) {
+      const v = i * 0.2;
+      const cl = this._clones[i];
+      cl.position.y = Math.cos(v * prog * 0.5);
+      cl.position.z = Math.sin(v * prog);
+      cl.rotation.z = (Math.PI / 2) * p * v;
+      cl.updateMatrix();
     }
-
-    this._instances.instanceMatrix.needsUpdate = true;
   }
 
   private _updateCamera(p: number) {
-    const posZ = 2 * p;
-    const posX = p / 2;
-    const posY = 2.5 - 2 * p;
+    const posZ = p + 2;
+    const posX = -p / 2;
+    const posY = -p;
 
     this._camera.position.set(posX, posY, posZ);
     this._camera.lookAt(0, 0, 0);
@@ -212,8 +190,10 @@ export class ThreeJSAnimation {
   progress(p: number) {
     if (p !== this._progress) {
       this._progress = p;
-      this._updateInstances(p);
+
+      this._updateClones(p);
       this._updateCamera(p);
+
       this._renderer.render(this._scene, this._camera);
     }
   }
