@@ -19,11 +19,12 @@
     height: 72vh;
   }
 
-  player-babylon {
+  player-three-js {
     position: absolute;
     left: 0;
     width: 100%;
     height: 80vh;
+    overflow: hidden;
   }
 
   picture {

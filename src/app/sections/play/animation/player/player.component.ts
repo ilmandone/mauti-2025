@@ -3,7 +3,7 @@ import { animate, onScroll } from 'animejs';
 import { ThreeJSAnimation } from '../threejs-animation';
 
 @Component({
-  selector: 'player-babylon',
+  selector: 'player-three-js',
   imports: [],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
