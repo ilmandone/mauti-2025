@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -23,6 +23,7 @@ export class MainLoadingComponent implements OnInit {
   private _isIncreasing: boolean = true;
 
   running = input(true);
+  loaded = output<boolean>();
 
   dots: string = '.';
 
@@ -45,5 +46,6 @@ export class MainLoadingComponent implements OnInit {
 
           this.dots = '.'.repeat(this._count);
         });
+    else this.loaded.emit(true);
   }
 }

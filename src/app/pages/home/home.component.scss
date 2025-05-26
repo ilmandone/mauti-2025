@@ -5,4 +5,20 @@
   box-sizing: border-box;
 
   overflow: hidden;
+
+  .loading {
+    &--out {
+      animation: out 0.5s ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes out {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100vh);
+  }
 }
