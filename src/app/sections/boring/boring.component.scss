@@ -30,7 +30,7 @@
 
     li {
       width: 100%;
-      padding: 1vh 1vh;
+      padding: 1vh;
       display: flex;
       flex-direction: column;
       column-gap: 0.5rem;
@@ -120,6 +120,10 @@
   @include u.media('dl') {
     ul.career {
       margin-top: 15vh;
+
+      li {
+        padding: 2vh 1.5vh;
+      }
     }
   }
 }
