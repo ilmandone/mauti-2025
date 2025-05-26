@@ -69,7 +69,7 @@ export class ThreeJSAnimation {
    */
   private _makeMaterials(): MeshStandardMaterial[] {
     return this.COLORS.map((c) => {
-      return new MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.3 });
+      return new MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.75 });
     });
   }
 
