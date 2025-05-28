@@ -9,11 +9,12 @@
     <section play></section>
     <section boring></section>
     <footer section in-viewport (inPage)="inPageChange('bottom', $event)"></footer>
+    <custom-cursor />
+  } @else {
+
+    <app-main-loading class="loading loading--out" [running]="false" (loaded)="isLoaded.set($event)" />
   }
 
-  <custom-cursor />
-
-  <app-main-loading class="loading loading--out" [running]="false" (loaded)="isLoaded.set($event)" />
 
 } @placeholder (minimum 1s) {
   <app-main-loading />

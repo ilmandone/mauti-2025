@@ -43,7 +43,10 @@ export default class HomeComponent {
 
       if (loaded) {
         const c = document.body.querySelector('.loading--out');
-        fromEvent(c!, 'animationend').subscribe((r) => this.isVisible.set(!!r));
+        fromEvent(c!, 'animationend').subscribe((r) => {
+          console.log('VISIBLE');
+          this.isVisible.set(!!r);
+        });
       }
     });
   }
