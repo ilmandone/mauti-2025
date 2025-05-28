@@ -1,13 +1,20 @@
 @defer () {
-  <header section></header>
-  <section hello in-viewport (inPage)="inPageChange('top', $event)"></section>
-  <section intro></section>
-  <section web-development></section>
-  <section design></section>
-  <section play></section>
-  <section boring></section>
-  <footer section in-viewport (inPage)="inPageChange('bottom', $event)"></footer>
-  <custom-cursor />
+
+  @if (this.isVisible()) {
+    <header section></header>
+    <section hello in-viewport (inPage)="inPageChange('top', $event)"></section>
+    <section intro></section>
+    <section web-development></section>
+    <section design></section>
+    <section play></section>
+    <section boring></section>
+    <footer section in-viewport (inPage)="inPageChange('bottom', $event)"></footer>
+    <custom-cursor />
+  } @else {
+
+    <app-main-loading class="loading loading--out" [running]="false" (loaded)="isLoaded.set($event)" />
+  }
+
 
 } @placeholder (minimum 1s) {
   <app-main-loading />

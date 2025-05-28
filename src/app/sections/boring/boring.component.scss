@@ -25,12 +25,12 @@
   }
 
   ul.career {
-    margin-top: 6vh;
+    margin-top: 12vh;
     perspective: 50vw;
 
     li {
       width: 100%;
-      padding: 1vh 1vh;
+      padding: 1vh;
       display: flex;
       flex-direction: column;
       column-gap: 0.5rem;
@@ -75,15 +75,17 @@
       font-size: 4vw;
     }
 
-    ul.career li {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    ul.career {
+      li {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
 
-      column-gap: 2vw;
+        column-gap: 2vw;
 
-      & > *:last-child {
-        margin-left: auto;
+        & > *:last-child {
+          margin-left: auto;
+        }
       }
     }
   }
@@ -120,6 +122,10 @@
   @include u.media('dl') {
     ul.career {
       margin-top: 15vh;
+
+      li {
+        padding: 2vh 1.5vh;
+      }
     }
   }
 }

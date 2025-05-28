@@ -16,7 +16,7 @@ export class ThreeJSAnimation {
   private readonly CLAMP_TOP = 0.9;
   private readonly CLAMP_BOTTOM = 0.1;
 
-  private readonly COLORS = [0xe8002d, 0x5af4ed, 0xffffff, 0x454545];
+  private readonly COLORS = [0xe8002d, 0x5af4ed, 0xffffff, 0x252525];
 
   private _progress!: number;
   private _renderer!: WebGLRenderer;
@@ -69,7 +69,7 @@ export class ThreeJSAnimation {
    */
   private _makeMaterials(): MeshStandardMaterial[] {
     return this.COLORS.map((c) => {
-      return new MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.3 });
+      return new MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.75 });
     });
   }
 
