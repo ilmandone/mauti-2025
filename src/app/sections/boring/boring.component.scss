@@ -25,7 +25,7 @@
   }
 
   ul.career {
-    margin-top: 6vh;
+    margin-top: 12vh;
     perspective: 50vw;
 
     li {
@@ -75,15 +75,17 @@
       font-size: 4vw;
     }
 
-    ul.career li {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    ul.career {
+      li {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
 
-      column-gap: 2vw;
+        column-gap: 2vw;
 
-      & > *:last-child {
-        margin-left: auto;
+        & > *:last-child {
+          margin-left: auto;
+        }
       }
     }
   }
