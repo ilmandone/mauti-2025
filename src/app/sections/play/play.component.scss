@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: flex-end;
 
-  height: 80vh;
+  height: 100vh;
 
   @include c.sectionPadding;
 
@@ -23,7 +23,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    height: 80vh;
+    height: 90vh;
     overflow: hidden;
   }
 

@@ -35,7 +35,7 @@ export class ThreeJSAnimation {
 
   private _windowResizeHandler() {
     const w = window.innerWidth;
-    const h = window.innerHeight * 0.8;
+    const h = window.innerHeight * 0.9;
 
     this._renderer.setSize(w, h);
     this._camera.aspect = w / h;
