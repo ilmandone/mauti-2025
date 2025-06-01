@@ -4,13 +4,13 @@
 
 :host {
   position: relative;
-  margin-top: 12vh;
+  margin-top: 4vh;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
-  height: 100vh;
+  height: 90vh;
 
   @include c.sectionPadding;
 
