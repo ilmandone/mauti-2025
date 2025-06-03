@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
 
-  margin-top: 6vh;
+  margin-top: 12vh;
 
   @include c.sectionPadding;
 
@@ -25,12 +25,12 @@
   }
 
   ul.career {
-    margin-top: 6vh;
+    margin-top: 14vh;
     perspective: 50vw;
 
     li {
       width: 100%;
-      padding: 1vh 1vh;
+      padding: 1vh;
       display: flex;
       flex-direction: column;
       column-gap: 0.5rem;
@@ -43,12 +43,14 @@
         margin-bottom: 0.25rem;
         white-space: nowrap;
         font-size: 0.875rem;
+        text-align: right;
       }
 
       .role {
         font-weight: 800;
         font-size: 1.25rem;
         text-transform: uppercase;
+        text-align: right;
       }
 
       .company {
@@ -68,6 +70,12 @@
     }
   }
 
+  @include u.media('t') {
+    ul.career li .role {
+      text-align: left;
+    }
+  }
+
   @include u.media('tl') {
     margin-top: 10vh;
 
@@ -75,15 +83,17 @@
       font-size: 4vw;
     }
 
-    ul.career li {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    ul.career {
+      li {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
 
-      column-gap: 2vw;
+        column-gap: 2vw;
 
-      & > *:last-child {
-        margin-left: auto;
+        & > *:last-child {
+          margin-left: auto;
+        }
       }
     }
   }
@@ -113,6 +123,16 @@
           margin-top: 0;
           font-size: 1rem;
         }
+      }
+    }
+  }
+
+  @include u.media('dl') {
+    ul.career {
+      margin-top: 20vh;
+
+      li {
+        padding: 2vh 1.5vh;
       }
     }
   }

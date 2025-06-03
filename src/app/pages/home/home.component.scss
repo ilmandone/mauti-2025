@@ -1,3 +1,5 @@
+@use "vars" as v;
+
 :host {
   position: relative;
   min-height: 100vh;
@@ -5,4 +7,20 @@
   box-sizing: border-box;
 
   overflow: hidden;
+
+  .loading {
+    &--out {
+      animation: out v.$transition-time-long * 2 cubic-bezier(.76, -0.38, .43, 1);
+      animation-delay: v.$transition-time * 0.5;
+    }
+  }
+}
+
+@keyframes out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
 }

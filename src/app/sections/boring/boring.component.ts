@@ -32,10 +32,8 @@ export class BoringComponent implements AfterViewInit {
     const careerItems = this._elRef.nativeElement.querySelectorAll('.career__item');
     animate(careerItems, {
       opacity: [{ from: 0 }, { to: 1 }],
-      rotateX: [{ from: -90 }, { to: 0 }],
-      delay: stagger(150, {
-        from: utils.random(0, 15),
-      }),
+      rotateX: [{ from: -60 }, { to: 0 }],
+      delay: stagger(150),
       ease: 'outElastic',
       duration: 2500,
       autoplay: onScroll({

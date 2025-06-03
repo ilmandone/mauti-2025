@@ -80,7 +80,7 @@ export class HelloComponent implements AfterViewInit {
         .add(
           emoticon,
           {
-            y: [{ from: '-75vh' }, { to: 0 }],
+            y: [{ from: '-100vh' }, { to: 0 }],
             duration: 2000,
             delay: 400,
             ease: 'outBounce',

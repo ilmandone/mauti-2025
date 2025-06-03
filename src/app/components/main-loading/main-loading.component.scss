@@ -1,0 +1,43 @@
+@use "typo" as t;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    margin-bottom: 1rem;
+    @include t.text-huge;
+
+    span.primary {
+      color: var(--primary-color);
+    }
+
+    span.sec {
+      color: var(--secondary-color);
+    }
+  }
+
+  .progress-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+
+  .dots {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .message {
+    font-size: 0.75rem;
+  }
+}
