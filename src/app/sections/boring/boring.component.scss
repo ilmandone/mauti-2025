@@ -43,12 +43,14 @@
         margin-bottom: 0.25rem;
         white-space: nowrap;
         font-size: 0.875rem;
+        text-align: right;
       }
 
       .role {
         font-weight: 800;
         font-size: 1.25rem;
         text-transform: uppercase;
+        text-align: right;
       }
 
       .company {
@@ -65,6 +67,12 @@
     li:first-child {
       background-color: var(--primary-color);
       color: var(--bg-color);
+    }
+  }
+
+  @include u.media('t') {
+    ul.career li .role {
+      text-align: left;
     }
   }
 
