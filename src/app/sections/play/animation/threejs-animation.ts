@@ -116,7 +116,8 @@ export class ThreeJSAnimation {
     const scene = new Scene();
 
     const camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 2;
+    camera.position.z = 1;
+    camera.position.x = -2;
 
     camera.lookAt(new Vector3(0, 0, 0));
 
@@ -170,9 +171,9 @@ export class ThreeJSAnimation {
   }
 
   private _updateCamera(p: number) {
-    const posZ = p + 2;
-    const posX = -p / 2;
-    const posY = -p;
+    const posZ = 1 + p;
+    const posX = 2 + p / 2;
+    const posY = 2 - p;
 
     this._camera.position.set(posX, posY, posZ);
     this._camera.lookAt(0, 0, 0);
