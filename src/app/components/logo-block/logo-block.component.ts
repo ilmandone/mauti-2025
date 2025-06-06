@@ -18,7 +18,7 @@ export class LogoBlockComponent implements AfterViewInit {
     const pics = this._pics().map((p) => p.nativeElement);
 
     const pic1anim = animate(pics[0], {
-      duration: 1000,
+      duration: 2000,
       keyframes: [
         { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
         { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
@@ -26,8 +26,7 @@ export class LogoBlockComponent implements AfterViewInit {
     });
 
     const pic2anim = animate(pics[1], {
-      duration: 1000,
-      delay: 1000,
+      duration: 2000,
       keyframes: [
         { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
         { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
@@ -35,9 +34,6 @@ export class LogoBlockComponent implements AfterViewInit {
     });
 
     createTimeline({
-      defaults: {
-        ease: 'inOutExpo',
-      },
       autoplay: onScroll({
         target: this.parent()?.nativeElement,
         enter: 'center top',
