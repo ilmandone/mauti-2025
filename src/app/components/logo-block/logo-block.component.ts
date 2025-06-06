@@ -10,7 +10,6 @@ import { animate, createTimeline, onScroll } from 'animejs';
 })
 export class LogoBlockComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
-
   private _pics = viewChildren<ElementRef<HTMLElement>>('pic');
 
   parent = input<ElementRef>();
@@ -18,18 +17,21 @@ export class LogoBlockComponent implements AfterViewInit {
   private _startAnimation() {
     const pics = this._pics().map((p) => p.nativeElement);
 
-    const pic1anim = animate(pics[1], {
-      duration: 1400,
-      rotate: 16,
-      x: '-25vw',
-      y: '20vw',
+    const pic1anim = animate(pics[0], {
+      duration: 1000,
+      keyframes: [
+        { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
+        { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
+      ],
     });
 
-    const pic2anim = animate(pics[0], {
-      duration: 1400,
-      rotate: -20,
-      x: '-16vw',
-      y: '-8vw',
+    const pic2anim = animate(pics[1], {
+      duration: 1000,
+      delay: 1000,
+      keyframes: [
+        { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
+        { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
+      ],
     });
 
     createTimeline({
@@ -44,7 +46,7 @@ export class LogoBlockComponent implements AfterViewInit {
       }),
     })
       .sync(pic1anim, 0)
-      .sync(pic2anim, 50);
+      .sync(pic2anim, 1000);
   }
 
   ngAfterViewInit() {
