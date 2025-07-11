@@ -11,8 +11,12 @@ import { AudioService } from '../../shared/services/audio.service';
     <social-links />
     <div class="extra">
       <app-toggle-button (click)="toggleSound($event)">
-        <ng-template #off>Sounssssd</ng-template>
-        <ng-template #on>Attivo</ng-template>
+        <ng-template #off>
+          <div class="sound sound--off"></div>
+        </ng-template>
+        <ng-template #on>
+          <div class="sound sound--on"></div>
+        </ng-template>
       </app-toggle-button>
       <div class="version">1.3 - SOUNDS</div>
     </div>
@@ -32,10 +36,15 @@ export class HeaderComponent implements AfterViewInit {
     return this._state.atBottom() || !this.ready;
   }
 
+  /**
+   * Set sounds on state and play click sound
+   * @param $event
+   */
   toggleSound($event: boolean) {
     this._state.setSoundsOn($event);
-    console.log($event);
-    if ($event) this._audio.play('click2');
+
+    if ($event) this._audio.play('click');
+    else this._audio.play('click2');
   }
 
   ngAfterViewInit() {

@@ -39,6 +39,7 @@
     }
   }
 
+  // Right contents
   .extra {
     display: flex;
     align-items: center;
@@ -49,8 +50,42 @@
 
     .version {
       font-weight: 700;
+    }
 
+    .sound {
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: var(--bg-color);
+
+      transition: background-color v.$transition-time ease-in-out;
+
+      &--off {
+        mask-image: url('/vectors/sound-off.svg');
+        mask-repeat: no-repeat;
+      }
+
+      &--on {
+        mask-image: url('/vectors/sound-on.svg');
+        mask-repeat: repeat;
+        mask-position: 1.25rem;
+        animation: sound-on-loop v.$transition-time-long * 2 linear infinite;
+      }
+    }
+
+    @include u.media('mouse') {
+      &:hover .sound {
+        background-color: var(--primary-color);
+      }
     }
   }
 }
 
+@keyframes sound-on-loop {
+  from {
+    mask-position: 0;
+  }
+
+  to {
+    mask-position: 1.25rem
+  }
+}
