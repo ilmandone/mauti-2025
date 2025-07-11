@@ -15,10 +15,14 @@
     transition-duration: v.$transition-time;
     transition-timing-function: ease-in-out;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: var(--primary-color);
       color: var(--bg-color);
+    }
+
+    &:focus {
+      outline: 0.25rem solid var(--primary-color);
+      outline-offset: 0.125rem;
     }
   }
 }

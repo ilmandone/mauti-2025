@@ -16,9 +16,14 @@
     transition-timing-function: ease-in-out;
 
     &:hover,
-    &:focus {
+    &:active {
       background-color: var(--bg-color);
       color: var(--primary-color);
+    }
+
+    &:focus {
+      outline: 0.25rem solid var(--primary-color);
+      outline-offset: 0.125rem;
     }
   }
 }
