@@ -4,12 +4,21 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class AudioService {
-  loadComplete = signal<boolean>(false);
+  private readonly AUDIO_FILES_NAMES = ['audio/click.mp3', 'audio/click2.mp3', 'audio/hover.mp3', 'audio/jump.mp3'];
+  private _audioFiles: Map<string, HTMLAudioElement> = new Map();
+
+  loading = signal<'no' | 'running' | 'complete'>('no');
 
   load() {
-    console.log('load audio files');
-    window.setTimeout(() => {
-      this.loadComplete.set(true);
-    }, 3000);
+    this.AUDIO_FILES_NAMES.forEach((fn) => {
+      const audio = new Audio();
+      const name = fn.replace(/audio\/|.mp3/g, '');
+
+      audio.addEventListener('loadeddata', () => {
+        this._audioFiles.set(name, audio);
+      });
+
+      audio.src = fn;
+    });
   }
 }
