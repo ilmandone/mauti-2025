@@ -10,7 +10,7 @@ import { AudioService } from '../../shared/services/audio.service';
   template: `
     <social-links />
     <div class="extra">
-      <app-toggle-button (click)="toggleSound($event)">
+      <app-toggle-button mode="neutral" (click)="toggleSound($event)">
         <ng-template #off>
           <div class="sound sound--off"></div>
         </ng-template>

@@ -1,12 +1,12 @@
-import { Component, contentChild, output, TemplateRef } from '@angular/core';
-import { MyButtonDirective } from '../../directives/my-button.directive';
+import { Component, contentChild, input, output, TemplateRef } from '@angular/core';
+import { ButtonMode, MyButtonDirective } from '../../directives/my-button.directive';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-toggle-button',
   imports: [MyButtonDirective, NgTemplateOutlet],
   standalone: true,
-  template: ` <button my-button mode="secondary" (click)="onClick($event)">
+  template: ` <button my-button [mode]="this.mode()" (click)="onClick($event)">
     @if (!status) {
       <ng-container *ngTemplateOutlet="offChild()"></ng-container>
     } @else {
@@ -19,8 +19,9 @@ export class ToggleButtonComponent {
   offChild = contentChild.required<TemplateRef<HTMLElement>>('off');
   onChild = contentChild.required<TemplateRef<HTMLElement>>('on');
 
-  click = output<boolean>();
+  mode = input<ButtonMode>('primary');
 
+  click = output<boolean>();
   status = false;
 
   onClick($event: MouseEvent) {

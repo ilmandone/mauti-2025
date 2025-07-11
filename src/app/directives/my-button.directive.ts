@@ -1,12 +1,14 @@
 import { Directive, ElementRef, inject, input, OnInit } from '@angular/core';
 
+export type ButtonMode = 'primary' | 'secondary' | 'neutral';
+
 @Directive({
   selector: '[my-button]',
 })
 export class MyButtonDirective implements OnInit {
   private _nativeEl: HTMLButtonElement = inject(ElementRef)?.nativeElement;
 
-  mode = input<'primary' | 'secondary'>('primary');
+  mode = input<ButtonMode>('primary');
 
   ngOnInit() {
     this._applyClass();
