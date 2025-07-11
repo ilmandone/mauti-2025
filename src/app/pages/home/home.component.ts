@@ -12,6 +12,7 @@ import { PlayComponent } from '../../sections/play/play.component';
 import { BoringComponent } from '../../sections/boring/boring.component';
 import { FooterComponent } from '../../sections/footer/footer.component';
 import { CustomCursorComponent } from '@components/custom-cursor/custom-cursor.component';
+import { AudioService } from '../../shared/services/audio.service';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +34,7 @@ import { CustomCursorComponent } from '@components/custom-cursor/custom-cursor.c
 })
 export default class HomeComponent {
   private _state = inject(StateService);
+  audioSrv = inject(AudioService);
 
   isLoaded = signal<boolean>(false);
   isVisible = signal<boolean>(false);
