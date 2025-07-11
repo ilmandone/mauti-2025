@@ -27,4 +27,10 @@ export class AudioService {
       audio.src = fn;
     });
   }
+
+  play(soundKey: string) {
+    const sk = this._audioFiles.get(soundKey);
+    if (!sk) throw new Error(`No sound with ${sk}`);
+    void sk.play();
+  }
 }
