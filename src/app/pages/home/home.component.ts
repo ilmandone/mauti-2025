@@ -4,7 +4,7 @@ import { MainLoadingComponent } from '@components/main-loading/main-loading.comp
 import { fromEvent } from 'rxjs';
 import { HeaderComponent } from '../../sections/header/header.component';
 import { HelloComponent } from '../../sections/hello/hello.component';
-import { ViewportDirective } from '../../shared/directives/viewport.directive';
+import { ViewportDirective } from '../../directives/viewport.directive';
 import { IntroComponent } from '../../sections/intro/intro.component';
 import { WebDevelopmentComponent } from '../../sections/web-development/web-development.component';
 import { DesignComponent } from '../../sections/design/design.component';

@@ -40,7 +40,12 @@
   }
 
   .extra {
-    font-weight: 700;
+    display: flex;
+    
+    .version {
+      font-weight: 700;
+
+    }
   }
 }
 
