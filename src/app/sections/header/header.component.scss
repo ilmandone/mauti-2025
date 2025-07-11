@@ -41,7 +41,12 @@
 
   .extra {
     display: flex;
-    
+    align-items: center;
+
+    > *:not(:last-child) {
+      margin-right: 3vw;
+    }
+
     .version {
       font-weight: 700;
 
