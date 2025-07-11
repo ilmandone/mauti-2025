@@ -6,7 +6,7 @@ import { NgTemplateOutlet } from '@angular/common';
   selector: 'app-toggle-button',
   imports: [MyButtonDirective, NgTemplateOutlet],
   standalone: true,
-  template: ` <button my-button (click)="onClick($event)">
+  template: ` <button my-button mode="secondary" (click)="onClick($event)">
     @if (!status) {
       <ng-container *ngTemplateOutlet="offChild()"></ng-container>
     } @else {
