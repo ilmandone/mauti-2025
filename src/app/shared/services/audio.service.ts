@@ -5,7 +5,7 @@ import { Injectable, signal } from '@angular/core';
 })
 export class AudioService {
   private readonly AUDIO_FILES_FOLDER = 'audio/';
-  private readonly AUDIO_FILES_NAMES = ['click.mp3', 'click2.mp3', 'hover.mp3', 'jump.mp3', 'bg.mp3'];
+  private readonly AUDIO_FILES_NAMES = ['click.mp3', 'click2.mp3', 'hover.mp3', 'jump.mp3', 'jump2.mp3', 'bg.mp3'];
 
   private _audioFiles: Map<string, HTMLAudioElement> = new Map();
   private _loadedFiles = 0;
