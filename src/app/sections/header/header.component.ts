@@ -43,8 +43,13 @@ export class HeaderComponent implements AfterViewInit {
   toggleSound($event: boolean) {
     this._state.setSoundsOn($event);
 
-    if ($event) this._audio.play('click');
-    else this._audio.play('click2');
+    if ($event) {
+      this._audio.play('click');
+      this._audio.play('bg', true, 0.35);
+    } else {
+      this._audio.play('click2');
+      this._audio.pause('bg');
+    }
   }
 
   ngAfterViewInit() {

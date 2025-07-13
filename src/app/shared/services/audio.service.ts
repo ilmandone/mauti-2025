@@ -4,7 +4,9 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class AudioService {
-  private readonly AUDIO_FILES_NAMES = ['audio/click.mp3', 'audio/click2.mp3', 'audio/hover.mp3', 'audio/jump.mp3'];
+  private readonly AUDIO_FILES_FOLDER = 'audio/';
+  private readonly AUDIO_FILES_NAMES = ['click.mp3', 'click2.mp3', 'hover.mp3', 'jump.mp3', 'bg.mp3'];
+
   private _audioFiles: Map<string, HTMLAudioElement> = new Map();
   private _loadedFiles = 0;
 
@@ -15,7 +17,7 @@ export class AudioService {
 
     this.AUDIO_FILES_NAMES.forEach((fn) => {
       const audio = new Audio();
-      const name = fn.replace(/audio\/|.mp3/g, '');
+      const name = fn.replace(/.mp3/g, '');
 
       audio.addEventListener('loadeddata', () => {
         this._audioFiles.set(name, audio);
@@ -24,13 +26,32 @@ export class AudioService {
         if (this._loadedFiles === this.AUDIO_FILES_NAMES.length) this.loading.set('complete');
       });
 
-      audio.src = fn;
+      audio.src = this.AUDIO_FILES_FOLDER + fn;
     });
   }
 
-  play(soundKey: string) {
-    const sk = this._audioFiles.get(soundKey);
-    if (!sk) throw new Error(`No sound with ${sk}`);
-    void sk.play();
+  play(soundKey: string, loop = false, volume = 1) {
+    const ae = this._getAudioFromKey(soundKey);
+    ae.loop = loop;
+    ae.volume = volume;
+    void ae.play();
+  }
+
+  pause(soundKey: string, reset = false) {
+    const ae = this._getAudioFromKey(soundKey);
+    ae.pause();
+    if (reset) ae.currentTime = 0;
+  }
+
+  setVolume(soundKey: string, vol: number) {
+    const ae = this._getAudioFromKey(soundKey);
+    if (vol < 0 || vol > 1) console.error(`Wrong volume for ${ae}`);
+    ae.volume = vol;
+  }
+
+  private _getAudioFromKey(soundKey: string): HTMLAudioElement {
+    const ae = this._audioFiles.get(soundKey);
+    if (!ae) throw new Error(`No sound with ${ae}`);
+    return ae;
   }
 }
