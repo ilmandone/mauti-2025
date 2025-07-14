@@ -1,5 +1,5 @@
-import { Component, contentChild, input, output, TemplateRef } from '@angular/core';
-import { ButtonMode, MyButtonDirective } from '../../directives/my-button.directive';
+import { Component, contentChild, effect, input, output, TemplateRef } from '@angular/core';
+import { ButtonMode, MyButtonDirective } from '../../shared/directives/my-button.directive';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
@@ -20,9 +20,16 @@ export class ToggleButtonComponent {
   onChild = contentChild.required<TemplateRef<HTMLElement>>('on');
 
   mode = input<ButtonMode>('primary');
+  active = input<boolean>(false);
 
   click = output<boolean>();
-  status = false;
+  status!: boolean;
+
+  constructor() {
+    effect(() => {
+      this.status = this.active();
+    });
+  }
 
   onClick($event: MouseEvent) {
     $event.preventDefault();

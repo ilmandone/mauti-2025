@@ -1,5 +1,5 @@
 import { Directive, effect, ElementRef, inject, input, OnDestroy, OnInit, output } from '@angular/core';
-import { ObservableTypes, ViewportService } from '../shared/services/viewport.service';
+import { ObservableTypes, ViewportService } from '../services/viewport.service';
 
 @Directive({
   selector: '[in-viewport]',
