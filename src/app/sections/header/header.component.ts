@@ -45,7 +45,7 @@ export class HeaderComponent implements AfterViewInit {
 
     if ($event) {
       this._audio.play('click');
-      this._audio.play('bg', true, 0.35);
+      this._audio.play('bg', true, 0.45);
     } else {
       this._audio.play('click2');
       this._audio.pause('bg');
