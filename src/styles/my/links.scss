@@ -26,3 +26,9 @@
     }
   }
 }
+
+.my-links-small {
+  @extend .my-links;
+  padding: 0.25rem;
+  border-radius: 0.125rem;
+}
