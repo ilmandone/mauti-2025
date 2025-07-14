@@ -14,6 +14,7 @@
   --primary-color: #{c.$primary-color-light};
   --secondary-color: #{c.$secondary-color-light};
   --text-color: #{c.$text-color-light};
+  --text-color-light: #{c.$text-color-sec-light};
 
   // Set screen size value for js reference
   @each $breakpoint, $value in u.$screen-sizes {
