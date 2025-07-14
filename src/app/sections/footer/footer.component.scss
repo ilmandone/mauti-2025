@@ -5,16 +5,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
-
   margin-top: 40vh;
 
   @include c.sectionPadding;
 
-  p {
+  .huge {
     @include t.text-huge;
   }
 
   social-links {
     margin-top: 4vh;
+  }
+
+  .sound-credits {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-color-light);
   }
 }
