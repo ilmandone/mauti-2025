@@ -12,6 +12,7 @@ export class AudioService {
     'hover.mp3',
     'jump.mp3',
     'jump2.mp3',
+    'play.mp3',
     'bg.mp3',
   ];
 
