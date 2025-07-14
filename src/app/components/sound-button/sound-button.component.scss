@@ -1,0 +1,45 @@
+@use 'utils' as u;
+@use 'vars' as v;
+
+%sound {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--text-color);
+
+  transition: background-color v.$transition-time ease-in-out;
+}
+
+:host {
+  position: relative;
+  display: block;
+
+  .sound-off {
+    @extend %sound;
+    mask-image: url('/vectors/sound-off.svg');
+    mask-repeat: no-repeat;
+  }
+
+  .sound-on {
+    @extend %sound;
+    mask-image: url('/vectors/sound-on.svg');
+    mask-repeat: repeat;
+    mask-position: 1.25rem;
+    animation: sound-on-loop v.$transition-time-long * 2 linear infinite;
+  }
+
+  @include u.media('mouse') {
+    &:hover {
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+@keyframes sound-on-loop {
+  from {
+    mask-position: 0;
+  }
+
+  to {
+    mask-position: 1.25rem
+  }
+}

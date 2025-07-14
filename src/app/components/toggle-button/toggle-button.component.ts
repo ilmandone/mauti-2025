@@ -1,4 +1,4 @@
-import { Component, contentChild, effect, input, output, TemplateRef } from '@angular/core';
+import { Component, contentChild, effect, input, model, TemplateRef } from '@angular/core';
 import { ButtonMode, MyButtonDirective } from '../../shared/directives/my-button.directive';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -20,9 +20,8 @@ export class ToggleButtonComponent {
   onChild = contentChild.required<TemplateRef<HTMLElement>>('on');
 
   mode = input<ButtonMode>('primary');
-  active = input<boolean>(false);
+  active = model<boolean>(false);
 
-  click = output<boolean>();
   status!: boolean;
 
   constructor() {
@@ -36,6 +35,6 @@ export class ToggleButtonComponent {
     $event.stopPropagation();
 
     this.status = !this.status;
-    this.click.emit(this.status);
+    this.active.set(this.status);
   }
 }
