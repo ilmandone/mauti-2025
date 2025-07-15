@@ -14,11 +14,8 @@
     @include t.text-huge;
   }
 
-  social-links {
-    margin-top: 4vh;
-  }
-
   .secondaries {
+    margin-top: 4vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
