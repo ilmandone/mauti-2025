@@ -1,3 +1,4 @@
+@use "commons" as c;
 @use "utils" as u;
 @use "vars" as v;
 
@@ -20,9 +21,8 @@
       color: var(--bg-color);
     }
 
-    &:focus {
-      outline: 0.25rem solid var(--primary-color);
-      outline-offset: 0.125rem;
+    .key-navigation &:focus {
+      @include c.outlines;
     }
   }
 }

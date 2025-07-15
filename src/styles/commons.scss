@@ -1,9 +1,17 @@
 @use 'utils' as u;
 
+// Spaces
+
 $padding: 4vw;
 
 @mixin sectionPadding() {
   padding: $padding * 2 $padding $padding;
 
   @include u.media('')
+}
+
+// Outlines
+@mixin outlines() {
+  outline: 0.25rem solid var(--primary-color);
+  outline-offset: 0.125rem;
 }
