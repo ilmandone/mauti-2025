@@ -1,4 +1,4 @@
-import { Component, effect, inject, output, signal } from '@angular/core';
+import { Component, effect, inject, output } from '@angular/core';
 import { ToggleButtonComponent } from '@components/toggle-button/toggle-button.component';
 import { StateService } from '../../shared/services/state.service';
 import { AudioService } from '../../shared/services/audio.service';
@@ -10,17 +10,15 @@ import { AudioService } from '../../shared/services/audio.service';
   styleUrl: './sound-button.component.scss',
 })
 export class SoundButtonComponent {
-  private _state = inject(StateService);
+  state = inject(StateService);
   private _audio = inject(AudioService);
 
   change = output<boolean>();
 
-  soundOn = signal<boolean>(false);
-
   constructor() {
     effect(() => {
-      const sOn = this.soundOn();
-      this._state.setSoundsOn(sOn);
+      const sOn = this.state.soundsOn();
+      this.state.setSoundsOn(sOn);
 
       if (sOn) {
         this._audio.play('click');
