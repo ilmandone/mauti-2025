@@ -19,7 +19,7 @@
       color: var(--bg-color);
     }
 
-    &:focus {
+    .key-navigation &:focus {
       outline: 0.25rem solid var(--primary-color);
       outline-offset: 0.125rem;
     }
