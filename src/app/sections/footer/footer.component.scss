@@ -15,12 +15,18 @@
   }
 
   social-links {
-    margin-top: 1.5vh;
+    margin-top: 4vh;
+  }
+
+  .secondaries {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .sound-credits {
     padding: 0 0.25rem;
-    margin-top: 4rem;
+    margin-top: 1rem;
     font-size: 0.875rem;
     color: var(--text-color-light);
   }
