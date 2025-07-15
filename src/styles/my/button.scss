@@ -1,0 +1,47 @@
+@use "commons" as c;
+@use "utils" as u;
+@use "vars" as v;
+
+%my-button {
+  font-weight: 700;
+
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+
+  @include u.media('mouse') {
+
+    transition-property: background-color, color;
+    transition-duration: v.$transition-time;
+    transition-timing-function: ease-in-out;
+
+    &:hover,
+    &:active {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
+
+    .key-navigation &:focus {
+      @include c.outlines;
+    }
+  }
+}
+
+.my-button {
+  &--primary {
+    @extend %my-button;
+    color: var(--bg-color);
+    background-color: var(--text-color);
+  }
+
+  &--secondary {
+    @extend %my-button;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+  }
+
+  &--neutral {
+    @extend %my-button;
+    color: var(--text-color);
+    background-color: transparent;
+  }
+}

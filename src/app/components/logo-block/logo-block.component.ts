@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, inject, input, NgZone, viewChildren } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { animate, createTimeline, onScroll } from 'animejs';
+import { AudioService } from '../../shared/services/audio.service';
+import { StateService } from '../../shared/services/state.service';
 
 @Component({
   selector: 'app-logo-block',
@@ -10,6 +12,8 @@ import { animate, createTimeline, onScroll } from 'animejs';
 })
 export class LogoBlockComponent implements AfterViewInit {
   private _ngZone = inject(NgZone);
+  private _audio = inject(AudioService);
+  private _state = inject(StateService);
   private _pics = viewChildren<ElementRef<HTMLElement>>('pic');
 
   parent = input<ElementRef>();
@@ -23,6 +27,7 @@ export class LogoBlockComponent implements AfterViewInit {
         { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
         { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
       ],
+      onComplete: () => this._playJump(),
     });
 
     const pic2anim = animate(pics[1], {
@@ -31,6 +36,7 @@ export class LogoBlockComponent implements AfterViewInit {
         { clipPath: 'polygon(0 0, 100% 0, 100% 0%, 0 0)' },
         { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
       ],
+      onComplete: () => this._playJump(),
     });
 
     createTimeline({
@@ -43,6 +49,12 @@ export class LogoBlockComponent implements AfterViewInit {
     })
       .sync(pic1anim, 0)
       .sync(pic2anim, 1000);
+  }
+
+  private _playJump() {
+    if (this._state.soundsOn()) {
+      this._audio.play('jump2');
+    }
   }
 
   ngAfterViewInit() {

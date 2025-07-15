@@ -6,10 +6,12 @@ import { socialTextMap } from '@components/social-links/social_links.data';
   selector: 'social-links',
   imports: [],
   template: `
-    <a href="https://t.me/Aman1975" target="_blank">{{ currentTextMap.get('te') }}</a>
-    <a href="mailto:info@mauti.it" target="_blank">&#64;</a>
-    <a href="https://www.behance.net/mandinia" target="_blank">{{ currentTextMap.get('be') }}</a>
-    <a href="https://www.instagram.com/andreamandini/" target="_blank">{{ currentTextMap.get('l') }}</a>
+    <a class="my-links" href="https://t.me/Aman1975" target="_blank">{{ currentTextMap.get('te') }}</a>
+    <a class="my-links" href="mailto:info@mauti.it" target="_blank">&#64;</a>
+    <a class="my-links" href="https://www.behance.net/mandinia" target="_blank">{{ currentTextMap.get('be') }}</a>
+    <a class="my-links" href="https://www.instagram.com/andreamandini/" target="_blank">{{
+      currentTextMap.get('l')
+    }}</a>
   `,
   styles: `
     :host {

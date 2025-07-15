@@ -1,0 +1,34 @@
+@use "commons" as c;
+@use "utils" as u;
+@use "vars" as v;
+
+.my-links {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+
+  font-weight: 700;
+  color: var(--text-color);
+  text-decoration: underline;
+
+  @include u.media('mouse') {
+
+    transition-property: background-color, color;
+    transition-duration: v.$transition-time;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+    }
+
+    .key-navigation &:focus {
+      @include c.outlines;
+    }
+  }
+}
+
+.my-links-small {
+  @extend .my-links;
+  padding: 0.25rem;
+  border-radius: 0.125rem;
+}

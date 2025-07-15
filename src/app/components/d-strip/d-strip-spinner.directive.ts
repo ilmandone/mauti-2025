@@ -3,11 +3,13 @@ import { fromEvent } from 'rxjs';
 import { StateService } from '../../shared/services/state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { waapi, WAAPIAnimation } from 'animejs';
+import { AudioService } from '../../shared/services/audio.service';
 
 @Directive({
   selector: '[appDStripSpinner]',
 })
 export class DStripSpinnerDirective implements OnInit {
+  private _audio = inject(AudioService);
   private _state = inject(StateService);
   private _elRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _destroyRef = inject(DestroyRef);
@@ -24,6 +26,11 @@ export class DStripSpinnerDirective implements OnInit {
   ngOnInit() {
     if (!this._state.isTouch) {
       this._pointerEnter.subscribe(() => {
+        if (this._state.soundsOn()) {
+          this._audio.pause('hover', true);
+          this._audio.play('hover');
+        }
+
         this._waapi = waapi.animate(this.target(), {
           duration: 1000,
           rotateY: 720,

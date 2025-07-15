@@ -1,4 +1,4 @@
-@defer () {
+@defer (when audioSrv.loading() === 'complete') {
 
   @if (this.isVisible()) {
     <header section></header>

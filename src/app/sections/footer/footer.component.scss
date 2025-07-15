@@ -1,20 +1,30 @@
-@use '../../../styles/commons' as c;
-@use '../../../styles/typo' as t;
+@use 'commons' as c;
+@use 'typo' as t;
+@use 'utils' as u;
 
 :host {
   position: relative;
   display: flex;
   flex-direction: column;
-
   margin-top: 40vh;
 
   @include c.sectionPadding;
 
-  p {
+  .huge {
     @include t.text-huge;
   }
 
-  social-links {
+  .secondaries {
     margin-top: 4vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sound-credits {
+    padding: 0 0.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-color-light);
   }
 }
