@@ -10,5 +10,8 @@
       }
     </style>
   </defs>
-  <line class="cls-1" x1="-1" y1="32" x2="64" y2="32"/>
+  <line class="cls-1" y1="32" x2="13" y2="32"/>
+  <line class="cls-1" x1="17" y1="32" x2="30" y2="32"/>
+  <line class="cls-1" x1="34" y1="32" x2="47" y2="32"/>
+  <line class="cls-1" x1="51" y1="32" x2="64" y2="32"/>
 </svg>
