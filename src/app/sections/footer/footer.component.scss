@@ -27,4 +27,28 @@
     font-size: 0.875rem;
     color: var(--text-color-light);
   }
+
+  .emoticon {
+    margin-bottom: 2.5vh;
+    font-size: 12vw;
+  }
+
+  @include u.media("t") {
+    .emoticon {
+      font-size: 5.5vw;
+    }
+  }
+
+  @include u.media("tl") {
+    .emoticon {
+      font-size: 4.5vw;
+      margin-bottom: 4vh;
+    }
+  }
+
+  @include u.media("dl") {
+    .emoticon {
+      font-size: 3vw;
+    }
+  }
 }
