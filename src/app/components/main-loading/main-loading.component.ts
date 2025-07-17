@@ -1,19 +1,14 @@
 import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EmoticonComponent } from '@components/emoticon/emoticon.component';
 
 @Component({
   selector: 'app-main-loading',
-  imports: [],
+  imports: [EmoticonComponent],
   template: `
     <h1>
-      <span class="sec">\\(</span>
-      @if (running()) {
-        <span class="primary">^Д^</span>
-      } @else {
-        <span class="primary">°Д°</span>
-      }
-      <span class="sec">)/</span>
+      <app-emoticon [eyesOpen]="!running()" />
     </h1>
 
     <div class="progress-wrapper" [class.hidden]="!running()">
