@@ -1,0 +1,25 @@
+:host {
+  position: relative;
+  display: block;
+
+  font-weight: 500;
+  text-transform: uppercase;
+
+  .primary {
+    color: var(--primary-color);
+  }
+
+  .secondary {
+    color: var(--secondary-color);
+  }
+
+  .eye {
+    display: inline-block;
+    transform-origin: center 30%;
+  }
+
+  .hand {
+    display: inline-block;
+    transform-origin: bottom left;
+  }
+}
