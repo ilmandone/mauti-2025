@@ -45,9 +45,6 @@ export class EmoticonComponent {
       .add(eyesElements, {
         delay: 1500,
         duration: 400,
-        onUpdate: () => {
-          console.log('eye update');
-        },
         keyframes: [
           { scaleY: 0.15, scaleX: 0.75 },
           { scaleY: 1, scaleX: 1 },
