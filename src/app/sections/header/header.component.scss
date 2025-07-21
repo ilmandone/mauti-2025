@@ -47,6 +47,30 @@
     > *:not(:last-child) {
       margin-right: 3vw;
     }
+    
+    .sound-message {
+      display: none;
+
+      @include t.mini-text;
+
+      @include u.media('mouse') {
+        display: flex;
+        align-items: center;
+        height: 1.5rem;
+
+        margin-right: 0.25rem;
+        padding: 0 0.5rem;
+        border-radius: 0.25rem;
+
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+
+        text-align: right;
+        white-space: nowrap;
+
+
+      }
+    }
 
     .version {
       font-weight: 700;
