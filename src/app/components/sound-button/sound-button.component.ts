@@ -10,15 +10,14 @@ import { AudioService } from '../../shared/services/audio.service';
   styleUrl: './sound-button.component.scss',
 })
 export class SoundButtonComponent {
-  state = inject(StateService);
   private _audio = inject(AudioService);
+  state = inject(StateService);
 
   change = output<boolean>();
 
   constructor() {
     effect(() => {
       const sOn = this.state.soundsOn();
-      this.state.setSoundsOn(sOn);
 
       if (sOn) {
         this._audio.play('click');
@@ -28,5 +27,10 @@ export class SoundButtonComponent {
         this._audio.pause('bg');
       }
     });
+  }
+
+  activeChanged($event: boolean) {
+    this.state.setSoundsOn($event);
+    this.change.emit($event);
   }
 }
