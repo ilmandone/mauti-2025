@@ -30,3 +30,8 @@
     line-height: 2.75rem;
   }
 }
+
+@mixin mini-text() {
+  @include text-primary;
+  font-size: 0.75rem;
+}
