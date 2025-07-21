@@ -9,7 +9,10 @@ import { SoundButtonComponent } from '@components/sound-button/sound-button.comp
   template: `
     <social-links />
     <div class="extra">
-      <app-sound-button />
+      @if (!state.soundsOn() && this.showSoundMessage) {
+        <div class="sound-message">CLICK FOR SOUND</div>
+      }
+      <app-sound-button (change)="soundButtonClicked($event)" />
       <div class="version">1.3 - SOUNDS</div>
     </div>
   `,
@@ -17,14 +20,19 @@ import { SoundButtonComponent } from '@components/sound-button/sound-button.comp
   imports: [SocialLinksComponent, SoundButtonComponent],
 })
 export class HeaderComponent implements AfterViewInit {
-  private _state = inject(StateService);
+  state = inject(StateService);
+  showSoundMessage = true;
 
   @HostBinding('class.ready')
   ready = false;
 
   @HostBinding('class.hidden')
   get atBottom() {
-    return this._state.atBottom() || !this.ready;
+    return this.state.atBottom() || !this.ready;
+  }
+
+  soundButtonClicked($event: boolean) {
+    if ($event && this.showSoundMessage) this.showSoundMessage = false;
   }
 
   ngAfterViewInit() {

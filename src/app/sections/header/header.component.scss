@@ -48,6 +48,42 @@
       margin-right: 3vw;
     }
 
+    .sound-message {
+      position: relative;
+      display: none;
+
+      &:before {
+        content: '';
+
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: var(--text-color);
+
+        width: 0.5rem;
+        height: 0.5rem;
+
+        transform: translate(50%, 0.5rem) rotate(45deg);
+      }
+
+      @include t.mini-text;
+      @include u.media('mouse') {
+        display: flex;
+        align-items: center;
+        height: 1.5rem;
+
+        margin-right: 0.75rem;
+        padding: 0 0.5rem;
+        border-radius: 0.25rem;
+
+        background-color: var(--text-color);
+        color: var(--bg-color);
+
+        text-align: right;
+        white-space: nowrap;
+      }
+    }
+
     .version {
       font-weight: 700;
     }
