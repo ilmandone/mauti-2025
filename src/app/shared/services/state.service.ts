@@ -8,7 +8,7 @@ export class StateService {
   private _atTop = signal<boolean>(true);
   private _isTouch = navigator.maxTouchPoints !== 0;
   private _soundsOn = signal<boolean>(false);
-  private _soundsActivatedAtLastOnce = signal<boolean>(false);
+  private _soundPlaysAtLastOnce = signal<boolean>(false);
 
   //#region Getters
 
@@ -28,8 +28,8 @@ export class StateService {
     return this._soundsOn.asReadonly();
   }
 
-  get soundsActivatedAtLastOnce() {
-    return this._soundsActivatedAtLastOnce.asReadonly();
+  get soundPlaysAtLastOnce() {
+    return this._soundPlaysAtLastOnce.asReadonly();
   }
 
   //#endregion
@@ -45,11 +45,8 @@ export class StateService {
   }
 
   setSoundsOn(v: boolean) {
+    if (v && !this.soundPlaysAtLastOnce()) this._soundPlaysAtLastOnce.set(true);
     this._soundsOn.set(v);
-  }
-
-  setSoundsActivatedAtLastOnce(v: boolean) {
-    this._soundsActivatedAtLastOnce.set(v);
   }
 
   //#endregion
