@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { StateService } from '../../shared/services/state.service';
 import { MainLoadingComponent } from '@components/main-loading/main-loading.component';
 import { fromEvent } from 'rxjs';
@@ -38,6 +38,11 @@ export default class HomeComponent {
 
   isLoaded = signal<boolean>(false);
   isVisible = signal<boolean>(false);
+
+  cursorText = computed(() => {
+    const at = this._state.atTop();
+    return at ? 'CLICK FOR SOUND' : undefined;
+  });
 
   constructor() {
     effect(() => {

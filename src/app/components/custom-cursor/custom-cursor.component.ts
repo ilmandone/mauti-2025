@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostBinding,
   inject,
+  input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -39,8 +40,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private _angle = 0;
   private _minDistance = 48;
 
+  text = input<string>();
+
   visible = false;
-  text!: string;
   textState: 'normal' | 'shrunk' = 'shrunk';
 
   @ViewChild('content', { read: ElementRef }) private _content!: ElementRef<HTMLElement>;
@@ -49,11 +51,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      const isAtTop = this._state.atTop();
-
-      this._minDistance = isAtTop ? 48 : 0;
-      this.hasBlendedClass = !isAtTop;
-      this.textState = isAtTop ? 'normal' : 'shrunk';
+      this._minDistance = this.text() ? 48 : 0;
+      this.hasBlendedClass = !!this.text();
+      this.textState = this.text() ? 'normal' : 'shrunk';
     });
   }
 
@@ -96,7 +96,6 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
         });
 
       this._raf = requestAnimationFrame(this._update.bind(this));
-      this.text = 'SCROLL';
     }
   }
 
