@@ -18,7 +18,7 @@ export class SoundButtonComponent {
   constructor() {
     effect(() => {
       const sOn = this.state.soundsOn();
-      if (sOn === null) return;
+      if (sOn === undefined) return;
       this._audio.exec(sOn ? 'click' : 'click2');
     });
   }

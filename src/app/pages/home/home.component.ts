@@ -54,11 +54,20 @@ export default class HomeComponent {
     this._setupLoadingEffect();
   }
 
+  /**
+   * Update atBottom and atTop states
+   * @param section
+   * @param $event
+   */
   inPageChange(section: 'top' | 'bottom', $event: boolean) {
     if (section === 'top') this._state.setAtTop($event);
     else this._state.setAtBottom($event);
   }
 
+  /**
+   * On load end start the out animation
+   * @private
+   */
   private _setupLoadingEffect() {
     effect(() => {
       const loaded = this.isLoaded();

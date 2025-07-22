@@ -40,7 +40,8 @@ export class AudioService {
   constructor() {
     effect(() => {
       const soundsOn = this._state.soundsOn();
-      if (soundsOn === null) return;
+      if (soundsOn === undefined) return;
+
       this.exec('bg', !soundsOn ? 'pause' : 'play', { loop: true, volume: 0.65 });
     });
   }
