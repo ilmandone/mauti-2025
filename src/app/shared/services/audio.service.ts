@@ -1,9 +1,20 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { StateService } from './state.service';
+
+export interface AudioOptions {
+  reset?: boolean;
+  loop?: boolean;
+  volume?: number;
+}
+
+export type AudioActions = 'play' | 'pause';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AudioService {
+  private readonly _state = inject(StateService);
+
   private readonly AUDIO_FILES_FOLDER = 'audio/';
   private readonly AUDIO_FILES_NAMES = [
     'click.mp3',
@@ -15,11 +26,25 @@ export class AudioService {
     'play.mp3',
     'bg.mp3',
   ];
+  private readonly AUDIO_DEFAULT_OPTIONS: Required<AudioOptions> = {
+    loop: false,
+    volume: 1,
+    reset: false,
+  };
 
   private _audioFiles: Map<string, HTMLAudioElement> = new Map();
   private _loadedFiles = 0;
 
   loading = signal<'no' | 'running' | 'complete'>('no');
+
+  constructor() {
+    effect(() => {
+      const soundsOn = this._state.soundsOn();
+      if (soundsOn === undefined) return;
+
+      this.exec('bg', !soundsOn ? 'pause' : 'play', { loop: true, volume: 0.65 });
+    });
+  }
 
   load() {
     this.loading.set('running');
@@ -39,25 +64,22 @@ export class AudioService {
     });
   }
 
-  play(soundKey: string, loop = false, volume = 1) {
+  exec(soundKey: string, action: AudioActions = 'play', options?: AudioOptions) {
+    const opt: Required<AudioOptions> = { ...this.AUDIO_DEFAULT_OPTIONS, ...options };
+
     const ae = this._getAudioFromKey(soundKey);
-    ae.loop = loop;
-    ae.volume = volume;
-    void ae.play();
+    ae.loop = opt.loop;
+    ae.volume = opt.volume;
+    if (opt.reset) ae.currentTime = 0;
+
+    void ae[action]();
   }
 
-  pause(soundKey: string, reset = false) {
-    const ae = this._getAudioFromKey(soundKey);
-    ae.pause();
-    if (reset) ae.currentTime = 0;
-  }
-
-  setVolume(soundKey: string, vol: number) {
-    const ae = this._getAudioFromKey(soundKey);
-    if (vol < 0 || vol > 1) console.error(`Wrong volume for ${ae}`);
-    ae.volume = vol;
-  }
-
+  /**
+   * Return a audio element from the map by key
+   * @param soundKey
+   * @private
+   */
   private _getAudioFromKey(soundKey: string): HTMLAudioElement {
     const ae = this._audioFiles.get(soundKey);
     if (!ae) throw new Error(`No sound with ${ae}`);

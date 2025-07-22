@@ -35,7 +35,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (p !== this._progress) {
               this._progress = p;
-              this._audio.play('click3');
+              this._audio.exec('click3');
             }
           }
           console.log();

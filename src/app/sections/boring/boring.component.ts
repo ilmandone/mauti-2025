@@ -52,7 +52,7 @@ export class BoringComponent implements AfterViewInit {
         duration: 2500,
         onBegin: () => {
           if (this._state.soundsOn()) {
-            this._audio.play('click2');
+            this._audio.exec('click2');
           }
         },
       });

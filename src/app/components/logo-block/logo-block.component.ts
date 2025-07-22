@@ -53,7 +53,7 @@ export class LogoBlockComponent implements AfterViewInit {
 
   private _playJump() {
     if (this._state.soundsOn()) {
-      this._audio.play('jump2');
+      this._audio.exec('jump2');
     }
   }
 

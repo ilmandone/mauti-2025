@@ -18,14 +18,8 @@ export class SoundButtonComponent {
   constructor() {
     effect(() => {
       const sOn = this.state.soundsOn();
-
-      if (sOn) {
-        this._audio.play('click');
-        this._audio.play('bg', true, 0.65);
-      } else {
-        this._audio.play('click2');
-        this._audio.pause('bg');
-      }
+      if (sOn === undefined) return;
+      this._audio.exec(sOn ? 'click' : 'click2');
     });
   }
 

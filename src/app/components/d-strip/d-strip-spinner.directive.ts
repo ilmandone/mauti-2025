@@ -27,8 +27,7 @@ export class DStripSpinnerDirective implements OnInit {
     if (!this._state.isTouch) {
       this._pointerEnter.subscribe(() => {
         if (this._state.soundsOn()) {
-          this._audio.pause('hover', true);
-          this._audio.play('hover');
+          this._audio.exec('hover', 'play', { reset: true });
         }
 
         this._waapi = waapi.animate(this.target(), {

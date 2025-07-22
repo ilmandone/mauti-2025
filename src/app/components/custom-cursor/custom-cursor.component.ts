@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostBinding,
   inject,
+  input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -28,6 +29,7 @@ interface Coords {
 })
 export class CustomCursorComponent implements OnInit, OnDestroy {
   private readonly EASING_FACTOR = 40;
+  private readonly MIN_DISTANCE_FOR_TEXT = 72;
 
   private _destroyRef = inject(DestroyRef);
   private _element = inject(ElementRef);
@@ -37,10 +39,11 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private _targetCoords: Coords = { x: window.innerWidth / 2, y: -100 };
   private _currentCoords: Coords = { x: window.innerWidth / 2, y: -100 };
   private _angle = 0;
-  private _minDistance = 48;
+  private _minDistance!: number;
+
+  text = input<string>();
 
   visible = false;
-  text!: string;
   textState: 'normal' | 'shrunk' = 'shrunk';
 
   @ViewChild('content', { read: ElementRef }) private _content!: ElementRef<HTMLElement>;
@@ -49,11 +52,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      const isAtTop = this._state.atTop();
-
-      this._minDistance = isAtTop ? 48 : 0;
-      this.hasBlendedClass = !isAtTop;
-      this.textState = isAtTop ? 'normal' : 'shrunk';
+      this._minDistance = this.text() ? this.MIN_DISTANCE_FOR_TEXT : 0;
+      this.hasBlendedClass = !!this.text();
+      this.textState = this.text() ? 'normal' : 'shrunk';
     });
   }
 
@@ -96,7 +97,6 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
         });
 
       this._raf = requestAnimationFrame(this._update.bind(this));
-      this.text = 'SCROLL';
     }
   }
 
