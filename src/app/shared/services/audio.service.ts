@@ -1,9 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AudioService {
+  private readonly _state = inject(StateService);
+
   private readonly AUDIO_FILES_FOLDER = 'audio/';
   private readonly AUDIO_FILES_NAMES = [
     'click.mp3',
@@ -20,6 +23,15 @@ export class AudioService {
   private _loadedFiles = 0;
 
   loading = signal<'no' | 'running' | 'complete'>('no');
+
+  constructor() {
+    effect(() => {
+      const soundsOn = this._state.soundsOn();
+
+      if (soundsOn) this.play('bg', true, 0.65);
+      else this.pause('bg');
+    });
+  }
 
   load() {
     this.loading.set('running');
@@ -39,17 +51,17 @@ export class AudioService {
     });
   }
 
+  pause(soundKey: string, reset = false) {
+    const ae = this._getAudioFromKey(soundKey);
+    ae.pause();
+    if (reset) ae.currentTime = 0;
+  }
+
   play(soundKey: string, loop = false, volume = 1) {
     const ae = this._getAudioFromKey(soundKey);
     ae.loop = loop;
     ae.volume = volume;
     void ae.play();
-  }
-
-  pause(soundKey: string, reset = false) {
-    const ae = this._getAudioFromKey(soundKey);
-    ae.pause();
-    if (reset) ae.currentTime = 0;
   }
 
   setVolume(soundKey: string, vol: number) {
@@ -58,6 +70,11 @@ export class AudioService {
     ae.volume = vol;
   }
 
+  /**
+   * Return a audio element from the map by key
+   * @param soundKey
+   * @private
+   */
   private _getAudioFromKey(soundKey: string): HTMLAudioElement {
     const ae = this._audioFiles.get(soundKey);
     if (!ae) throw new Error(`No sound with ${ae}`);

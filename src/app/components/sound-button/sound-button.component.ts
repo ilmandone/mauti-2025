@@ -21,10 +21,8 @@ export class SoundButtonComponent {
 
       if (sOn) {
         this._audio.play('click');
-        this._audio.play('bg', true, 0.65);
       } else {
         this._audio.play('click2');
-        this._audio.pause('bg');
       }
     });
   }
