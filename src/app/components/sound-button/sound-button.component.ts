@@ -24,6 +24,7 @@ export class SoundButtonComponent {
   }
 
   activeChanged($event: boolean) {
+    if (!this.state.soundsActivatedAtLastOnce()) this.state.setSoundsActivatedAtLastOnce(true);
     this.state.setSoundsOn($event);
     this.change.emit($event);
   }

@@ -25,8 +25,9 @@ export class HeaderComponent implements AfterViewInit {
   showSoundMessage = computed(() => {
     const at = this.state.atTop();
     const sOn = this.state.soundsOn();
+    const sOnOnce = this.state.soundsActivatedAtLastOnce();
 
-    return !sOn && !at;
+    return !sOn && !at && !sOnOnce;
   });
 
   @HostBinding('class.ready')

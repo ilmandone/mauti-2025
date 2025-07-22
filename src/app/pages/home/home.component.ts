@@ -41,7 +41,8 @@ export default class HomeComponent {
 
   cursorText = computed(() => {
     const at = this._state.atTop();
-    return at ? 'CLICK FOR SOUND' : undefined;
+    const sOn = this._state.soundsOn();
+    return at && !sOn && !this._state.soundsActivatedAtLastOnce() ? 'CLICK FOR SOUND' : undefined;
   });
 
   constructor() {
