@@ -3,6 +3,7 @@ import { SocialLinksComponent } from '@components/social-links/social-links.comp
 import { StateService } from '../../shared/services/state.service';
 import { INTRO_DELAY_TIME } from '../../shared/commons';
 import { SoundButtonComponent } from '@components/sound-button/sound-button.component';
+import { soundMsgAnimation } from './header.animation';
 
 @Component({
   selector: 'header[section]',
@@ -10,7 +11,7 @@ import { SoundButtonComponent } from '@components/sound-button/sound-button.comp
     <social-links />
     <div class="extra">
       @if (!state.soundsOn() && this.showSoundMessage()) {
-        <div class="sound-message">CLICK FOR SOUND</div>
+        <div [@soundMsgAnimation] class="sound-message">CLICK FOR SOUND</div>
       }
       <app-sound-button />
       <div class="version">1.3 - SOUNDS</div>
@@ -18,6 +19,7 @@ import { SoundButtonComponent } from '@components/sound-button/sound-button.comp
   `,
   styleUrl: './header.component.scss',
   imports: [SocialLinksComponent, SoundButtonComponent],
+  animations: [soundMsgAnimation],
 })
 export class HeaderComponent implements AfterViewInit {
   state = inject(StateService);
