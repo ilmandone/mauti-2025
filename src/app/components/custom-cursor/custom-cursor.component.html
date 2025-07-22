@@ -1,6 +1,9 @@
 @if (visible) {
   <div #content class="content">
-    <p [@shrinkAnimation]="textState" class="text">{{ text() }}</p>
+    @if (textState === 'normal') {
+      <p [@shrinkAnimation] class="text">{{ text() }}</p>
+    }
+
   </div>
 }
 

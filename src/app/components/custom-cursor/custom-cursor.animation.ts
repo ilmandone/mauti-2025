@@ -1,21 +1,34 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export const shrinkAnimation = trigger('shrinkAnimation', [
-  state(
-    'normal',
-    style({
-      height: '*',
-      width: '*',
-      transform: 'scale(1)',
-    })
-  ),
-  state(
-    'shrunk',
+  transition(':enter', [
     style({
       height: '0.15rem',
       width: '0.15rem',
       transform: 'scale(0)',
-    })
-  ),
-  transition('normal <=> shrunk', [animate('0.222s ease-in-out')]),
+    }),
+    animate(
+      '222ms ease-in-out',
+      style({
+        height: '*',
+        width: '*',
+        transform: 'scale(1)',
+      })
+    ),
+  ]),
+  transition(':leave', [
+    style({
+      height: '*',
+      width: '*',
+      transform: 'scale(1)',
+    }),
+    animate(
+      '222ms ease-in-out',
+      style({
+        height: '0.15rem',
+        width: '0.15rem',
+        transform: 'scale(0)',
+      })
+    ),
+  ]),
 ]);
