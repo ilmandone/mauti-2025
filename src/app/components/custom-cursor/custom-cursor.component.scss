@@ -24,10 +24,10 @@
     transform: translate(-50%, -50%);
     overflow: hidden;
 
-
     .text {
       text-align: center;
       color: var(--bg-color) !important;
+      white-space: nowrap;
 
       @include t.mini-text;
 
