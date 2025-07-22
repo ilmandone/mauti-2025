@@ -1,4 +1,4 @@
-<app-toggle-button [active]="state.soundsOn()" mode="neutral" (activeChange)="activeChanged($event)">
+<app-toggle-button [active]="!!state.soundsOn()" mode="neutral" (activeChange)="activeChanged($event)">
   <ng-template #off>
     <div class="sound sound--off"></div>
   </ng-template>
