@@ -29,6 +29,7 @@ interface Coords {
 })
 export class CustomCursorComponent implements OnInit, OnDestroy {
   private readonly EASING_FACTOR = 40;
+  private readonly MIN_DISTANCE_FOR_TEXT = 72;
 
   private _destroyRef = inject(DestroyRef);
   private _element = inject(ElementRef);
@@ -38,7 +39,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private _targetCoords: Coords = { x: window.innerWidth / 2, y: -100 };
   private _currentCoords: Coords = { x: window.innerWidth / 2, y: -100 };
   private _angle = 0;
-  private _minDistance = 48;
+  private _minDistance!: number;
 
   text = input<string>();
 
@@ -51,7 +52,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      this._minDistance = this.text() ? 48 : 0;
+      this._minDistance = this.text() ? this.MIN_DISTANCE_FOR_TEXT : 0;
       this.hasBlendedClass = !!this.text();
       this.textState = this.text() ? 'normal' : 'shrunk';
     });

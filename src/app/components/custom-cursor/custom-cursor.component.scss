@@ -1,3 +1,4 @@
+@use 'typo' as t;
 @use 'vars' as v;
 
 :host {
@@ -21,13 +22,14 @@
     background-color: var(--primary-color);
 
     transform: translate(-50%, -50%);
-
     overflow: hidden;
 
 
     .text {
       text-align: center;
-      color: var(--bg-color);
+      color: var(--bg-color) !important;
+
+      @include t.mini-text;
 
       transition-property: transform;
       transform-origin: center;
