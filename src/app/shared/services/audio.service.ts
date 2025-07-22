@@ -75,12 +75,6 @@ export class AudioService {
     void ae[action]();
   }
 
-  setVolume(soundKey: string, vol: number) {
-    const ae = this._getAudioFromKey(soundKey);
-    if (vol < 0 || vol > 1) console.error(`Wrong volume for ${ae}`);
-    ae.volume = vol;
-  }
-
   /**
    * Return a audio element from the map by key
    * @param soundKey
