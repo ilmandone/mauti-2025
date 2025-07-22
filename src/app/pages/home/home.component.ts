@@ -1,7 +1,7 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { StateService } from '../../shared/services/state.service';
 import { MainLoadingComponent } from '@components/main-loading/main-loading.component';
-import { fromEvent } from 'rxjs';
+import { filter, fromEvent, takeUntil } from 'rxjs';
 import { HeaderComponent } from '../../sections/header/header.component';
 import { HelloComponent } from '../../sections/hello/hello.component';
 import { ViewportDirective } from '../../shared/directives/viewport.directive';
@@ -13,6 +13,7 @@ import { BoringComponent } from '../../sections/boring/boring.component';
 import { FooterComponent } from '../../sections/footer/footer.component';
 import { CustomCursorComponent } from '@components/custom-cursor/custom-cursor.component';
 import { AudioService } from '../../shared/services/audio.service';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +34,7 @@ import { AudioService } from '../../shared/services/audio.service';
   styleUrl: './home.component.scss',
 })
 export default class HomeComponent {
+  private _destroyRef = inject(DestroyRef);
   private _state = inject(StateService);
   audioSrv = inject(AudioService);
 
@@ -48,6 +50,16 @@ export default class HomeComponent {
   });
 
   constructor() {
+    this._setupPointerEventListener();
+    this._setupLoadingEffect();
+  }
+
+  inPageChange(section: 'top' | 'bottom', $event: boolean) {
+    if (section === 'top') this._state.setAtTop($event);
+    else this._state.setAtBottom($event);
+  }
+
+  private _setupLoadingEffect() {
     effect(() => {
       const loaded = this.isLoaded();
 
@@ -60,8 +72,21 @@ export default class HomeComponent {
     });
   }
 
-  inPageChange(section: 'top' | 'bottom', $event: boolean) {
-    if (section === 'top') this._state.setAtTop($event);
-    else this._state.setAtBottom($event);
+  /**
+   * Listen the document click in the top section until the sound is played once
+   * @private
+   */
+  private _setupPointerEventListener() {
+    const stopListening$ = toObservable(this._state.soundPlaysAtLastOnce).pipe(filter(Boolean));
+
+    fromEvent(document, 'pointerup')
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        takeUntil(stopListening$),
+        filter(() => this._state.atTop())
+      )
+      .subscribe(() => {
+        this._state.setSoundsOn(true);
+      });
   }
 }

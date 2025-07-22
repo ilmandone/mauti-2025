@@ -7,7 +7,7 @@ export class StateService {
   private _atBottom = signal<boolean>(false);
   private _atTop = signal<boolean>(true);
   private _isTouch = navigator.maxTouchPoints !== 0;
-  private _soundsOn = signal<boolean>(false);
+  private _soundsOn = signal<boolean | null>(null);
   private _soundPlaysAtLastOnce = signal<boolean>(false);
 
   //#region Getters
