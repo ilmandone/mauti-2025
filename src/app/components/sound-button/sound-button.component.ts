@@ -19,11 +19,7 @@ export class SoundButtonComponent {
     effect(() => {
       const sOn = this.state.soundsOn();
 
-      if (sOn) {
-        this._audio.play('click');
-      } else {
-        this._audio.play('click2');
-      }
+      this._audio.exec(sOn ? 'click' : 'click2');
     });
   }
 

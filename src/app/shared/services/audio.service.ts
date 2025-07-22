@@ -1,6 +1,14 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { StateService } from './state.service';
 
+export interface AudioOptions {
+  reset?: boolean;
+  loop?: boolean;
+  volume?: number;
+}
+
+export type AudioActions = 'play' | 'pause';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +26,11 @@ export class AudioService {
     'play.mp3',
     'bg.mp3',
   ];
+  private readonly AUDIO_DEFAULT_OPTIONS: Required<AudioOptions> = {
+    loop: false,
+    volume: 1,
+    reset: false,
+  };
 
   private _audioFiles: Map<string, HTMLAudioElement> = new Map();
   private _loadedFiles = 0;
@@ -27,9 +40,7 @@ export class AudioService {
   constructor() {
     effect(() => {
       const soundsOn = this._state.soundsOn();
-
-      if (soundsOn) this.play('bg', true, 0.65);
-      else this.pause('bg');
+      this.exec('bg', soundsOn ? 'play' : 'pause', { loop: true, volume: 0.65 });
     });
   }
 
@@ -51,17 +62,15 @@ export class AudioService {
     });
   }
 
-  pause(soundKey: string, reset = false) {
-    const ae = this._getAudioFromKey(soundKey);
-    ae.pause();
-    if (reset) ae.currentTime = 0;
-  }
+  exec(soundKey: string, action: AudioActions = 'play', options?: AudioOptions) {
+    const opt: Required<AudioOptions> = { ...this.AUDIO_DEFAULT_OPTIONS, ...options };
 
-  play(soundKey: string, loop = false, volume = 1) {
     const ae = this._getAudioFromKey(soundKey);
-    ae.loop = loop;
-    ae.volume = volume;
-    void ae.play();
+    ae.loop = opt.loop;
+    ae.volume = opt.volume;
+    if (opt.reset) ae.currentTime = 0;
+
+    void ae[action]();
   }
 
   setVolume(soundKey: string, vol: number) {
